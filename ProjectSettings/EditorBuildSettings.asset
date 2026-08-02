@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Vaultbreakers/Scenes/Prototype/Prototype_Arena.unity
+    guid: 09a89989f9e173443b3c4f3a61bf1f81
+  - enabled: 1
+    path: Assets/Vaultbreakers/Scenes/Test/Avatar_Showcase.unity
+    guid: 0ac7cef7674496645bfb472f584994c1
+  - enabled: 1
+    path: Assets/Vaultbreakers/Scenes/Test/Empty_TestBed.unity
+    guid: beec5ea816b2e7e47999dabb0ebc7bf6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
