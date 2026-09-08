@@ -774,7 +774,7 @@ The current automated results and remaining human gate are recorded in `Docs/POC
 | Facing | Aim priority, movement fallback, neutral preservation, dead-zone boundaries | Done — `PlayerLocomotionTests` |
 | Cooldowns | Exact-ready boundary, held input, reset after death | Done — `MeleeSliceTests`, `RangedSliceTests`, `DodgeSliceTests` |
 | Dodge | Distance and curve, frame-rate independence, committed direction, invulnerability window, spam, held button, buffered press, melee active window, death and reset | Done — `DodgeSliceTests` |
-| Wave state | Living count, duplicate death event protection, active-wave reset, completed-wave preservation | **Outstanding — needs Phase 10** |
+| Wave state | Living count, duplicate death event protection, active-wave reset, completed-wave preservation | Done — `WaveProgressTests`, `WavePlayModeTests` |
 
 Beyond the required matrix, the suite also pins the melee swing geometry and phase timing, the ranged
 cadence, the projectile pool accounting, the generated foundation, the modular avatar, the physics
@@ -790,11 +790,9 @@ layer matrix, and the responsiveness rules in section 4.
 - Done — Starting melee suppresses an already raised shield.
 - Done — Starting dodge cancels shield and grants then removes invulnerability.
 - Done — Dodge collision does not pass through a wall, and is contained by a corner.
-- **Outstanding (Phase 10)** — A killed enemy decrements the active wave once.
-- **Outstanding (Phase 10)** — Player death resets the active wave and all transient combat objects.
-- **Outstanding** — Controller disconnect clears held combat input safely. The code path is correct by
-  construction and the device-reset behaviour is exercised, but the disconnect itself cannot be
-  simulated in batch mode; this one needs physical hardware.
+- Done — A killed enemy decrements the active wave once; duplicate removals cannot clear an occupied wave (`WaveProgressTests`, `WavePlayModeTests`).
+- Done — Player death resets the active wave and transient combat objects, including a lethal hit during projectile-pool iteration (`WavePlayModeTests`, `DungeonPlayModeTests`).
+- Done in automation — `VirtualControllerDisconnectPausesAndClearsItsHeldActions` removes an active virtual Gamepad and verifies pause and held-fire clearing. Physical disconnection/reconnection and controller feel remain manual checks; a virtual-device test does not establish hardware behavior.
 
 Also covered beyond the required list: a projectile resolves exactly one hit, does not tunnel in a
 single long step, is stopped by geometry, expires when it hits nothing, and never grows the pool;

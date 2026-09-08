@@ -143,3 +143,37 @@ The proprietary root license and third-party notices are included in the restore
 
 The decision is to test and tune this playable combat loop before implementing the next
 systems. No claim is made that the documented human playtest gate has passed.
+
+## Completion audit against the plan's definition of done
+
+Audit baseline: `a35e8d2b4d968a7a445b633f0276de78aa4556c3`, inspected after delivery.
+The local tree was clean and matched the delivered source. The Windows executable,
+final build-success log, enabled entry scene, test XML and graphics JSON were re-read;
+tests were not rerun for this documentation correction. The source tests were inspected
+to distinguish their actual assertions from broader human acceptance claims.
+
+| Plan requirement | Evidence and remaining acceptance |
+|---|---|
+| 3D URP in Editor and Windows development build | Established: pinned 6000.4.4f1; Dock9_Dungeon first in build settings; final development build succeeded and both graphics routes completed. |
+| Controller movement, aim, four actions, pause, disconnect/reconnect | Input/action and virtual disconnection behavior tested. **Physical controller and reconnection acceptance open.** |
+| Immediate gameplay and visual response | Timing, cadence, buffering and cancellation assertions pass. **Perceived responsiveness and movement comfort open.** |
+| Core action conflicts | Established by combat policy and melee/ranged/shield/dodge tests. |
+| Front/rear shield behavior | Established by arc boundary tests and actual projectile-to-shield/health PlayMode assertions. |
+| Collision-safe dodge and invulnerability | Established by distance/timing/cooldown tests and wall/corner PlayMode cases. |
+| Distinct enemy mechanics and appearance | Three authored roles, committed attack tests and actual gameplay captures. **Fresh-player recognition and tell comprehension open.** |
+| Waves complete, fail and retry without stale state | `ThreeCompleteRunsDoNotSoftLockOrCarryMembership`, lethal projectile reset, current-room retry, core/replay tests and both scripted graphics routes pass. Direct-damage tests prove state flow; the graphics bot separately uses game inputs. |
+| Readable HUD, threats and feedback | 1080p/720p, grayscale and eight-flash overlap captures inspected. **Human mixed-encounter readability and reduced-feedback playtest open.** |
+| Deterministic and reset-critical tests | Established: 170 EditMode and 61 PlayMode passed, zero skipped. Source assertions inspected for the wave/reset/device cases above. |
+| Reference-machine performance without recurring allocation problems | Measured with the workload limits recorded above. Fixed projectile-pool growth is tested; whole-frame GC includes diagnostics/input/UI. P95 meets the 60 FPS budget, but maximum-frame hitches and strict allocation-free behavior are not represented as proven. |
+| Phase 13 fresh-player gate | **Not passed: no five-player session results have been supplied.** Automated/invulnerable runs do not count as fresh-player sessions. |
+| Asset provenance and licensing | Original Blender sources, reproducible exporters and import reports present; proprietary LICENSE and third-party register retained. |
+| Compile and repository hygiene | Final build succeeded without C# errors; clean source tree at audit baseline; final fresh restore verified 557 tracked files and 58 real LFS files. |
+| Results note and milestone recommendation | This note records tests, measurements, tuning, remaining risks and **iterate with human playtests**. It does not authorize the next systems or mark the human gate passed. |
+
+The remaining session record must include the manual scenarios in
+[the combat plan, sections 7 and 9](COMBAT_POC_PLAN.md): movement comfort, melee/ranged/shield/dodge
+situations, enemy comprehension, failure/retry, grayscale/reduced feedback and mixed-tool play.
+For the five fresh players, record first-wave completion/time, deliberate use of all four
+actions, fire/shield explanation, deaths/confusion and replay choice without coaching their
+first attempt. Apply the exact four-of-five, median-under-30-seconds and three-of-five
+replay thresholds from Phase 13. No tester identities or results have been invented.
