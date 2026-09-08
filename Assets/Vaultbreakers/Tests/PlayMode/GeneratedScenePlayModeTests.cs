@@ -10,6 +10,7 @@ using Vaultbreakers.Combat;
 using Vaultbreakers.Equipment;
 using Vaultbreakers.Input;
 using Vaultbreakers.Player;
+using Vaultbreakers.Zones;
 
 namespace Vaultbreakers.Tests.PlayMode
 {
@@ -373,6 +374,9 @@ namespace Vaultbreakers.Tests.PlayMode
             }
 
             yield return null;
+            // These are the original training-verb checks. WavePlayModeTests covers the default run.
+            var zone = UnityEngine.Object.FindAnyObjectByType<ZoneController>();
+            if (zone != null) zone.EnterTraining();
         }
 
         private static void AssertLoadout(ModularAvatar avatar, (EquipmentSlot Slot, string Variant)[] expected)

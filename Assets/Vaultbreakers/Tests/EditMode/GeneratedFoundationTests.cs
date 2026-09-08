@@ -48,6 +48,13 @@ namespace Vaultbreakers.Tests.EditMode
         }
 
         [Test]
+        public void RendererHasPostProcessResourcesForBloomAndAccessibility()
+        {
+            var renderer=AssetDatabase.LoadAssetAtPath<UniversalRendererData>("Assets/Vaultbreakers/Settings/VaultbreakersUniversalRenderer.asset");
+            Assert.That(renderer.postProcessData,Is.Not.Null,"A camera checkbox alone does not enable URP post-processing.");
+        }
+
+        [Test]
         public void Pipeline_IsAssignedAndUsesTheThreeDimensionalUniversalRenderer()
         {
             var pipeline = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(PipelinePath);
@@ -258,8 +265,9 @@ namespace Vaultbreakers.Tests.EditMode
             {
                 instance.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-                var visor = Find(instance, "VAR_Helmet_Scrapper_Visor");
-                Assert.Greater(visor.position.z, 0f, "The avatar does not face Unity +Z; the export axis preset changed.");
+                // The new open-faced rig replaces the old visor; test visible geometry, not its object origin.
+                var face = Find(instance, "BASE_Nose").GetComponent<Renderer>();
+                Assert.Greater(face.bounds.center.z, 0f, "The avatar does not face Unity +Z; the export axis preset changed.");
 
                 var melee = Find(instance, "SOCKET_RightHand_Melee");
                 var rangedShield = Find(instance, "SOCKET_LeftArm_RangedShield");

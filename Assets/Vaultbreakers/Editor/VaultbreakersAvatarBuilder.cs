@@ -48,10 +48,7 @@ namespace Vaultbreakers.Editor
             // The remap has to run against an imported model, so the settings are applied first and
             // the remapped materials are committed by the second reimport.
             importer.SaveAndReimport();
-            importer.SearchAndRemapMaterials(
-                ModelImporterMaterialName.BasedOnMaterialName,
-                ModelImporterMaterialSearch.Everywhere);
-            importer.SaveAndReimport();
+            VaultbreakersArtBuilder.RemapMaterials(importer);
         }
 
         public static GameObject BuildPrefab(PrototypeBalance balance, GameObject projectilePrefab)
@@ -83,6 +80,7 @@ namespace Vaultbreakers.Editor
                 registry.Configure(BuildSocketBindings(descendants));
 
                 AddGameplayComponents(prefabRoot, modelInstance.transform, registry, balance, projectilePrefab);
+                VaultbreakersArtBuilder.Animate(prefabRoot, modelInstance);
                 avatar.Initialize();
 
                 return PrefabUtility.SaveAsPrefabAsset(prefabRoot, VaultbreakersSetupPaths.PrefabPath);

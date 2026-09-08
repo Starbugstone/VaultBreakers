@@ -108,6 +108,7 @@ namespace Vaultbreakers.Combat
 
         private void Update()
         {
+            if (Time.timeScale <= 0) return;
             if (input != null && input.MeleePressedThisFrame)
             {
                 BufferSwing();
@@ -449,7 +450,9 @@ namespace Vaultbreakers.Combat
         }
 
         /// <summary>Death cancels the swing in progress and clears the cooldown for the next life.</summary>
-        private void OnDied(DamageInfo damageInfo)
+        private void OnDied(DamageInfo damageInfo) => ResetCombat();
+
+        public void ResetCombat()
         {
             CancelSwing();
             cooldownRemaining = 0f;

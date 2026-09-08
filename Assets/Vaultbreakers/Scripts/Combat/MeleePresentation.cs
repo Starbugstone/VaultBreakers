@@ -22,6 +22,8 @@ namespace Vaultbreakers.Combat
         [SerializeField] private Material arcMaterial;
         [SerializeField, Min(0f)] private float arcHeight = 1f;
 
+        [SerializeField] private bool drawArc=true;
+        public void SetArcVisible(bool visible)=>drawArc=visible;
         private Transform weaponSocket;
         private Quaternion weaponRest = Quaternion.identity;
         private GameObject arc;
@@ -148,7 +150,7 @@ namespace Vaultbreakers.Combat
         {
             if (arc != null && arc.activeSelf != visible)
             {
-                arc.SetActive(visible);
+                arc.SetActive(visible && drawArc);
             }
         }
 

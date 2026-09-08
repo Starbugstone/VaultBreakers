@@ -22,6 +22,10 @@ namespace Vaultbreakers.Editor
                 AssetDatabase.CreateAsset(renderer, VaultbreakersSetupPaths.RendererPath);
             }
 
+            renderer.postProcessData=AssetDatabase.LoadAssetAtPath<PostProcessData>("Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
+            if(renderer.postProcessData==null)throw new InvalidOperationException("URP post-process resources are missing.");
+            EditorUtility.SetDirty(renderer);
+
             var pipeline = AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(VaultbreakersSetupPaths.PipelinePath);
             if (pipeline == null)
             {
@@ -33,6 +37,11 @@ namespace Vaultbreakers.Editor
             pipeline.supportsCameraDepthTexture = true;
             pipeline.supportsCameraOpaqueTexture = false;
             pipeline.supportsHDR = true;
+            var shadowSettings = new SerializedObject(pipeline);
+            shadowSettings.FindProperty("m_SoftShadowsSupported").boolValue = true;
+            shadowSettings.ApplyModifiedPropertiesWithoutUndo();
+            pipeline.shadowNormalBias = .35f;
+            pipeline.shadowDepthBias = .6f;
             pipeline.msaaSampleCount = 4;
             pipeline.renderScale = 1f;
             EditorUtility.SetDirty(pipeline);
@@ -68,11 +77,40 @@ namespace Vaultbreakers.Editor
                     "URP Lit shader is unavailable; the 3D pipeline cannot be configured safely.");
             }
 
+            CreateOrUpdate(shader,"DG_BlackGlass",new Color(.025f,.07f,.105f),.2f,.4f);
+            CreateOrUpdate(shader,"DG_VaultTile",new Color(.12f,.23f,.28f),.15f,.3f);
+            CreateOrUpdate(shader,"DG_CoreWhite",new Color(.68f,.82f,.85f),.15f,.3f);
+            CreateOrUpdate(shader, "DG_Skin", new Color(0.91f,0.56f,0.32f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Hair", new Color(0.18f,0.075f,0.035f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Cloth", new Color(0.035f,0.28f,0.48f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Cape", new Color(0.9f,0.22f,0.09f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Leather", new Color(0.17f,0.075f,0.035f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Gold", new Color(0.95f,0.6f,0.13f), .35f, .3f);
+            CreateOrUpdate(shader, "DG_Steel", new Color(0.59f,0.8f,0.87f), .35f, .3f);
+            CreateOrUpdate(shader, "DG_Ink", new Color(0.015f,0.025f,0.038f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Eye", new Color(0.92f,0.98f,1.0f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Goblin", new Color(.38f,.43f,.43f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Hood", new Color(.13f,.24f,.34f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Stone", new Color(0.25f,0.35f,0.37f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_StoneLight", new Color(0.4f,0.49f,0.46f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Tile", new Color(0.3f,0.39f,0.34f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_TileLight", new Color(0.4f,0.47f,0.38f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Earth", new Color(0.095f,0.16f,0.15f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Moss", new Color(0.21f,0.38f,0.16f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Leaf", new Color(0.095f,0.31f,0.2f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_LeafLight", new Color(0.24f,0.49f,0.22f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Bark", new Color(0.18f,0.12f,0.085f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Rune", new Color(0.1f,0.85f,0.91f), 0f, .3f, new Color(0.1f,0.85f,0.91f) * 2f);
+            CreateOrUpdate(shader, "DG_Flame", new Color(1.0f,0.52f,0.1f), 0f, .3f, new Color(1.0f,0.52f,0.1f) * 2f);
+            CreateOrUpdate(shader, "DG_Crystal", new Color(0.45f,0.2f,0.8f), 0f, .3f, new Color(0.45f,0.2f,0.8f) * 2f);
+            CreateOrUpdate(shader, "DG_Petal", new Color(0.81f,0.31f,0.6f), 0f, .3f);
+            CreateOrUpdate(shader, "VB_StageFloor", new Color(.018f,.032f,.068f), .3f, .5f);
+            CreateOrUpdate(shader, "VB_StageTile", new Color(.06f,.09f,.15f), .4f, .4f);
             CreateOrUpdate(shader, "VB_Undersuit", new Color(0.035f, 0.045f, 0.055f), 0.15f, 0.38f);
-            CreateOrUpdate(shader, "VB_SalvageMetal", new Color(0.18f, 0.22f, 0.24f), 0.72f, 0.28f);
+            CreateOrUpdate(shader, "VB_SalvageMetal", new Color(0.08f, 0.27f, 0.38f), 0.45f, 0.28f);
             CreateOrUpdate(shader, "VB_DarkMetal", new Color(0.045f, 0.055f, 0.065f), 0.82f, 0.22f);
             CreateOrUpdate(shader, "VB_HazardOrange", new Color(0.88f, 0.24f, 0.045f), 0.32f, 0.30f);
-            CreateOrUpdate(shader, "VB_Ceramic", new Color(0.63f, 0.64f, 0.57f), 0.25f, 0.36f);
+            CreateOrUpdate(shader, "VB_Ceramic", new Color(0.72f, 0.85f, 0.9f), 0.2f, 0.36f);
             CreateOrUpdate(shader, "VB_EnergyCyan", new Color(0.02f, 0.48f, 0.68f), 0.15f, 0.20f, new Color(0f, 0.72f, 1f) * 3.5f);
             CreateOrUpdate(shader, "VB_EnergyViolet", new Color(0.40f, 0.07f, 0.62f), 0.12f, 0.22f, new Color(0.65f, 0.08f, 1f) * 3f);
             CreateOrUpdate(shader, "VB_Visor", new Color(0.015f, 0.16f, 0.20f), 0.55f, 0.08f, new Color(0f, 0.62f, 0.78f) * 2.5f);

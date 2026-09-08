@@ -1,0 +1,84 @@
+{
+  "assets": [
+    {
+      "path": "ArtSource/Blender/Characters/Enemies/Enemy_Bruiser.blend",
+      "meshes": 23,
+      "triangles": 8356,
+      "uniqueMaterials": 3,
+      "bones": 18,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Characters/Enemies/Enemy_Grunt.blend",
+      "meshes": 28,
+      "triangles": 9240,
+      "uniqueMaterials": 6,
+      "bones": 18,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Characters/Enemies/Enemy_Shooter.blend",
+      "meshes": 23,
+      "triangles": 8180,
+      "uniqueMaterials": 7,
+      "bones": 18,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Characters/Player/Vaultbreaker_Modular.blend",
+      "meshes": 68,
+      "triangles": 21948,
+      "uniqueMaterials": 12,
+      "bones": 18,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Environments/Combat_Arena.blend",
+      "meshes": 146,
+      "triangles": 28228,
+      "uniqueMaterials": 8,
+      "bones": 0,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Environments/Dock9_Dungeon.blend",
+      "meshes": 1131,
+      "triangles": 107524,
+      "uniqueMaterials": 18,
+      "bones": 0,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Props/Enemy_Bolt.blend",
+      "meshes": 1,
+      "triangles": 364,
+      "uniqueMaterials": 1,
+      "bones": 0,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Props/Player_Bolt.blend",
+      "meshes": 1,
+      "triangles": 268,
+      "uniqueMaterials": 1,
+      "bones": 0,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Props/Showcase_Deck.blend",
+      "meshes": 2,
+      "triangles": 1724,
+      "uniqueMaterials": 2,
+      "bones": 0,
+      "metersPerUnit": 1.0
+    },
+    {
+      "path": "ArtSource/Blender/Props/Training_Target.blend",
+      "meshes": 5,
+      "triangles": 1532,
+      "uniqueMaterials": 5,
+      "bones": 0,
+      "metersPerUnit": 1.0
+    }
+  ]
+}

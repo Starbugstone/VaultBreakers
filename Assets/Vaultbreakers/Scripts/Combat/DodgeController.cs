@@ -101,6 +101,7 @@ namespace Vaultbreakers.Combat
 
         private void Update()
         {
+            if (Time.timeScale <= 0) return;
             if (input != null && input.DodgePressedThisFrame)
             {
                 BufferDodge();

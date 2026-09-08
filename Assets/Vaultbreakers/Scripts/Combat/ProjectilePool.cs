@@ -20,6 +20,9 @@ namespace Vaultbreakers.Combat
 
         private readonly List<Projectile> active = new();
         private readonly Stack<Projectile> free = new();
+        [SerializeField] private int hitMask;
+        private bool ticking;
+        private bool clearRequested;
         private Transform container;
 
         public int Capacity { get; private set; }
@@ -47,8 +50,9 @@ namespace Vaultbreakers.Combat
 
         private void Update() => Tick(Time.deltaTime);
 
-        public void Configure(Projectile projectilePrefab, int poolSize, float sweepRadius)
+        public void Configure(Projectile projectilePrefab, int poolSize, float sweepRadius, int collisionMask = 0)
         {
+            hitMask = collisionMask;
             prefab = projectilePrefab;
             capacity = Mathf.Max(1, poolSize);
             projectileRadius = Mathf.Max(0.01f, sweepRadius);
@@ -62,13 +66,13 @@ namespace Vaultbreakers.Combat
                 return;
             }
 
-            container = new GameObject("PlayerProjectilePool").transform;
+            container = new GameObject(gameObject.name + "_Projectiles").transform;
 
             for (var index = 0; index < capacity; index++)
             {
                 var projectile = Instantiate(prefab, container);
                 projectile.name = "Projectile_" + index;
-                projectile.Configure(projectileRadius);
+                projectile.Configure(projectileRadius, hitMask);
                 projectile.gameObject.SetActive(false);
                 free.Push(projectile);
             }
@@ -82,6 +86,9 @@ namespace Vaultbreakers.Combat
         /// </summary>
         public void Tick(float deltaTime)
         {
+            ticking = true;
+            try
+            {
             for (var index = active.Count - 1; index >= 0; index--)
             {
                 var projectile = active[index];
@@ -92,6 +99,7 @@ namespace Vaultbreakers.Combat
                 }
 
                 var step = projectile.Tick(deltaTime);
+                if (clearRequested) break;
                 if (step == ProjectileStep.Travelling)
                 {
                     continue;
@@ -100,10 +108,17 @@ namespace Vaultbreakers.Combat
                 if (step == ProjectileStep.Impacted)
                 {
                     Impacted?.Invoke(projectile.LastImpactPoint, projectile.LastImpactNormal);
+                    if (clearRequested) break;
                 }
 
                 active.RemoveAt(index);
                 Release(projectile);
+            }
+            }
+            finally
+            {
+                ticking = false;
+                if (clearRequested) { clearRequested = false; ReleaseAll(); }
             }
         }
 
@@ -132,6 +147,7 @@ namespace Vaultbreakers.Combat
         /// <summary>Recalls everything in flight, for a wave reset or a death.</summary>
         public void ReleaseAll()
         {
+            if (ticking) { clearRequested = true; return; }
             for (var index = 0; index < active.Count; index++)
             {
                 Release(active[index]);

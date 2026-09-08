@@ -1,9 +1,14 @@
 # Vaultbreakers in the Shatterbelt
 
-A controller-first, fixed-camera science-fiction arcade brawler built with
-Unity **6000.4.4f1** and URP. The current combat POC implements movement, aiming,
-melee, ranged fire, directional shielding, and dodging against practice dummies.
-Enemies and the wave/retry loop are the next implementation phases.
+A controller-first science-fiction arcade brawler in Unity **6000.4.4f1** and URP.
+The playable **Dock 9** POC has three connected combat zones, rebuilt original Blender
+characters and scenery, melee/fire/directional guard/dodge, sealed gates, checkpoints,
+a final vault core and replay. It draws on Minecraft Dungeons for readability and pacing,
+while keeping the Shatterbelt lore and modular Breaker Rig combat.
+
+![Dock 9 running in the Windows build](Docs/Images/Dock9_1080p/zone-3.png)
+
+Human playtest acceptance remains pending. See [results and limitations](Docs/POC_RESULTS.md).
 
 ## Open the project
 
@@ -20,13 +25,14 @@ git lfs fsck
 
 Open the project with the pinned Unity version, allow Package Manager to restore
 `Packages/manifest.json` and `Packages/packages-lock.json`, then open
-`Assets/Vaultbreakers/Scenes/Prototype/Prototype_Arena.unity` and press Play.
+`Assets/Vaultbreakers/Scenes/Prototype/Dock9_Dungeon.unity` and press Play.
 The modular equipment showcase is in
 `Assets/Vaultbreakers/Scenes/Test/Avatar_Showcase.unity`.
 
 ## Project documentation
 
 - [Project intent and architecture](Docs/PROJECT.md)
+- [Current dungeon POC scope](Docs/DUNGEON_POC.md)
 - [Combat POC phases and exit gates](Docs/COMBAT_POC_PLAN.md)
 - [Implementation status and validation limits](Docs/PROJECT_STATUS.md)
 - [Modular avatar contract](Docs/MODULAR_AVATAR_PIPELINE.md)

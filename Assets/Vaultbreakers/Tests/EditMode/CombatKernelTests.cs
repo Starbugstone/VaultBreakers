@@ -25,6 +25,14 @@ namespace Vaultbreakers.Tests.EditMode
         public void TearDown() => Object.DestroyImmediate(gameObject);
 
         [Test]
+        public void ZoneHealingClampsAndNeverRevivesADeadPlayer()
+        {
+            health.ReceiveDamage(new DamageInfo(40));Assert.That(health.Heal(100),Is.EqualTo(40));
+            Assert.That(health.CurrentHealth,Is.EqualTo(100));Assert.That(health.Heal(-10),Is.Zero);
+            health.ReceiveDamage(new DamageInfo(100));Assert.That(health.Heal(100),Is.Zero);Assert.That(health.IsDead,Is.True);
+        }
+
+        [Test]
         public void Health_ClampsDamageAtZero()
         {
             health.ReceiveDamage(new DamageInfo(150f));

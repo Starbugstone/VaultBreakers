@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc7dc3b82765bf4cac6bcebf1754d18, type: 3}
+  m_Name: Shooter
+  m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Enemies.EnemyDefinition
+  role: 1
+  displayName: Repo Shooter
+  health: 24
+  speed: 2.4
+  range: 1.7
+  windup: 0.9
+  active: 0.12
+  recovery: 1.1
+  damage: 8
+  stabilityDamage: 10
+  arc: 85
+  projectileSpeed: 9
+  preferredRange: 6
+  accent: {r: 1, g: 0.23, b: 0.35, a: 1}

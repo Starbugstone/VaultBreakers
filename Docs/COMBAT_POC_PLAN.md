@@ -1,6 +1,10 @@
+# Current scope override
+
+See [DUNGEON_POC.md](DUNGEON_POC.md): the user explicitly requested the dungeon redesign after rejecting the arena. The phases below remain the combat safety baseline; the new scene retains locked combat zones and the Shatterbelt lore, with connected transitions and rebuilt art.
+
 # Vaultbreakers Combat POC Plan
 
-**Status:** Ready for implementation  
+**Status:** Remaining POC implementation authorized on 2026-09-08; human acceptance remains pending
 **Prepared from:** `Docs/PROJECT.md`  
 **Repository audit:** 2026-08-01  
 **Primary focus:** Single-player movement and combat  
@@ -19,6 +23,12 @@ The POC is successful when a new player can enter one arena, learn the controls 
 This plan deliberately stops before the larger progression loop. Gems, gauges, cards, scanning, pets, co-op, saves, QR, NFC, and production content begin only after the combat gate passes.
 
 ---
+
+The 2026-09-08 completion request authorizes finishing Phases 9–13 and rebuilding the
+3D assets. Earlier human feel gates carry forward explicitly; no automated result is a
+substitute for their sign-off. The user's updated art direction is clean and stylized,
+with flashy, dynamic, high-contrast arcade lighting and feedback. See `PROJECT_STATUS.md`
+and `POC_RESULTS.md` for current implementation, validation evidence and remaining gates.
 
 ## 2. Starting repository assessment (2026-08-01)
 
@@ -752,7 +762,7 @@ Exit gate:
 
 ## 7. Test plan
 
-Status is current as of 2026-08-03. Counts and the full breakdown live in `Docs/PROJECT_STATUS.md`.
+The current automated results and remaining human gate are recorded in `Docs/POC_RESULTS.md`. The tables below retain the original phase-by-phase implementation history.
 
 ### EditMode tests
 

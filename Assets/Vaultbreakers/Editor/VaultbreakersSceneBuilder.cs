@@ -33,12 +33,17 @@ namespace Vaultbreakers.Editor
             var zoneRoot = new GameObject("ZoneRoot");
             var player = InstantiateAvatar(avatarPrefab, "Player", Quaternion.identity);
 
+            var roster = VaultbreakersEnemyBuilder.Build(zoneRoot, player.GetComponent<Health>());
+
             // Three dummies rather than one: a primary target, a second close enough to be caught by
             // the same swing, and a flanking target that has to be turned toward. Phase 5 cannot be
             // judged against a single practice target standing in one place.
             var dummy = BuildTargetDummy("TargetDummy", new Vector3(0f, 1f, 4f));
             BuildTargetDummy("TargetDummy_Pair", new Vector3(1.3f, 1f, 4.3f));
             BuildTargetDummy("TargetDummy_Flank", new Vector3(-4.5f, 1f, 1.5f));
+
+            VaultbreakersWaveBuilder.Build(zoneRoot, player.GetComponent<Health>(), roster,
+                new[] { dummy, GameObject.Find("TargetDummy_Pair"), GameObject.Find("TargetDummy_Flank") });
 
             var combatOverlay = zoneRoot.AddComponent<CombatDebugOverlay>();
             combatOverlay.Configure(
@@ -50,9 +55,14 @@ namespace Vaultbreakers.Editor
                 player != null ? player.GetComponent<ShieldController>() : null,
                 player != null ? player.GetComponent<DodgeController>() : null);
 
-            CreateDirectionalLight();
+            zoneRoot.AddComponent<PocDebugPanel>();
+            zoneRoot.AddComponent<PocReviewCapture>();
+            zoneRoot.AddComponent<Vaultbreakers.UI.CombatHud>();
+            zoneRoot.AddComponent<Vaultbreakers.UI.ArcadeFeedback>().Configure(VaultbreakersEnemyBuilder.UnlitMaterial("ImpactSpark", Color.white, "Universal Render Pipeline/Particles/Unlit"));
+            CreateDirectionalLight(2.1f);
             CreateCamera("Main Camera", new Vector3(10.5f, 13f, -10.5f), Vector3.zero, true, 11.5f);
 
+            VaultbreakersArtBuilder.Stage();
             EditorSceneManager.SaveScene(scene, VaultbreakersSetupPaths.PrototypeScenePath);
         }
 
@@ -78,6 +88,9 @@ namespace Vaultbreakers.Editor
             CreatePointLight("Cyan_Fill", new Vector3(2.5f, 2.2f, -1.5f), new Color(0.05f, 0.55f, 1f), 35f, 7f);
             CreatePointLight("Orange_Rim", new Vector3(-2.5f, 2.5f, 1.2f), new Color(1f, 0.16f, 0.02f), 45f, 7f);
             CreateCamera("Main Camera", new Vector3(3.4f, 2.55f, -5.2f), new Vector3(0f, 1.0f, 0f), false, 42f);
+
+            GameObject.Find("Turntable").GetComponent<Renderer>().enabled=false;
+            VaultbreakersArtBuilder.Model("Assets/Vaultbreakers/Art/Environments/Showcase_Deck.fbx", null, "ShowcaseArt");
 
             // Hierarchy-visible reminder of the showcase controls; carries no behaviour.
             new GameObject("Instructions_Use_1_And_2_To_Swap_Loadouts");
@@ -106,6 +119,7 @@ namespace Vaultbreakers.Editor
         {
             EditorBuildSettings.scenes = new[]
             {
+                new EditorBuildSettingsScene(VaultbreakersDungeonBuilder.ScenePath, true),
                 new EditorBuildSettingsScene(VaultbreakersSetupPaths.PrototypeScenePath, true),
                 new EditorBuildSettingsScene(VaultbreakersSetupPaths.ShowcaseScenePath, true),
                 new EditorBuildSettingsScene(VaultbreakersSetupPaths.TestBedScenePath, true)
@@ -119,6 +133,9 @@ namespace Vaultbreakers.Editor
         /// </summary>
         private static void StripGameplayComponents(GameObject avatar)
         {
+            RemoveComponent<CombatAnimation>(avatar);
+            var animator = avatar.GetComponentInChildren<Animator>();
+            if (animator != null) animator.enabled = false;
             RemoveComponent<InputDebugOverlay>(avatar);
             RemoveComponent<DodgePresentation>(avatar);
             RemoveComponent<DodgeController>(avatar);

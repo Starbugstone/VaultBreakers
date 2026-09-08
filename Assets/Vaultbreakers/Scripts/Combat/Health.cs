@@ -85,6 +85,12 @@ namespace Vaultbreakers.Combat
             ResetPerformed?.Invoke();
         }
 
+        public float Heal(float amount)
+        {
+            if (IsDead || amount <= 0) return 0;
+            var before=CurrentHealth;CurrentHealth=Mathf.Min(MaximumHealth,CurrentHealth+amount);return CurrentHealth-before;
+        }
+
         public void SetInvulnerable(bool value) => invulnerable = value;
 
         /// <summary>

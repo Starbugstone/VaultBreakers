@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -34,6 +35,9 @@ namespace Vaultbreakers.Editor
                 throw new InvalidOperationException("The avatar showcase scene has no camera.");
             }
 
+            var rig=UnityEngine.Object.FindAnyObjectByType<ModularAvatar>();
+            var idle=AssetDatabase.LoadAllAssetsAtPath("Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx").OfType<AnimationClip>().First(c=>c.name=="Idle");
+            idle.SampleAnimation(rig.transform.Find("ModelRoot").gameObject,0);
             CaptureCamera(camera, DefaultImagePath);
 
             var avatar = UnityEngine.Object.FindAnyObjectByType<ModularAvatar>();
@@ -62,6 +66,9 @@ namespace Vaultbreakers.Editor
             {
                 camera.aspect = 1f;
                 camera.targetTexture = renderTexture;
+                // The first SRP render initializes material buffers in a freshly opened editor.
+                // Discard that warm-up before reading the actual colored image.
+                camera.Render();
                 camera.Render();
                 RenderTexture.active = renderTexture;
                 image.ReadPixels(new Rect(0, 0, Resolution, Resolution), 0, 0);

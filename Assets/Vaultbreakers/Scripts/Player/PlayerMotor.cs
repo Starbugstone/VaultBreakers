@@ -70,6 +70,9 @@ namespace Vaultbreakers.Player
             }
         }
 
+        public void ResetMovement()
+        { planarVelocity = Vector3.zero; verticalVelocity = 0; MoveDirection = Vector3.zero; IsMovementSuspended = false; SpeedMultiplier = 1; }
+
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
@@ -79,6 +82,7 @@ namespace Vaultbreakers.Player
 
         private void Update()
         {
+            if (Time.timeScale <= 0) return;
             ResolveReferences();
             if (input == null || controller == null)
             {

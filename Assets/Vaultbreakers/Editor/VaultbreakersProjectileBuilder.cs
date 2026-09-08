@@ -20,22 +20,7 @@ namespace Vaultbreakers.Editor
                 root.AddComponent<Projectile>()
                     .Configure(balance != null ? balance.ProjectileRadius : 0.12f);
 
-                var tracer = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                tracer.name = "Tracer";
-                tracer.layer = GameLayers.PlayerProjectile;
-                tracer.transform.SetParent(root.transform, false);
-
-                // The capsule's long axis is Y, so it is laid down to point along the travel axis.
-                tracer.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-                tracer.transform.localScale = new Vector3(0.16f, 0.35f, 0.16f);
-                tracer.GetComponent<Renderer>().sharedMaterial =
-                    VaultbreakersRenderSetup.LoadMaterial("VB_ProjectileCore");
-
-                var collider = tracer.GetComponent<Collider>();
-                if (collider != null)
-                {
-                    Object.DestroyImmediate(collider);
-                }
+                VaultbreakersArtBuilder.Model("Assets/Vaultbreakers/Art/VFX/Player_Bolt.fbx", root.transform, "Tracer");
 
                 return PrefabUtility.SaveAsPrefabAsset(root, VaultbreakersSetupPaths.ProjectilePrefabPath);
             }

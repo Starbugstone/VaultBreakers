@@ -29,7 +29,11 @@ namespace Vaultbreakers.Player
         [SerializeField, Range(0f, 1f)] private float aimDeadZone = 0.25f;
 
         public Vector3 LastCombatFacingDirection { get; private set; } = Vector3.forward;
+        public bool HasPointerAim { get; private set; }
         public float AimDeadZone => aimDeadZone;
+
+        [SerializeField] private bool mouseAim;
+        public void EnableMouseAim()=>mouseAim=true;
 
         private void Awake()
         {
@@ -49,12 +53,14 @@ namespace Vaultbreakers.Player
 
         private void Update()
         {
+            if (Time.timeScale <= 0) return;
             ResolveReferences();
             if (input == null || motor == null)
             {
                 return;
             }
 
+            HasPointerAim=false;
             var aim = input.Aim;
             LastCombatFacingDirection = ResolveFacing(
                 LastCombatFacingDirection,
@@ -62,6 +68,17 @@ namespace Vaultbreakers.Player
                 aim.magnitude,
                 motor.MoveDirection,
                 aimDeadZone);
+            if(mouseAim && UnityEngine.InputSystem.Mouse.current != null &&
+                GetComponent<UnityEngine.InputSystem.PlayerInput>().currentControlScheme == "Keyboard&Mouse" && aim.sqrMagnitude < .01f)
+            {
+                var ray=Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Mouse.current.position.ReadValue());
+                var plane=new Plane(Vector3.up,transform.position);
+                if(plane.Raycast(ray,out var distance))
+                {
+                    var direction=ray.GetPoint(distance)-transform.position;direction.y=0;
+                    if(direction.sqrMagnitude>.1f){LastCombatFacingDirection=direction.normalized;HasPointerAim=true;}
+                }
+            }
         }
 
         private void LateUpdate()

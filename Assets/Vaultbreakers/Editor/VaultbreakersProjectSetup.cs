@@ -21,6 +21,7 @@ namespace Vaultbreakers.Editor
 
                 var pipeline = VaultbreakersRenderSetup.ConfigurePipeline();
                 VaultbreakersRenderSetup.CreateMaterials();
+                VaultbreakersArtBuilder.Prepare();
                 var balance = VaultbreakersDataSetup.EnsureBalanceAsset();
                 var projectile = VaultbreakersProjectileBuilder.BuildPlayerProjectile(balance);
 
@@ -28,6 +29,7 @@ namespace Vaultbreakers.Editor
                 var prefab = VaultbreakersAvatarBuilder.BuildPrefab(balance, projectile);
 
                 VaultbreakersSceneBuilder.BuildPrototypeArena(prefab);
+                VaultbreakersDungeonBuilder.Build();
                 VaultbreakersSceneBuilder.BuildShowcaseScene(prefab);
                 VaultbreakersSceneBuilder.BuildTestBedScene();
                 VaultbreakersSceneBuilder.ConfigureBuildScenes();

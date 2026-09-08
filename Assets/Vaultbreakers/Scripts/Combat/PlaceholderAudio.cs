@@ -9,6 +9,8 @@ namespace Vaultbreakers.Combat
     /// </summary>
     public static class PlaceholderAudio
     {
+        private static float soundWindow;
+        private static int soundsInWindow;
         private const int SampleRate = 22050;
 
         /// <summary>
@@ -51,8 +53,11 @@ namespace Vaultbreakers.Combat
 
         public static void Play(AudioSource source, AudioClip clip, float volume)
         {
+            if (Time.unscaledTime - soundWindow > 0.1f) { soundWindow = Time.unscaledTime; soundsInWindow = 0; }
+            if (soundsInWindow >= 5) return;
             if (source != null && clip != null)
             {
+                soundsInWindow++;
                 source.PlayOneShot(clip, volume);
             }
         }

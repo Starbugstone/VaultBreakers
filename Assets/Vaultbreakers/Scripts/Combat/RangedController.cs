@@ -63,7 +63,7 @@ namespace Vaultbreakers.Combat
 
         private void OnDestroy() => Unsubscribe();
 
-        private void Update() => Tick(Time.deltaTime, input != null && input.RangedHeld);
+        private void Update() { if (Time.timeScale > 0) Tick(Time.deltaTime, input != null && input.RangedHeld); }
 
         /// <summary>
         /// One frame of the firing loop. The held state is a parameter rather than something read from
@@ -238,7 +238,9 @@ namespace Vaultbreakers.Combat
         /// Death stops the trigger and clears the cadence. Projectiles already in flight are left
         /// alone deliberately: they are independent of the shooter once they exist.
         /// </summary>
-        private void OnDied(DamageInfo damageInfo)
+        private void OnDied(DamageInfo damageInfo) => ResetCombat();
+
+        public void ResetCombat()
         {
             StopFiring();
             fireTimer = 0f;

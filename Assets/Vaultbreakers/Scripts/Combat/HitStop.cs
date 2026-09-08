@@ -19,6 +19,7 @@ namespace Vaultbreakers.Combat
 
         public void Request(float unscaledDuration)
         {
+            unscaledDuration *= Vaultbreakers.UI.FeedbackSettings.HitStopScale;
             if (unscaledDuration <= 0f)
             {
                 return;

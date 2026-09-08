@@ -99,7 +99,7 @@ namespace Vaultbreakers.Combat
 
         private void OnDisable() => Lower();
 
-        private void Update() => Tick(Time.deltaTime, input != null && input.ShieldHeld, input != null ? input.Aim : Vector2.zero);
+        private void Update() { if (Time.timeScale > 0) Tick(Time.deltaTime, input != null && input.ShieldHeld, input != null ? input.Aim : Vector2.zero); }
 
         /// <summary>
         /// One frame of the shield. Held state and aim are parameters rather than reads from the
@@ -329,6 +329,10 @@ namespace Vaultbreakers.Combat
         /// </summary>
         private void UpdateShieldFacing(Vector2 aim)
         {
+            if(facing!=null && facing.HasPointerAim)
+            {
+                ShieldFacing=facing.LastCombatFacingDirection;return;
+            }
             if (aim.magnitude < aimDeadZone)
             {
                 return;

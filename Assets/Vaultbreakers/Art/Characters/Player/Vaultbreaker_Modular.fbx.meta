@@ -7,6 +7,66 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DG_Cape
+    second: {fileID: 2100000, guid: d77c53470eafcec4f96df21e791c503e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Cloth
+    second: {fileID: 2100000, guid: 7ba7f6024145a2b4ca6bfc9888291c78, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Crystal
+    second: {fileID: 2100000, guid: e728744408cb23f4db50dbcc9feda2ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Eye
+    second: {fileID: 2100000, guid: 08eef1ebca18a7444a0e88d83bca2296, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Gold
+    second: {fileID: 2100000, guid: b7ca455291adb4e4d8077aaa0280c7ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Hair
+    second: {fileID: 2100000, guid: d0c0615824700e04e82889fc111af038, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Hood
+    second: {fileID: 2100000, guid: 0d765849f8d064842b8eb4194256b12c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Ink
+    second: {fileID: 2100000, guid: b9791171e1e7e0f48992a9359a3ae987, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Leather
+    second: {fileID: 2100000, guid: 69158c42bc2b4ab4184f97d9c0806820, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Rune
+    second: {fileID: 2100000, guid: 43d379686cf3c494aa7e0d2e58887b72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Skin
+    second: {fileID: 2100000, guid: 94aa1fde13f188440b8c10147000b2a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Steel
+    second: {fileID: 2100000, guid: c9674f1a95b96f845a1f315ff79f1143, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: VB_Ceramic
     second: {fileID: 2100000, guid: 9a5faeeb8003ac547be7cc8f970b2b9a, type: 2}
   - first:

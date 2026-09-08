@@ -10,7 +10,7 @@
 
 This pipeline keeps the player avatar visually modular without multiplying skeletons, breaking animation compatibility, or allowing equipment to move gameplay anchors.
 
-The current avatar is a detailed validation asset for the POC. Its chunky rigid construction is intentional: armor and machinery follow bones without fragile deformation weights while proportions and combat animation timing are still changing. A later deforming organic undersuit can be added to the same skeleton without changing the equipment contract.
+The current avatar is the clean, open-faced Breaker Rig authored in `Tools/Blender/dungeon_assets.py`. Tailored rigid meshes follow the schema-1 bones; clothing, face, armor, machinery and equipment have distinct surfaces. The original generator entry delegates to this authoring script. Equipment identifiers remain stable even where the visible design has changed.
 
 ## Non-negotiable rules
 
@@ -212,3 +212,25 @@ The current rigid modular avatar is not a dead end. Production art should migrat
 7. Introduce an equipment compatibility test scene containing every extreme silhouette.
 
 The production migration must preserve variant IDs used by card data. A visual revision may replace the objects inside a variant, but save/load and loadout systems should continue referring to stable data IDs rather than prefab names.
+
+
+## Stylized rebuild — 2026-09-08
+
+The user's updated direction is clean stylized arcade science fiction with strong contrast,
+vivid accents and dynamic feedback. `Tools/Blender/stylized_assets.py` builds shaped,
+bevelled armor sections over the unchanged schema-1 skeleton; the canonical generator
+entry point delegates to it. All six equipment slots still have their original two IDs.
+
+The player model FBX remains animation-free. `Art/Animation/Vaultbreaker_Animations.fbx`
+provides Idle, Move, Melee, Ranged, Shield, ShieldHit, ShieldBreak, Dodge, Hit and Death.
+Unity imports these as Generic, uses in-place clips, and disables root motion on every
+runtime Animator. Socket positions relative to their parent bones are checked across clips.
+
+`Tools/Blender/generate_arena_assets.py` builds separate editable sources and explicit
+FBXs for Grunt, Shooter, Bruiser, combat arena, training target, showcase deck and both
+projectile meshes. Enemy rigs share the bind convention; the Bruiser's visual model is
+scaled 1.25 uniformly and the Shooter's 0.92 without changing gameplay collision volumes.
+Blender sources remain under `ArtSource/Blender/`; Unity consumes only explicit FBX exports.
+
+Front/back player renders and individual enemy renders in `Docs/Images/` are renders of
+the actual meshes. Runtime images and measured imported counts belong in the POC results.

@@ -245,7 +245,15 @@ Later, the same card system may accept:
 - local portable loadouts;
 - Entangled Equipment.
 
-## 4.5 Neon Rust Relicpunk
+## 4.5 Stylized arcade science fiction
+
+**Art direction override, 2026-09-08:** the user requested a complete 3D rebuild with cleaner,
+more stylized shapes, flashy dynamic arcade effects, high contrast, and strong lighting.
+Use clean armor panels, confident silhouettes and concentrated emissive accents. Preserve
+combat readability and reduced-feedback options. This supersedes the salvage-heavy surface
+treatment below; the modular rig identity and gameplay contracts remain unchanged.
+
+Original visual influences:
 
 Visual language:
 

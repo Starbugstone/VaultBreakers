@@ -262,3 +262,56 @@ Last full validation run: 2026-08-03, Unity 6000.4.4f1, batch mode, after the Ph
 
 - `Vaultbreakers > Setup > Build 3D Foundation and Modular Avatar` regenerates every generated asset and self-validates.
 - EditMode (157) and PlayMode (50) suites both green, zero compiler warnings, Windows development build produced. See `Docs/PROJECT_STATUS.md` for the breakdown and what remains unverified.
+
+## POC completion implementation — 2026-09-08
+
+The user requested completion of the remaining combat POC and a complete 3D rebuild,
+then chose cleaner stylized art with flashy, high-contrast arcade presentation. This
+supersedes the original salvage-heavy art treatment. Existing human feel checkpoints
+remain deferred; the request authorizes implementation, not fabricated acceptance data.
+
+- `EnemyAttack` owns committed tell/active/recovery timing. `EnemyBrain` owns direct
+  steering, separation, wall-safe displacement and attacks; presentation cannot deal damage.
+- An enemy roster prewarms eight instances per role. Normal waves use three; the 24-enemy
+  stress encounter is development-only. Death, disable and destruction report removal once.
+- The existing projectile pool now accepts a collision mask, allowing a shared implementation
+  with distinct player/enemy pools. A reset requested inside a hit callback is deferred until
+  that iteration completes, preventing collection corruption on the final kill or player death.
+- `WaveProgress` tracks identity and completed waves independently of scene objects.
+  `WaveSpawner` owns subscriptions. Reset unsubscribes before despawning, so cleanup cannot
+  falsely clear a new wave or count an old death twice.
+- `ZoneController` owns transition/retry timers and pause. It releases hit-stop before taking
+  timescale ownership. Runtime combat updates ignore zero timescale, preserving an active
+  dodge or swing through pause rather than allowing new input or cancelling committed actions.
+- Ten Blender clips pose the same Generic skeleton. Clips do not provide damage events or
+  translation. Model FBXs stay animation-free; a dedicated animation FBX supplies the controller.
+- Screen feedback, damage labels, bloom, grayscale and short rumble are presentation-only.
+  The HUD is uGUI with scaling; development diagnostics are hidden by default behind F1.
+
+
+## Dock 9 redesign (user clarification, 2026-09-08)
+
+`DUNGEON_POC.md` records the clarified reference: Minecraft Dungeons pacing/readability with
+Vaultbreakers lore and combat. `VaultbreakersDungeonBuilder` derives a separate entry scene from
+the regression arena, then installs the authored Dock 9 environment, explicit collision layout,
+checkpoint encounters and fixed combat camera. The arena remains unchanged in purpose.
+`ZoneController` owns combat/reset transitions; `WaveSpawner` offsets authored spawn points by
+zone; `DungeonJourney` owns seals, run-local score and one-time core recovery. `DungeonCombat`
+adds held melee, a short collision-aware step and a directional crescent. Existing controllers
+still own damage, cooldowns, shield exclusion, dodge priority and death cancellation.
+`PlayerFacing` projects optional PC mouse aim onto the ground; no world translation moved into
+input readers. `DungeonVitals` pools enemy HUD bars and honors the impact-flash preference.
+
+The graphics harness can use `--poc-journey` for normal-health enemies and a scripted complete
+controller route (player invulnerable), or `--poc-seconds 600` for a sustained mixed encounter
+(player invulnerable, enemies given high health). These are opt-in development/editor paths.
+Screenshots happen outside the timed interval in the sustained mode; journey transitions capture
+screenshots during traversal, so its maxima include capture stalls. Neither is a human playtest.
+
+
+The graphics pass found a missing `UniversalRendererData.postProcessData` reference. The setup
+now assigns the installed URP post-process resources, and an EditMode test guards that reference.
+Material remapping explicitly prefers the shared generated palette, so adjacent importer-created
+materials cannot silently override tuning. Mouse world aim also rotates an already-raised shield;
+a synthetic keyboard/mouse PlayMode test verifies this using an isolated editor focus policy.
+The opt-in capture harness runs in the background and restores its temporary input focus settings.

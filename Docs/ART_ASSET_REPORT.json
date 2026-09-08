@@ -1,0 +1,81 @@
+{
+    "assets": [
+        {
+            "path": "Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx",
+            "meshes": 0,
+            "triangles": 0,
+            "materialSlots": 0,
+            "bones": 18
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Environments/Combat_Arena.fbx",
+            "meshes": 146,
+            "triangles": 28228,
+            "materialSlots": 146,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Environments/Dock9_Dungeon.fbx",
+            "meshes": 43,
+            "triangles": 107020,
+            "materialSlots": 43,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Environments/Showcase_Deck.fbx",
+            "meshes": 2,
+            "triangles": 1724,
+            "materialSlots": 2,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Environments/Training_Target.fbx",
+            "meshes": 5,
+            "triangles": 1532,
+            "materialSlots": 5,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/VFX/Enemy_Bolt.fbx",
+            "meshes": 1,
+            "triangles": 364,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/VFX/Player_Bolt.fbx",
+            "meshes": 1,
+            "triangles": 268,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Characters/Enemies/Enemy_Bruiser.fbx",
+            "meshes": 23,
+            "triangles": 8340,
+            "materialSlots": 23,
+            "bones": 18
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Characters/Enemies/Enemy_Grunt.fbx",
+            "meshes": 28,
+            "triangles": 9224,
+            "materialSlots": 28,
+            "bones": 18
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Characters/Enemies/Enemy_Shooter.fbx",
+            "meshes": 23,
+            "triangles": 8164,
+            "materialSlots": 23,
+            "bones": 18
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Characters/Player/Vaultbreaker_Modular.fbx",
+            "meshes": 68,
+            "triangles": 21920,
+            "materialSlots": 68,
+            "bones": 18
+        }
+    ]
+}

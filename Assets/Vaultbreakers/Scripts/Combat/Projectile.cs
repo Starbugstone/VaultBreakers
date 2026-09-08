@@ -26,6 +26,7 @@ namespace Vaultbreakers.Combat
         private float damage;
         private float remainingLife;
         private GameObject owner;
+        private int hitMask = GameLayers.PlayerProjectileHits;
 
         public float Radius => radius;
         public Vector3 Direction => direction;
@@ -35,7 +36,8 @@ namespace Vaultbreakers.Combat
         /// <summary>The receiver damaged by the last impact, or null when it hit geometry.</summary>
         public Health LastImpactTarget { get; private set; }
 
-        public void Configure(float sweepRadius) => radius = Mathf.Max(0.01f, sweepRadius);
+        public void Configure(float sweepRadius, int collisionMask = 0)
+        { radius = Mathf.Max(0.01f, sweepRadius); hitMask = collisionMask == 0 ? GameLayers.PlayerProjectileHits : collisionMask; }
 
         public void Launch(
             Vector3 origin,
@@ -73,7 +75,7 @@ namespace Vaultbreakers.Combat
                     direction,
                     out var hit,
                     distance,
-                    GameLayers.PlayerProjectileHits,
+                    hitMask,
                     QueryTriggerInteraction.Collide))
             {
                 Resolve(hit, origin);
