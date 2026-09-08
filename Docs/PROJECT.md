@@ -730,6 +730,14 @@ On LT press:
 
 # 11. Combat
 
+> **Numbers in this section are the design's starting points, not the live values.** Combat tuning
+> now lives in `Assets/Vaultbreakers/Data/Balance/PrototypeBalance.asset`, which is authoritative for
+> anything implemented. Several values have since been tuned for arcade responsiveness — melee
+> cooldown, projectile speed, and the shield break lockout among them. See `COMBAT_POC_PLAN.md`
+> section 4 for the current table and the reasoning, and `PROJECT_STATUS.md` for what is implemented.
+> This section is kept as written because it records the intended shape of each verb, which has not
+> changed.
+
 ## 11.1 Suggested state flags
 
 ```csharp

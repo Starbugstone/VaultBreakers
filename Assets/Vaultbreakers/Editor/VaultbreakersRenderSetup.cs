@@ -84,6 +84,17 @@ namespace Vaultbreakers.Editor
             // Player ranged fire reads cyan. Phase 9 gives enemy projectiles a different palette and
             // silhouette, so this colour is the player's half of that contrast.
             CreateOrUpdate(shader, "VB_ProjectileCore", new Color(0.2f, 0.85f, 1f), 0f, 0.7f, new Color(0.1f, 0.8f, 1f) * 5f);
+
+            // The shield band has to be seen through, or it hides the threat it is protecting from.
+            CreateOrUpdate(shader, "VB_ShieldArc", new Color(0.35f, 0.75f, 1f, 0.32f), 0f, 0.85f,
+                new Color(0.15f, 0.6f, 1f) * 2.2f);
+            CreateOrUpdate(shader, "VB_ShieldMarker", new Color(0.85f, 0.93f, 1f), 0f, 0.7f,
+                new Color(0.5f, 0.8f, 1f) * 4f);
+
+            // The dodge streak is a ground trail the player moves out of, so it has to be seen
+            // through: an opaque smear would hide whatever they just rolled away from.
+            CreateOrUpdate(shader, "VB_DodgeStreak", new Color(0.92f, 0.95f, 1f, 0.28f), 0f, 0.75f,
+                new Color(0.6f, 0.75f, 1f) * 2f);
         }
 
         public static Material LoadMaterial(string materialName) =>
@@ -112,6 +123,7 @@ namespace Vaultbreakers.Editor
             material.SetColor("_BaseColor", baseColor);
             material.SetFloat("_Metallic", metallic);
             material.SetFloat("_Smoothness", smoothness);
+            ConfigureSurface(material, baseColor.a);
 
             if (emission.HasValue)
             {
@@ -126,6 +138,39 @@ namespace Vaultbreakers.Editor
             }
 
             EditorUtility.SetDirty(material);
+        }
+
+        /// <summary>
+        /// URP Lit needs its blend mode, depth write, and keyword set together; assigning an alpha
+        /// below one to an opaque material silently does nothing, which is a confusing way to lose an
+        /// effect. The alpha of the base colour is the single switch.
+        /// </summary>
+        private static void ConfigureSurface(Material material, float alpha)
+        {
+            var transparent = alpha < 1f;
+
+            material.SetFloat("_Surface", transparent ? 1f : 0f);
+            material.SetFloat("_Blend", 0f);
+            material.SetFloat("_ZWrite", transparent ? 0f : 1f);
+            material.SetFloat("_SrcBlend", (float)(transparent ? BlendMode.SrcAlpha : BlendMode.One));
+            material.SetFloat("_DstBlend", (float)(transparent ? BlendMode.OneMinusSrcAlpha : BlendMode.Zero));
+            material.SetShaderPassEnabled("ShadowCaster", !transparent);
+
+            if (transparent)
+            {
+                material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            }
+            else
+            {
+                material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            }
+
+            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+
+            // -1 hands the queue back to the shader. Writing an explicit 2000 instead is functionally
+            // identical but rewrites every opaque material on disk for no reason, which turns a
+            // regenerated foundation into a diff nobody can skim.
+            material.renderQueue = transparent ? (int)RenderQueue.Transparent : -1;
         }
     }
 }

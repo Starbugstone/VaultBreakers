@@ -15,6 +15,7 @@ namespace Vaultbreakers.Combat
         [SerializeField] private bool invulnerable;
 
         private bool initialized;
+        private IDamageMitigator mitigator;
 
         public float MaximumHealth => Mathf.Max(1f, maximumHealth);
         public float CurrentHealth { get; private set; }
@@ -52,6 +53,13 @@ namespace Vaultbreakers.Combat
                 return new DamageResult(previous, previous, false);
             }
 
+            // Damage resolution order from COMBAT_POC_PLAN.md section 4: death and invulnerability
+            // first, then the shield, then health. A mitigator that absorbs owns the whole hit.
+            if (mitigator != null && mitigator.TryAbsorb(damage))
+            {
+                return new DamageResult(previous, previous, false, true);
+            }
+
             CurrentHealth = Mathf.Clamp(CurrentHealth - damage.Amount, 0f, MaximumHealth);
             var killed = CurrentHealth <= 0f;
             var result = new DamageResult(previous, CurrentHealth, killed);
@@ -78,6 +86,12 @@ namespace Vaultbreakers.Combat
         }
 
         public void SetInvulnerable(bool value) => invulnerable = value;
+
+        /// <summary>
+        /// Installs the one mitigator that gets first refusal on every hit. Pass null to remove it.
+        /// Health stays the single damage sink; this only decides whether a hit reaches it.
+        /// </summary>
+        public void SetMitigator(IDamageMitigator newMitigator) => mitigator = newMitigator;
 
         public void Configure(float newMaximumHealth)
         {

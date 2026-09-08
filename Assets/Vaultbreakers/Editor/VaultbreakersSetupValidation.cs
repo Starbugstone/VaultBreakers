@@ -140,12 +140,41 @@ namespace Vaultbreakers.Editor
                 return;
             }
 
+            var shield = prefab.GetComponent<ShieldController>();
+            if (shield == null || prefab.GetComponent<ShieldPresentation>() == null)
+            {
+                failures.Add("The player prefab is missing its shield controller or presentation.");
+                return;
+            }
+
+            var dodge = prefab.GetComponent<DodgeController>();
+            if (dodge == null || prefab.GetComponent<DodgePresentation>() == null)
+            {
+                failures.Add("The player prefab is missing its dodge controller or presentation.");
+                return;
+            }
+
             // A prefab that kept the component defaults instead of the balance asset would still play,
             // just with tuning nobody can find. Assert the wiring actually took.
             var balance = AssetDatabase.LoadAssetAtPath<PrototypeBalance>(VaultbreakersSetupPaths.BalancePath);
-            if (balance != null && !Mathf.Approximately(melee.Range, balance.MeleeRange))
+            if (balance == null)
+            {
+                return;
+            }
+
+            if (!Mathf.Approximately(melee.Range, balance.MeleeRange))
             {
                 failures.Add("The melee controller did not take its range from PrototypeBalance.asset.");
+            }
+
+            if (!Mathf.Approximately(shield.ArcDegrees, balance.ShieldArcDegrees))
+            {
+                failures.Add("The shield controller did not take its arc from PrototypeBalance.asset.");
+            }
+
+            if (!Mathf.Approximately(dodge.DodgeDistance, balance.DodgeDistance))
+            {
+                failures.Add("The dodge controller did not take its distance from PrototypeBalance.asset.");
             }
         }
 

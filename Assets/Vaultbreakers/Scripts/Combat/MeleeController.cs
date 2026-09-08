@@ -43,7 +43,7 @@ namespace Vaultbreakers.Combat
 
         [Header("Fallback tuning (overwritten by the balance asset when one is assigned)")]
         [SerializeField, Min(0f)] private float damage = 10f;
-        [SerializeField, Min(0f)] private float cooldown = 0.4f;
+        [SerializeField, Min(0f)] private float cooldown = 0.3f;
         [SerializeField, Min(0f)] private float range = 2.5f;
         [SerializeField, Min(0f)] private float radius = 1.5f;
         [SerializeField, Min(0f)] private float attackHeight = 1f;
@@ -52,6 +52,7 @@ namespace Vaultbreakers.Combat
         [SerializeField, Min(0f)] private float startupDuration = 0.06f;
         [SerializeField, Min(0f)] private float activeDuration = 0.08f;
         [SerializeField, Min(0f)] private float recoveryDuration = 0.16f;
+        [SerializeField, Range(0f, 0.4f)] private float inputBuffer = 0.15f;
         [SerializeField, Range(0f, 0.2f)] private float hitStopDuration = 0.05f;
 
         private readonly Collider[] queryBuffer = new Collider[MaximumHitsPerQuery];
@@ -66,6 +67,7 @@ namespace Vaultbreakers.Combat
         private float phaseTimer;
         private float phaseDuration;
         private float cooldownRemaining;
+        private float bufferedSwing;
         private Vector3 swingDirection = Vector3.forward;
 
         public MeleePhase Phase { get; private set; } = MeleePhase.Ready;
@@ -104,7 +106,22 @@ namespace Vaultbreakers.Combat
 
         private void OnDestroy() => Unsubscribe();
 
-        private void Update() => Tick(Time.deltaTime);
+        private void Update()
+        {
+            if (input != null && input.MeleePressedThisFrame)
+            {
+                BufferSwing();
+            }
+
+            Tick(Time.deltaTime);
+        }
+
+        /// <summary>
+        /// Queues a swing. A press that lands during recovery or during the last of the cooldown
+        /// fires the moment the swing becomes legal instead of being dropped on the floor, which is
+        /// the whole difference between mashing that works and mashing that eats inputs.
+        /// </summary>
+        public void BufferSwing() => bufferedSwing = Mathf.Max(bufferedSwing, inputBuffer);
 
         /// <summary>
         /// One frame of the swing state machine, exposed so the locked timing rules can be driven at
@@ -127,10 +144,20 @@ namespace Vaultbreakers.Combat
 
             AdvancePhase(deltaTime);
 
-            if (input != null && input.MeleePressedThisFrame)
+            // Consumed after the phase machine has advanced, so a press that was queued during
+            // recovery lands on the very first frame the swing is allowed.
+            if (bufferedSwing <= 0f)
             {
-                TryStartSwing();
+                return;
             }
+
+            if (TryStartSwing())
+            {
+                bufferedSwing = 0f;
+                return;
+            }
+
+            bufferedSwing = Mathf.Max(0f, bufferedSwing - deltaTime);
         }
 
         /// <summary>
@@ -214,6 +241,7 @@ namespace Vaultbreakers.Combat
             startupDuration = balance.MeleeStartupDuration;
             activeDuration = balance.MeleeActiveDuration;
             recoveryDuration = balance.MeleeRecoveryDuration;
+            inputBuffer = balance.MeleeInputBuffer;
             hitStopDuration = balance.HitStopDuration;
         }
 
@@ -392,7 +420,11 @@ namespace Vaultbreakers.Combat
             phaseTimer = 0f;
             phaseDuration = 0f;
             Phase = MeleePhase.Ready;
-            actions?.Stop(PlayerAction.Melee);
+            if (actions != null)
+            {
+                actions.Stop(PlayerAction.Melee);
+            }
+
             PhaseChanged?.Invoke(MeleePhase.Ready);
         }
 
@@ -421,6 +453,9 @@ namespace Vaultbreakers.Combat
         {
             CancelSwing();
             cooldownRemaining = 0f;
+
+            // A press queued as the player died must not fire the instant they are revived.
+            bufferedSwing = 0f;
         }
 
         private void ResolveReferences()

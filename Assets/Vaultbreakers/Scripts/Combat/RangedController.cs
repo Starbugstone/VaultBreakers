@@ -34,7 +34,7 @@ namespace Vaultbreakers.Combat
 
         [Header("Fallback tuning (overwritten by the balance asset when one is assigned)")]
         [SerializeField, Min(0f)] private float damage = 8f;
-        [SerializeField, Min(0f)] private float projectileSpeed = 20f;
+        [SerializeField, Min(0f)] private float projectileSpeed = 32f;
         [SerializeField, Min(0f)] private float fireCooldown = 0.3f;
         [SerializeField, Min(0f)] private float projectileLifetime = 1.5f;
 
@@ -107,7 +107,10 @@ namespace Vaultbreakers.Combat
             }
 
             IsFiring = false;
-            actions?.Stop(PlayerAction.Ranged);
+            if (actions != null)
+            {
+                actions.Stop(PlayerAction.Ranged);
+            }
         }
 
         public void Configure(
@@ -177,7 +180,11 @@ namespace Vaultbreakers.Combat
             var origin = MuzzlePosition;
             var direction = FiringDirection;
 
-            pool?.Fire(origin, direction, projectileSpeed, damage, projectileLifetime, gameObject);
+            if (pool != null)
+            {
+                pool.Fire(origin, direction, projectileSpeed, damage, projectileLifetime, gameObject);
+            }
+
             ShotsFired++;
             Fired?.Invoke(origin, direction);
         }

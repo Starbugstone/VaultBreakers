@@ -239,6 +239,39 @@ namespace Vaultbreakers.Tests.PlayMode
             Assert.AreEqual(0, ranged.Pool.ActiveCount, "The projectile never returned to the pool.");
         }
 
+        /// <summary>
+        /// The arena player's own shield, blocking a hit from the front and letting the same hit
+        /// through from behind. Nothing in the arena attacks yet, so the hits are directed by hand —
+        /// which is exactly what the debug overlay's front and rear buttons do.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator PrototypeArena_ShieldBlocksFromTheFrontAndNotFromBehind()
+        {
+            yield return LoadScene(PrototypeArena);
+
+            var shield = UnityEngine.Object.FindAnyObjectByType<ShieldController>();
+            Assert.IsNotNull(shield, "The arena player has no shield controller.");
+
+            var health = shield.GetComponent<Health>();
+            shield.enabled = false;
+            shield.Tick(1f / 60f, true, Vector2.zero);
+            Assert.IsTrue(shield.IsRaised, "The arena player refused to raise its shield.");
+
+            var startingStability = shield.Stability;
+            var front = shield.transform.position + shield.ShieldFacing * 4f;
+            health.ReceiveDamage(new DamageInfo(10f, front));
+
+            Assert.AreEqual(100f, health.CurrentHealth, "A frontal hit reached health through a raised shield.");
+            Assert.Less(shield.Stability, startingStability, "A frontal hit cost no stability.");
+
+            var behind = shield.transform.position - shield.ShieldFacing * 4f;
+            var stabilityBeforeRearHit = shield.Stability;
+            health.ReceiveDamage(new DamageInfo(10f, behind));
+
+            Assert.AreEqual(90f, health.CurrentHealth, "A hit from behind must reach health.");
+            Assert.AreEqual(stabilityBeforeRearHit, shield.Stability, "A hit from behind must not cost stability.");
+        }
+
         [UnityTest]
         public IEnumerator AvatarShowcase_LoadsWithAnAvatarAndShowcaseDriver()
         {
@@ -272,6 +305,11 @@ namespace Vaultbreakers.Tests.PlayMode
             Assert.IsNull(avatar.GetComponent<RangedController>(), "The showcase avatar should not be able to shoot.");
             Assert.IsNull(avatar.GetComponent<RangedPresentation>(), "Recoil would fight the turntable pose.");
             Assert.IsNull(avatar.GetComponent<ProjectilePool>(), "A visual bench must not spawn a projectile pool.");
+            Assert.IsNull(avatar.GetComponent<ShieldController>(), "The showcase avatar should not be able to block.");
+            Assert.IsNull(avatar.GetComponent<ShieldPresentation>(), "A shield arc would obscure the model on show.");
+            Assert.IsNull(avatar.GetComponent<DodgeController>(), "The showcase avatar should not be able to dodge.");
+            Assert.IsNull(avatar.GetComponent<DodgePresentation>(),
+                "A dodge squash would fight the turntable pose and leave a streak on the bench.");
         }
 
         [UnityTest]

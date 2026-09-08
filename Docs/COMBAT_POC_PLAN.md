@@ -20,9 +20,15 @@ This plan deliberately stops before the larger progression loop. Gems, gauges, c
 
 ---
 
-## 2. Current repository assessment
+## 2. Starting repository assessment (2026-08-01)
 
-The project is not completely empty, but it contains only template-level setup.
+> **This section is history, not status.** It records the state the plan was written against, and the
+> "required action" column is why the phases below are ordered as they are. Phases 0 to 7 have since
+> been implemented and every row here has been actioned. For what the repository contains today, read
+> `Docs/PROJECT_STATUS.md`.
+
+At the time of the audit the project was not completely empty, but it contained only template-level
+setup.
 
 | Area | Current state | Required action |
 |---|---|---|
@@ -36,9 +42,9 @@ The project is not completely empty, but it contains only template-level setup.
 | AI Assistant | Pre-release package installed | Optional tooling; it must not become a runtime dependency |
 | Source control | Git repository with existing uncommitted setup changes | Preserve those changes and commit by coherent implementation slice |
 
-### Important mismatch
+### Important mismatch (resolved in Phase 1)
 
-`PROJECT.md` calls for a 3D URP game, while the current project was created from the 2D URP template. Do not build 3D gameplay on top of `Renderer2D.asset`. Create a 3D Universal Renderer Data asset, assign it to the URP pipeline asset, verify opaque meshes, shadows, depth, and camera output, and retain the old 2D assets until the conversion is proven. Removing template assets is cleanup, not a prerequisite.
+`PROJECT.md` calls for a 3D URP game, while the project was created from the 2D URP template. Do not build 3D gameplay on top of `Renderer2D.asset`. Create a 3D Universal Renderer Data asset, assign it to the URP pipeline asset, verify opaque meshes, shadows, depth, and camera output, and retain the old 2D assets until the conversion is proven. Removing template assets is cleanup, not a prerequisite.
 
 ### Package policy
 
@@ -166,14 +172,15 @@ All values are exposed in `PrototypeBalance.asset` and are starting points, not 
 | Aim dead zone | 0.25 |
 | Player max health | 100 |
 | Melee damage | 10 |
-| Melee cooldown | 0.4 sec |
+| Melee cooldown | 0.3 sec — deliberately equal to the swing, so swings chain with no dead window |
+| Melee input buffer | 0.15 sec |
 | Melee range / radius | 2.5 / 1.5 units |
 | Melee startup / active / recovery | 0.06 / 0.08 / 0.16 sec |
 | Melee target correction | Maximum 15 degrees |
 | Melee knockback | 4 units |
 | Hit-stop on a connecting hit | 0.05 sec unscaled |
 | Projectile damage | 8 |
-| Projectile speed | 20 units/sec |
+| Projectile speed | 32 units/sec |
 | Projectile lifetime | 1.5 sec |
 | Projectile sweep radius | 0.12 units |
 | Projectile pool size | 32 |
@@ -183,11 +190,13 @@ All values are exposed in `PrototypeBalance.asset` and are starting points, not 
 | Light / heavy stability damage | 10 / 30 |
 | Lowered shield regeneration | 12/sec |
 | Raised idle regeneration | 4/sec |
-| Shield break lockout | 5 sec |
+| Shield break lockout | 2.5 sec — the whole cost of a break |
+| Shield stability on return from a break | 30, refilled during the lockout |
 | Shield move multiplier | 0.85 |
-| Dodge distance / duration | 3 units / 0.2 sec |
+| Dodge distance / duration | 3 units / 0.2 sec, on a quadratic ease-out |
 | Dodge cooldown | 1 sec |
-| Dodge invulnerability | Dodge movement duration |
+| Dodge invulnerability | 0.2 sec — the whole movement duration |
+| Dodge input buffer | 0.15 sec |
 
 ### Damage resolution order
 
@@ -227,6 +236,37 @@ The pool is fixed size and filled once; sustained fire never allocates. If it is
 recycles the oldest shot in flight rather than dropping the new one, because silently swallowing an
 input the player made is the worse failure. The recycle count is on the debug overlay so an undersized
 pool is visible rather than invisible.
+
+### Shield blocking
+
+Blocking is a mitigator installed on `Health`, not an interception in each attack. Every hit in the
+game keeps calling `IDamageable.ReceiveDamage`; the shield gets first refusal and, if it absorbs,
+health is never touched. No attack needs to know a shield exists, which is why melee, projectiles, and
+debug damage are all blockable without any of them being changed.
+
+A hit larger than the remaining stability is still blocked in full. The cost of coming up short is the
+break, not leaked damage: passing a remainder through would make the moment of breaking impossible to
+read.
+
+A break costs exactly the lockout and nothing after it. Stability refills throughout, so when the wait
+ends the shield returns with a real charge rather than a token one. The player is punished for one
+learnable number of seconds and is then back in the fight, holding a guard they have to spend
+carefully — which is more interesting than waiting for a bar to finish filling before they may act.
+
+### Responsiveness rules
+
+The game is arcade and reactive, and these follow from that rather than from any individual system:
+
+- **A cooldown never outlasts its own action.** Melee's cadence equals its authored swing, so one
+  swing flows into the next. A cooldown longer than the animation leaves a window where the game is
+  visibly idle and still refusing input, which players read as dropped presses.
+- **A press made slightly too early is remembered, not discarded.** Melee buffers a press for a short
+  window and fires it on the first frame it is legal. Without this, mashing produces fewer attacks
+  than metronomic timing, which punishes exactly the player an arcade game should reward. The buffer
+  must stay shorter than the cooldown so it forgives an early press without queueing a spare attack.
+- **A projectile arrives while the trigger pull still feels connected to it.** A shot that takes
+  longer to cross the arena than the gap between shots reads as disconnected from the input.
+- **A punishment state is one learnable duration**, not a duration followed by a second condition.
 
 ---
 
@@ -712,30 +752,47 @@ Exit gate:
 
 ## 7. Test plan
 
+Status is current as of 2026-08-03. Counts and the full breakdown live in `Docs/PROJECT_STATUS.md`.
+
 ### EditMode tests
 
-| Area | Required cases |
-|---|---|
-| Shield arc | Front, exact edge, outside edge, rear, 0/360 wrap, missing source |
-| Health | Clamp, zero damage, invulnerability, lethal damage, repeated lethal hit |
-| Action policy | Fire rejected during shield; shield stops fire; melee suppresses shield; dodge cancels shield; death cancels all |
-| Facing | Aim priority, movement fallback, neutral preservation, dead-zone boundaries |
-| Cooldowns | Exact-ready boundary, held input, reset after death |
-| Wave state | Living count, duplicate death event protection, active-wave reset, completed-wave preservation |
+| Area | Required cases | Status |
+|---|---|---|
+| Shield arc | Front, exact edge, outside edge, rear, 0/360 wrap, missing source | Done — `ShieldSliceTests` |
+| Health | Clamp, zero damage, invulnerability, lethal damage, repeated lethal hit | Done — `CombatKernelTests` |
+| Action policy | Fire rejected during shield; shield stops fire; melee suppresses shield; dodge cancels shield; death cancels all | Done — `CombatKernelTests`, `RangedSliceTests`, `ShieldSliceTests` |
+| Facing | Aim priority, movement fallback, neutral preservation, dead-zone boundaries | Done — `PlayerLocomotionTests` |
+| Cooldowns | Exact-ready boundary, held input, reset after death | Done — `MeleeSliceTests`, `RangedSliceTests`, `DodgeSliceTests` |
+| Dodge | Distance and curve, frame-rate independence, committed direction, invulnerability window, spam, held button, buffered press, melee active window, death and reset | Done — `DodgeSliceTests` |
+| Wave state | Living count, duplicate death event protection, active-wave reset, completed-wave preservation | **Outstanding — needs Phase 10** |
+
+Beyond the required matrix, the suite also pins the melee swing geometry and phase timing, the ranged
+cadence, the projectile pool accounting, the generated foundation, the modular avatar, the physics
+layer matrix, and the responsiveness rules in section 4.
 
 ### PlayMode tests
 
-- Player moves relative to the prototype camera.
-- A melee swing hits a target in front and not a target behind.
-- Holding ranged input produces repeated shots at the expected cadence.
-- Starting shield stops an active firing sequence.
-- A front projectile drains shield; a rear projectile drains health.
-- Starting melee suppresses an already raised shield.
-- Starting dodge cancels shield and grants then removes invulnerability.
-- Dodge collision does not pass through the arena wall.
-- A killed enemy decrements the active wave once.
-- Player death resets the active wave and all transient combat objects.
-- Controller disconnect clears held combat input safely.
+- Done — Player moves relative to the prototype camera.
+- Done — A melee swing hits a target in front and not a target behind.
+- Done — Holding ranged input produces repeated shots at the expected cadence.
+- Done — Starting shield stops an active firing sequence.
+- Done — A front projectile drains shield; a rear projectile drains health.
+- Done — Starting melee suppresses an already raised shield.
+- Done — Starting dodge cancels shield and grants then removes invulnerability.
+- Done — Dodge collision does not pass through a wall, and is contained by a corner.
+- **Outstanding (Phase 10)** — A killed enemy decrements the active wave once.
+- **Outstanding (Phase 10)** — Player death resets the active wave and all transient combat objects.
+- **Outstanding** — Controller disconnect clears held combat input safely. The code path is correct by
+  construction and the device-reset behaviour is exercised, but the disconnect itself cannot be
+  simulated in batch mode; this one needs physical hardware.
+
+Also covered beyond the required list: a projectile resolves exactly one hit, does not tunnel in a
+single long step, is stopped by geometry, expires when it hits nothing, and never grows the pool;
+pool exhaustion recycles rather than dropping a shot; a swing hits two targets once each and is
+cancelled when a higher-priority action takes the claim; repeated frontal fire breaks a shield and the
+next shot then reaches health; a dodge stops held fire and lets it resume by itself, covers its full
+distance through the character controller when nothing is in the way, and hands ordinary movement
+back when it ends; both generated scenes load and the showcase carries no gameplay components.
 
 ### Manual combat scenarios
 

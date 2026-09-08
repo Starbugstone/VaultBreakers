@@ -107,10 +107,16 @@ The showcase scene rotates the avatar. Press `1` for the default Scrapper set an
 The showcase instance is the same prefab with its gameplay half removed by the setup tool: no
 `PlayerInput`, `PlayerInputReader`, `CharacterController`, `PlayerMotor`, `PlayerFacing`, `Health`,
 `PlayerActionCoordinator`, `MeleeController`, `MeleePresentation`, `HitStop`, `ProjectilePool`,
-`RangedController`, or `RangedPresentation`. Left in place, movement input would drive the avatar off
-the turntable, facing would fight the turntable rotation, the swing and recoil poses would fight the
-weapon's rest pose, a hit would freeze the global timescale, and a projectile pool would appear in a
-scene that exists only to be looked at.
+`RangedController`, `RangedPresentation`, `ShieldController`, `ShieldPresentation`, `DodgeController`,
+or `DodgePresentation`. Left in place, movement input would drive the avatar off the turntable, facing
+would fight the turntable rotation, the swing and recoil poses would fight the weapon's rest pose, a
+hit would freeze the global timescale, a projectile pool would appear in a scene that exists only to
+be looked at, a shield band would sit in front of the model on show, and a dodge would squash the
+model and leave a streak across the bench.
+
+The dodge presentation is the one piece of feedback that poses the model root rather than a socket: it
+squashes `ModelRoot` for the length of the burst and restores the scale it found. Anything else that
+wants to scale the model has to coordinate with it.
 
 Three sockets are consumed at runtime by gameplay, which is why their authored transforms are
 versioned API rather than a convenience:
@@ -123,6 +129,11 @@ versioned API rather than a convenience:
 
 Moving any of these changes how combat reads or where shots come from, even though nothing about the
 mechanics changes.
+
+`ANCHOR_Shield` is deliberately **not** used by `ShieldPresentation`. The shield arc is centred on the
+body it protects, not on the arm that projects it: an arc drawn from the left forearm would sit off
+the axis the block is actually tested against, and would misrepresent coverage every time the player
+turned. The anchor stays in the contract for hard-light emitter VFX, which do belong on the arm.
 
 ## Adding an equipment variant
 

@@ -25,6 +25,10 @@ GameObject:
   - component: {fileID: 4875789084218471937}
   - component: {fileID: 2785043118768902907}
   - component: {fileID: 7180105730073321429}
+  - component: {fileID: 8242399949633179808}
+  - component: {fileID: 4409032486325608790}
+  - component: {fileID: 1480849905695279362}
+  - component: {fileID: 3014681834834302432}
   m_Layer: 8
   m_Name: PF_Vaultbreaker_POC
   m_TagString: Untagged
@@ -370,7 +374,7 @@ MonoBehaviour:
   health: {fileID: 12820587348402113}
   hitStop: {fileID: 6504858348448287558}
   damage: 10
-  cooldown: 0.4
+  cooldown: 0.3
   range: 2.5
   radius: 1.5
   attackHeight: 1
@@ -379,6 +383,7 @@ MonoBehaviour:
   startupDuration: 0.06
   activeDuration: 0.08
   recoveryDuration: 0.16
+  inputBuffer: 0.15
   hitStopDuration: 0.05
 --- !u!114 &1303348141820735877
 MonoBehaviour:
@@ -431,7 +436,7 @@ MonoBehaviour:
   sockets: {fileID: 944553358175943069}
   pool: {fileID: 4875789084218471937}
   damage: 8
-  projectileSpeed: 20
+  projectileSpeed: 32
   fireCooldown: 0.3
   projectileLifetime: 1.5
   fallbackMuzzleHeight: 1.2
@@ -452,6 +457,89 @@ MonoBehaviour:
   effectMaterial: {fileID: 2100000, guid: 861537c59343f24499d86b3db4b4bc5c, type: 2}
   flashScale: 0.22
   impactScale: 0.28
+--- !u!114 &8242399949633179808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253383612550002726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c570f9abfacf0ef4c8770f57513923bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Combat.ShieldController
+  balance: {fileID: 11400000, guid: ba008a50d191180458be5f8b28530dfa, type: 2}
+  input: {fileID: 4531238062748389650}
+  actions: {fileID: 7390567638856034568}
+  facing: {fileID: 4123252508014078359}
+  motor: {fileID: 4380874296480082583}
+  health: {fileID: 12820587348402113}
+  cameraTransform: {fileID: 0}
+  maximumStability: 100
+  arcDegrees: 120
+  lightStabilityDamage: 10
+  loweredRegeneration: 12
+  raisedRegeneration: 4
+  breakLockout: 2.5
+  moveMultiplier: 0.85
+  aimDeadZone: 0.25
+--- !u!114 &4409032486325608790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253383612550002726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de241a9ae63052a49b690a762b54db93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Combat.ShieldPresentation
+  shield: {fileID: 8242399949633179808}
+  arcMaterial: {fileID: 2100000, guid: 57b10a7f5b26cda489b695e5cbf9f1ea, type: 2}
+  markerMaterial: {fileID: 2100000, guid: 53f1b369fab1a1246ad3b3be099e0ba4, type: 2}
+  originHeight: 0.15
+--- !u!114 &1480849905695279362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253383612550002726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728903e3d6760e8408f9a0303e94d111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Combat.DodgeController
+  balance: {fileID: 11400000, guid: ba008a50d191180458be5f8b28530dfa, type: 2}
+  input: {fileID: 4531238062748389650}
+  actions: {fileID: 7390567638856034568}
+  facing: {fileID: 4123252508014078359}
+  motor: {fileID: 4380874296480082583}
+  health: {fileID: 12820587348402113}
+  melee: {fileID: 9072923111637598906}
+  distance: 3
+  duration: 0.2
+  cooldown: 1
+  invulnerability: 0.2
+  inputBuffer: 0.15
+--- !u!114 &3014681834834302432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253383612550002726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750ec5e65a1180e44829a1c38c200fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Combat.DodgePresentation
+  dodge: {fileID: 1480849905695279362}
+  visualRoot: {fileID: 5449606288915396970}
+  streakMaterial: {fileID: 2100000, guid: a1088155fdd28334185feb36a2d59bdd, type: 2}
+  streakHeight: 0.04
 --- !u!1001 &5488301859811892865
 PrefabInstance:
   m_ObjectHideFlags: 0

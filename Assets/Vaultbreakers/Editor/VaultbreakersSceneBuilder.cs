@@ -46,7 +46,9 @@ namespace Vaultbreakers.Editor
                 dummy.GetComponent<Health>(),
                 player != null ? player.GetComponent<PlayerActionCoordinator>() : null,
                 player != null ? player.GetComponent<MeleeController>() : null,
-                player != null ? player.GetComponent<RangedController>() : null);
+                player != null ? player.GetComponent<RangedController>() : null,
+                player != null ? player.GetComponent<ShieldController>() : null,
+                player != null ? player.GetComponent<DodgeController>() : null);
 
             CreateDirectionalLight();
             CreateCamera("Main Camera", new Vector3(10.5f, 13f, -10.5f), Vector3.zero, true, 11.5f);
@@ -118,6 +120,10 @@ namespace Vaultbreakers.Editor
         private static void StripGameplayComponents(GameObject avatar)
         {
             RemoveComponent<InputDebugOverlay>(avatar);
+            RemoveComponent<DodgePresentation>(avatar);
+            RemoveComponent<DodgeController>(avatar);
+            RemoveComponent<ShieldPresentation>(avatar);
+            RemoveComponent<ShieldController>(avatar);
             RemoveComponent<RangedPresentation>(avatar);
             RemoveComponent<RangedController>(avatar);
             RemoveComponent<ProjectilePool>(avatar);

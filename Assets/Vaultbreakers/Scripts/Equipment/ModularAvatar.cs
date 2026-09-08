@@ -35,9 +35,15 @@ namespace Vaultbreakers.Equipment
             initialized = true;
             equipped.Clear();
 
+            // Explicit null check rather than ?.: the null-conditional operator skips Unity's
+            // lifetime check, so a destroyed module would read as alive and throw here.
             for (var index = 0; index < modules.Length; index++)
             {
-                modules[index]?.SetVisible(false);
+                var module = modules[index];
+                if (module != null)
+                {
+                    module.SetVisible(false);
+                }
             }
 
             for (var index = 0; index < modules.Length; index++)

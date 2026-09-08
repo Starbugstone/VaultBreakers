@@ -1,10 +1,16 @@
 # Vaultbreakers — Project Status
 
-**Generated:** 2026-08-02
+**Generated:** 2026-08-03
 **Unity:** `6000.4.4f1`
-**Branch:** `main` (all work below is uncommitted on top of `66927ad Initial check-in`)
-**Last full validation:** setup tool, EditMode suite (104 tests), PlayMode suite (34 tests), and a
-Windows development build, all green in batch mode on 2026-08-02 after the Phase 6 ranged slice.
+**Branch:** `main` (Phases 0–8 preserved in the September 2026 source-control checkpoint)
+**Last full validation:** setup tool, EditMode suite (157 tests), PlayMode suite (50 tests), and a
+Windows development build, all green in batch mode on 2026-08-03 after the Phase 8 dodge slice.
+
+**Source-control checkpoint, 2026-09-08:** the existing Phase 8 work was preserved alongside a
+proprietary root license, README, and asset/dependency license register. EditMode (157/157),
+PlayMode (50/50), and a fresh Windows development build passed again with Unity 6000.4.4f1.
+No gameplay changes or setup regeneration were made for this checkpoint. See
+`Docs/VALIDATION_2026-09-08.md` for evidence and remaining human validation.
 
 This document answers two questions: what actually exists in the repository right now, and what you
 can do if you press Play this minute. It deliberately separates *implemented*, *verified by machine*,
@@ -14,25 +20,26 @@ and *never checked by a human*.
 
 ## 1. One-paragraph summary
 
-The project is a tested **foundation with two working verbs**. Phases 0 through 6 of
+The project is a tested **foundation with the complete player kit**. Phases 0 through 8 of
 `Docs/COMBAT_POC_PLAN.md` are implemented: the project is converted from the 2D URP template to a 3D
 Universal Renderer, physics layers and the collision matrix are code-owned, a game-specific input
 asset feeds a pull-based input reader, the player moves and turns in a graybox arena with a fixed
-isometric camera, a damage/health/action-state kernel drives target dummies, **melee** works end to
-end, and **hold-to-fire ranged** works end to end — a fixed-size projectile pool that never allocates,
-projectiles that sweep their own path so they cannot tunnel or double-hit, and a cadence that is
-gameplay-authoritative. Tuning lives in `PrototypeBalance.asset`. **Shield and dodge are still not
-implemented**; their inputs are read and their conflict rules are tested, but no controller consumes
-them — which also means the fire-versus-defence decision, the point of the whole design, cannot be
-felt yet. Phase 7 (directional shield) is the next piece of work and is the one that makes ranged
-fire a choice rather than a default.
+isometric camera, a damage/health/action-state kernel drives target dummies, **melee** and
+**hold-to-fire ranged** work end to end, the **directional shield** blocks a 120-degree frontal arc
+through stability, breaks and recovers, and the **dodge** now bursts three units in a fifth of a
+second, invulnerable throughout and stopped by walls rather than passing through them. All four verbs
+are wired into one set of conflict rules: raising the shield stops fire on the same frame, melee drops
+the shield, and a dodge outranks everything except a swing that is already dealing damage. Tuning
+lives in `PrototypeBalance.asset`. **Every verb the POC needs now exists.** What does not exist is
+anything to use them against: Phase 9 (the three-enemy teaching set) is the next piece of work, and it
+is the largest phase left.
 
 ---
 
 ## 2. What you can do right now
 
 Open `Assets/Vaultbreakers/Scenes/Prototype/Prototype_Arena.unity` and press Play, or run
-`Builds/Vaultbreakers_Phase6/Vaultbreakers.exe` (a development build, so the debug overlays appear).
+`Builds/Vaultbreakers_Phase8/Vaultbreakers.exe` (a development build, so the debug overlays appear).
 
 **Works:**
 
@@ -42,17 +49,30 @@ Open `Assets/Vaultbreakers/Scenes/Prototype/Prototype_Arena.unity` and press Pla
 | Right stick / arrow keys | Combat facing snaps to the aim direction above a 0.25 dead zone; the model turns smoothly toward it. Movement direction is unaffected. |
 | Release everything | The avatar stops and keeps its last useful facing. It does not drift. |
 | **X / left mouse** | **Swings.** The weapon winds up, sweeps, and recovers; an orange arc shows the volume the swing queried; a connecting hit deals 10, flashes the target, pops an impact marker, and freezes the game for 0.05 s. A target within 15 degrees of facing is snapped onto. |
-| **Hold or mash X** | At most one swing every 0.4 s. Spam cannot beat the cadence. |
+| **Mash X** | Four swings a second, chaining with no dead window. A press made during recovery is remembered and fires the moment the next swing is legal, so mashing works instead of eating inputs. Spam still cannot beat the cadence. |
 | **Swing at a dummy standing behind you** | Nothing. The volume is in front; misses are visible because the arc is drawn where the query ran. |
 | **Swing into the pair of dummies** | Both take damage from one swing, each exactly once. |
-| **Hold RT / E** | **Fires.** A cyan tracer leaves the Muzzle anchor every 0.3 s with a flash and a recoil kick, travels at 20 units/sec, deals 8, and pops a mark where it lands. No ammunition, no reload. |
+| **Hold RT / E** | **Fires.** A cyan tracer leaves the Muzzle anchor every 0.3 s with a flash and a recoil kick, travels at 32 units/sec — across the arena in well under a second — deals 8, and pops a mark where it lands. No ammunition, no reload. |
 | **Turn while holding fire** | Each shot follows combat facing at the moment it leaves, not the facing of the first shot. |
 | **Fire at a wall, or past everything** | The shot stops at the wall and marks it, or expires after 1.5 s. Either way it goes back to the pool. |
+| **Hold LT / right mouse** | **Raises the shield.** A translucent band appears across the 120-degree arc it actually blocks, with a pip on its centre line. Movement drops to 85% but stays free — you can walk anywhere while covering one direction. |
+| **Aim while shielding** | The band turns. Movement does not turn it: only deliberate right-stick aim does, which is what lets you back away from the thing you are guarding against. |
+| **Hold RT and LT together** | Fire stops the instant the shield goes up and resumes by itself when it comes down. They can never both be active. |
+| **Press melee while shielding** | The band drops for the swing and comes back after the recovery, without releasing the button. |
+| **Overlay: "Hit player: front" / "rear" / "Heavy: front"** | Front hits cost stability and no health; rear hits cost health and no stability; the heavy button drains 30. The band gets visibly shorter as stability falls, and stutters below a third. |
+| **Drain stability to zero, or press "Break shield"** | The band bursts and is gone. A ring at your feet fills across the 2.5 s lockout; when it completes, the guard is back — with about 30 stability, enough for three light hits, refilled while you waited. |
+| **Press A / Space** | **Dodges.** A three-unit burst in 0.2 s, fastest on the frame you press it, in whatever direction you are holding — or the way you are facing if the stick is at rest. The avatar squashes and leaves a ground streak showing exactly where it went. You are invulnerable for the whole burst. |
+| **Dodge into a wall, or into a corner** | You stop at it. The burst runs its full duration and simply covers less ground; the streak is short, and the overlay's "travelled" figure says how short. Nothing crosses the arena boundary. |
+| **Dodge while the overlay hits you** | Nothing lands. "INVULNERABLE" appears on the dodge line for exactly the burst, and no damage event is logged. The frame it ends, hits connect again. |
+| **Mash A** | One dodge per second, no more. A press made slightly too early is remembered for 0.15 s and fires the moment the dodge is legal; holding the button down is one dodge, not a stream. |
+| **Dodge while shielding or firing** | The shield drops and fire stops on the frame the dodge starts. A held trigger picks fire back up by itself when the burst ends; the shield needs no re-press either. |
+| **Dodge in the middle of a swing** | During windup or recovery, the swing is cancelled and the dodge goes. During the 0.08 s the swing is actually dealing damage, the dodge waits — and then fires by itself the moment the window closes, rather than eating the press. |
+| **Dodge while running** | Exactly three units, the same as from standing. Ordinary movement is suspended for the burst so your speed cannot add to it, and comes back the frame it ends. |
 | Walk up to the three dummies | One at (0, 4) with a partner beside it, one flanking at (-4.5, 1.5). Each has 50 health, flashes red, and revives 1.5 s after dying. |
 | Look at the top-left overlay | Live device name, Move and Aim vectors, and held state for all four action buttons. |
-| Look at the second overlay | Player and dummy health, the action-state flags, the live melee phase, cooldown and hit count, the ranged firing state and shot count, and projectile pool active/free/recycled counts. |
-| Click the overlay buttons | Damage the dummy 10, kill the dummy, damage the player 10, or reset both. |
-| Plug/unplug a controller mid-session | No exceptions and no stuck held actions. |
+| Look at the second overlay | Player and dummy health, the action-state flags, the live melee phase, cooldown and hit count, the ranged firing state and shot count, projectile pool active/free/recycled counts, the shield state with its stability, and the dodge state with its cooldown, distance travelled, and invulnerability. Blocks and shield state changes are written to the event log, which is the only place a blocked hit shows up — it never reaches `Health`, so it raises no damage event. |
+| Click the overlay buttons | Damage or kill the dummy, hit the player from the front, the rear, or with a heavy blow, break the shield outright, or reset player, dummy, action state and shield together. |
+| Plug/unplug a controller mid-session | No exceptions and no stuck held actions — by construction; see section 5, this has not been exercised with real hardware. |
 
 Open `Assets/Vaultbreakers/Scenes/Test/Avatar_Showcase.unity` and press Play:
 
@@ -64,13 +84,14 @@ Open `Assets/Vaultbreakers/Scenes/Test/Avatar_Showcase.unity` and press Play:
 
 **Does not work yet (by design — later phases):**
 
-- **Shield (LT / right mouse)** and **Dodge (A / Space)** register in the input overlay and nothing
-  else. No shield arc, no dodge burst. The conflict rules that make firing and shielding exclusive are
-  written, tested, and already enforced by both attack controllers — but with no shield to raise, the
-  fire-versus-defence decision cannot actually be experienced yet.
 - **Pause (Start / Esc)** and **Restart (R)** are read but not handled.
-- There are **no enemies, no waves, no HUD, and no retry loop**. The dummies never fight back and the
-  avatar slides without a walk cycle; the swing and recoil poses are procedural, not animated.
+- There are **no enemies, no waves, no HUD, and no retry loop**. The dummies never fight back, so the
+  shield and the dodge can only be exercised against the overlay's directed-hit buttons. This is now
+  the binding constraint on the design rather than on the code: the Phase 8 gate item "dodge solves a
+  different problem from shielding" is unanswerable until there is something worth dodging. The avatar
+  slides without a walk cycle; the swing, recoil, and dodge poses are procedural, not animated.
+- **Nothing declares heavy stability damage in play.** `DamageInfo.StabilityDamage` carries it and the
+  overlay's heavy button uses it, but the 30-point value is a reference for the Phase 9 bruiser.
 - **Knockback is computed and delivered** through `DamageInfo.Knockback`, but nothing in the arena can
   be pushed: the dummies are immobile by design. It becomes visible with the Phase 9 enemies.
 
@@ -87,16 +108,58 @@ Open `Assets/Vaultbreakers/Scenes/Test/Avatar_Showcase.unity` and press Play:
 | 4 — Combat kernel and dummy | One consistent damage path | **Complete** |
 | 5 — Melee vertical slice | First real attack | **Code complete, human feel checkpoint deferred** |
 | 6 — Ranged and projectiles | Hold-to-fire | **Code complete, human feel checkpoint deferred** |
-| 7 — Directional shield | Fire-versus-defense decision | **Not started — next up** |
-| 8 — Dodge | Movement answer to threats | Not started |
-| 9+ — Enemies, waves, HUD, feel pass | — | Not started |
+| 7 — Directional shield | Fire-versus-defense decision | **Code complete, human feel checkpoint deferred** |
+| 8 — Dodge | Movement answer to threats | **Code complete, human feel checkpoint deferred** |
+| 9 — Enemy teaching set | Grunt, Shooter, Bruiser | **Not started — next up** |
+| 10 — Arena waves, death, retry | A repeatable five-minute test | Not started |
+| 11 — HUD, feedback, accessibility | Readable combat state | Not started |
+| 12 — Blender validation asset pass | Animation and enemy silhouettes | Partly satisfied — see below |
+| 13 — Tests, profiling, build, playtest gate | Go / iterate / stop | Not started |
 
-Three exit gates are open on feel alone: Phase 3's two-minute controller session, Phase 5's
-"input-to-visible-response feels immediate", and Phase 6's "hold-to-fire is pleasant for at least a
-minute" and "feedback remains readable across the arena". No test can answer any of them. See
+Five exit gates are open on feel alone: Phase 3's two-minute controller session, Phase 5's
+"input-to-visible-response feels immediate", Phase 6's "hold-to-fire is pleasant for at least a
+minute", Phase 7's "shield break is unmistakable and recovery is predictable", and Phase 8's "dodge
+solves a different problem from shielding". No test can answer any of them. See
 `Docs/IMPLEMENTATION_NOTES.md`. Every mechanical check passes — direction, facing priority, wall
-collision, swing timing, deduplication, cooldowns, cadence, tunnelling, and pool accounting — but
-**do not treat Phase 3, 5, or 6 as signed off.**
+collision, swing timing, deduplication, cooldowns, cadence, tunnelling, pool accounting, every arc
+boundary, and the dodge's distance, curve, invulnerability window and wall behaviour — but **do not
+treat Phase 3, 5, 6, 7, or 8 as signed off.**
+
+Phase 8's gate is the one that cannot be closed by a controller session alone. Four of its five items
+are mechanical and tested; "dodge solves a different problem from shielding" is a comparison between
+two answers to a threat, and there are no threats yet. It carries over to Phase 9.
+
+Checkpoint B in the plan asks whether the fire/shield exclusion creates a useful choice rather than
+frustration. All the verbs it needs now exist, so Checkpoint B is answerable for the first time — but
+only by a human with a controller.
+
+### What is left to reach a functional POC
+
+Two different finish lines, and it is worth keeping them apart.
+
+**A playable loop** — fight waves, die, retry — needs Phases 9 and 10:
+
+| Phase | What is missing | Rough size | What already exists to make it cheaper |
+|---|---|---|---|
+| 9 — Enemies | Grunt, Shooter, Bruiser: state machine, separation, telegraphs, enemy projectiles | **Largest — roughly Phases 5, 6 and 7 combined** | The damage kernel, layers and query masks are done, and enemy attacks will be blockable by the shield and dodgeable without changes to any of them. Needs `EnemyDefinition`, an enemy projectile pool, and three distinct attack authorings. |
+| 10 — Waves and retry | `ZoneController`, `WaveSpawner`, wave data, banner, death and retry | Medium | `ZoneRoot` and three spawn points exist. Much of the reset contract is already built and tested: `Health.ResetHealth`, `ResetPerformed`, `PlayerActionCoordinator.ResetState`, `ShieldController.ResetShield`, `DodgeController.ResetDodge`, `ProjectilePool.ReleaseAll`. The Restart input is already read. |
+
+**The plan's definition of done** (section 14) additionally needs:
+
+| Phase | What is missing | Rough size | Notes |
+|---|---|---|---|
+| 11 — HUD and accessibility | Health and stability bars, wave display, pause screen, feedback toggles, grayscale pass | Medium | Nothing built; only development-only IMGUI overlays exist. uGUI is installed. The Pause input is read but unhandled. |
+| 12 — Art validation | Animation clips, three enemy silhouettes | Medium, art-gated | **Partly satisfied already**: the scale convention, shared skeleton, sockets and player silhouette exist and are validated. What is missing is animation — the avatar slides, and the swing and recoil poses are procedural — and the enemy models. |
+| 13 — Playtest gate | Profiling, five fresh-player sessions, tuning, results note | Needs people | This phase can legitimately fail; "iterate" and "stop" are stated outcomes. |
+
+**Blocked on a human, and on the critical path:** the five deferred feel gates plus Checkpoint B, all
+answerable in one controller session except Phase 8's "different problem from shielding", which needs
+enemies first; Checkpoint C once enemies exist; and Phase 13's five fresh-player sessions. No amount
+of implementation gets past these.
+
+**One decision worth taking before Phase 9:** the projectile pool is player-only. Enemy projectiles
+need either a second pool or a small generalisation, and that is cheaper to choose deliberately now
+than to discover halfway through the phase.
 
 ---
 
@@ -107,9 +170,9 @@ collision, swing timing, deduplication, cooldowns, cadence, tunnelling, and pool
 | File | Responsibility |
 |---|---|
 | `Core/GameLayers.cs` | Physics layer indices from `PROJECT.md` 5.5 and the query masks built from them. No tag or name comparisons anywhere in gameplay. |
-| `Core/PrototypeBalance.cs` | Central tuning ScriptableObject: locomotion, player health, melee, feedback. Configuration only. Sections are added as their phase lands. |
+| `Core/PrototypeBalance.cs` | Central tuning ScriptableObject: locomotion, player health, melee, ranged, shield, feedback. Configuration only. Sections are added as their phase lands. |
 | `Input/PlayerInputReader.cs` | Pull-based intent: Move, Aim, four held actions, four edge actions, current device. Translates nothing. |
-| `Player/PlayerMotor.cs` | Camera-relative XZ movement on a `CharacterController` with acceleration, deceleration, and grounding. Runs at execution order −20. |
+| `Player/PlayerMotor.cs` | Camera-relative XZ movement on a `CharacterController` with acceleration, deceleration, and grounding. Runs at execution order −20. Exposes two independent seams: a speed multiplier the raised shield uses to slow the player without editing the tuned speed, and a movement suspension the dodge uses to take horizontal displacement over outright. Separate owners, so neither can stomp the other. |
 | `Player/PlayerFacing.cs` | Facing priority (aim → movement → last valid). Gameplay facing in `Update` at order −19; visual smoothing in `LateUpdate`. |
 | `Combat/DamageInfo.cs` | `DamageInfo` and `DamageResult`. Captures the source position at construction so shield maths later works without a live attacker. |
 | `Combat/IDamageable.cs` | The single entry point every hit in the game passes through. |
@@ -123,7 +186,13 @@ collision, swing timing, deduplication, cooldowns, cadence, tunnelling, and pool
 | `Combat/ProjectilePool.cs` | Fixed-size pool, filled once. Drives every projectile from one Update, and steals the oldest shot rather than dropping a new one if it is ever exhausted. |
 | `Combat/RangedController.cs` | Hold-to-fire. The cadence carries its own remainder so it cannot drift, and it drops fire the frame the coordinator revokes its claim. |
 | `Combat/RangedPresentation.cs` | Muzzle flash, recoil kick, impact marks, generated audio. Downstream of the controller and the pool; removing it changes no cadence, aim, or damage. |
-| `Combat/PlaceholderAudio.cs` | Generates the POC's combat cues, seeded by name so they are identical on every run. Shared by both attack presentations. |
+| `Combat/PlaceholderAudio.cs` | Generates the POC's combat cues, seeded by name so they are identical on every run. Shared by all three presentations. |
+| `Combat/IDamageMitigator.cs` | First refusal on a hit before it reaches `Health`. The seam the shield uses, so no attack in the game needs to know shields exist. |
+| `Combat/ShieldArc.cs` | Pure horizontal arc test. A hit with no known source is unshieldable by design, which is what stops the shield becoming omnidirectional by accident. |
+| `Combat/ShieldController.cs` | Lowered, raised, broken, recovering. Owns stability, regeneration, the break lockout, the movement penalty, and shield facing — which starts from combat facing and afterwards answers only to aim. |
+| `Combat/ShieldPresentation.cs` | Procedural band spanning the true arc, height driven by stability, a burst on break, and a ring that fills across the lockout. Shape and behaviour, not colour. |
+| `Combat/DodgeController.cs` | The dodge burst. Displacement is a schedule of total distance on a quadratic ease-out, moved through `CharacterController` so walls and corners stop it without this code knowing they exist. Owns the invulnerability window, the cooldown, the input buffer, and the one rule that outranks it — a melee swing already dealing damage. |
+| `Combat/DodgePresentation.cs` | Squash pose on the avatar, a ground streak drawn along the path the burst actually took, and generated audio. Downstream of the controller; removing it changes no distance, timing, or invulnerability. |
 | `Combat/TargetDummy.cs` | Practice target: hit flash, pooled impact marker, automatic revive. |
 | `Equipment/EquipmentSlot.cs`, `EquipmentModule.cs`, `ModularAvatar.cs` | Visual equipment swapping by stable data ID, with the default loadout baked into the prefab. |
 | `Equipment/AvatarSocketRegistry.cs` | Serialized socket lookup by `AvatarSocketId`. Nothing searches the hierarchy at runtime. |
@@ -139,13 +208,13 @@ Everything generated is reproducible from one menu item:
 |---|---|
 | `VaultbreakersProjectSetup.cs` | Menu/batch entry points, step order, folder creation. |
 | `VaultbreakersSetupPaths.cs` | Every generated asset path, the default loadout, and the required socket list. |
-| `VaultbreakersDataSetup.cs` | Creates `PrototypeBalance.asset` if it is missing. Deliberately never overwrites it: the values in it are playtest results. |
+| `VaultbreakersDataSetup.cs` | Creates `PrototypeBalance.asset` if it is missing, and re-serialises it otherwise so fields added by a later phase actually appear in the file. It never changes a value: the values in it are playtest results. |
 | `VaultbreakersProjectileBuilder.cs` | Builds `PF_PlayerProjectile`. Contributes a component, a layer, and a tracer silhouette — no collider, because the projectile sweeps its own path. |
 | `VaultbreakersPhysicsSetup.cs` | Layer names and the collision matrix, declared as an allow-list in code. |
-| `VaultbreakersRenderSetup.cs` | 3D Universal Renderer, URP asset, quality levels, colour space, graybox materials. |
+| `VaultbreakersRenderSetup.cs` | 3D Universal Renderer, URP asset, quality levels, colour space, and every material. Opaque or transparent follows from the base colour's alpha, because setting an alpha on an opaque URP material silently does nothing. |
 | `VaultbreakersAvatarBuilder.cs` | FBX import contract, module grouping from exported names, socket binding, prefab assembly. |
-| `VaultbreakersSceneBuilder.cs` | Both scenes and the build-settings list. |
-| `VaultbreakersSetupValidation.cs` | Post-build gate: pipeline, layers, input maps, prefab components, module swaps, socket placement, materials. |
+| `VaultbreakersSceneBuilder.cs` | All three scenes and the build-settings list. |
+| `VaultbreakersSetupValidation.cs` | Post-build gate: pipeline, layers, input maps, balance asset, projectile prefab, player prefab components, tuning actually taken from the balance asset, module swaps, socket placement, materials. |
 | `VaultbreakersPreviewCapture.cs` | Documentation screenshots. Needs a real graphics device and refuses to run without one. |
 
 ### Generated assets
@@ -157,13 +226,16 @@ Everything generated is reproducible from one menu item:
 - `Data/Balance/PrototypeBalance.asset` — the single tuning asset. `PlayerMotor`, `PlayerFacing`, and
   `MeleeController` copy from it at configure time; their serialized fields are fallbacks for bare
   test scenes, never a second source of truth.
-- `Art/Materials/VB_*.mat` — thirteen URP Lit graybox, character, and effect materials.
+- `Art/Materials/VB_*.mat` — sixteen URP Lit graybox, character, and effect materials. All opaque
+  except `VB_ShieldArc` and `VB_DodgeStreak`, which are translucent so neither hides the threat
+  behind it.
 - `Prefabs/Projectiles/PF_PlayerProjectile.prefab` — the pooled player shot and its cyan tracer.
 - `Art/Characters/Player/Vaultbreaker_Modular.fbx` — generated from
   `Tools/Blender/generate_modular_vaultbreaker.py`.
 - `Prefabs/Player/PF_Vaultbreaker_POC.prefab` — the playable avatar: input, controller, motor, facing,
   health, action coordinator, melee controller and presentation, hit-stop, projectile pool, ranged
-  controller and presentation, modular avatar, socket registry.
+  controller and presentation, shield controller and presentation, dodge controller and presentation,
+  modular avatar, socket registry.
 - `Scenes/Prototype/Prototype_Arena.unity` — 20×20 graybox arena, four walls, player start, three spawn
   points, `ZoneRoot`, three target dummies, fixed orthographic isometric camera, lighting.
 - `Scenes/Test/Avatar_Showcase.unity` — turntable bench with the gameplay components stripped from the
@@ -179,18 +251,44 @@ All three scenes are enabled in Build Settings.
 
 **Automated, re-runnable, currently green:**
 
-- **104 EditMode tests** — `Logs/Phase6EditModeResults.xml`
+- **157 EditMode tests** — `Logs/EditModeResults.xml`
   - combat kernel: clamping, invulnerability, death idempotence, death-before-`Damaged` ordering,
     action conflicts, stop transitions, reset;
   - melee geometry: query placement, edge of range, rear rejection, point-blank acceptance, height
     independence, correction inside/outside the cone, the correction cap swept across ±90°, zero
     vectors, knockback direction;
   - melee timing: startup/active/recovery at the authored times, the attack claim taken and released,
-    spam refused, and the swing accepted on the exact frame the cadence allows;
+    spam refused, the next swing allowed on the frame the last one ends, a press queued during
+    recovery firing on the first legal frame, and a stale press expiring instead of firing late;
+  - the responsiveness rules themselves, asserted against `PrototypeBalance`: the melee cadence equals
+    the swing, the input buffer is shorter than the cadence, a break costs one wait and returns a
+    shield worth more than a single hit, and a projectile crosses the arena in comfortably less time
+    than the gap between shots;
   - ranged cadence: four shots in the first second, no drift across ten seconds, a tap is one shot, a
     released trigger banks nothing, and shield, dodge, and death each stop fire and let it resume;
-  - `PrototypeBalance` ships the documented starting values, and both attack controllers are shown to
-    read the asset rather than their own fallbacks by tuning the asset away from the defaults;
+  - shield arc at every boundary the plan names: dead centre, the exact edge, half a degree past it,
+    directly behind, the wrap through north, a purely vertical offset, a source standing on the
+    defender, a shield with no facing, and a hit with no known source;
+  - shield state: raise and lower claim and release the action, a frontal hit costs stability and no
+    health while a rear hit does the reverse, a hit larger than the remaining stability is still
+    blocked in full, the break locks out for five seconds without regenerating and then refills before
+    it can be raised again, recovery never appears to go backwards, regeneration is faster lowered
+    than raised, raising applies the movement penalty without touching the authored speed, melee and
+    dodge both drop it, death drops a raised shield but does not repair a broken one, reviving
+    restores a whole one, and an invulnerable player spends no stability;
+  - dodge: the burst covers the authored distance exactly and covers the same distance in one huge
+    frame as in twelve small ones, the curve front-loads and is clamped outside its range, the
+    direction is committed at input and does not bend when the body turns, invulnerability begins on
+    the frame the dodge does and ends with it, a dodge takes no damage during its window and is
+    hittable again immediately after, invulnerability the dodge did not own is restored rather than
+    cleared, the cooldown is refused a frame early and allowed on the exact frame it ends, three
+    seconds of mashing gives exactly three dodges and a held button gives one, an early press is
+    buffered and a stale one expires, the claim is taken and released, a raised shield drops on the
+    same frame, a swing in startup is cancelled but a swing in its active window makes the dodge wait
+    and then fire, a dead player cannot dodge, a cancelled dodge still owes its cooldown, and both
+    death and a health reset leave nothing invulnerable or stuck;
+  - `PrototypeBalance` ships the documented starting values, and all three tuned controllers are shown
+    to read the asset rather than their own fallbacks by tuning the asset away from the defaults;
   - facing and camera-relative movement maths;
   - input asset maps, bindings, keyboard aim composite, single-application of the aim dead zone;
   - physics layers and the full collision matrix, asserted against the design rules rather than the
@@ -198,7 +296,7 @@ All three scenes are enabled in Build Settings.
   - generated foundation: pipeline, import contract, skeleton, sockets, modules, materials, scale,
     handedness, prefab defaults;
   - modular avatar equip/unequip rules and the debug event log.
-- **34 PlayMode tests** — `Logs/Phase6PlayModeResults.xml`
+- **50 PlayMode tests** — `Logs/PlayModeResults.xml`
   - both scenes load; arena geometry, colliders, layers, and markers exist;
   - the camera frames the whole arena at 16:9 within the isometric pitch range;
   - the player cannot be pushed through the east wall;
@@ -213,21 +311,45 @@ All three scenes are enabled in Build Settings.
     shot that hits nothing expires; ten seconds of held fire never changes the pool size or recycles
     under pressure; exhaustion steals the oldest shot rather than dropping a new one; each shot
     follows the facing at the moment it left;
-  - the arena player's own melee and ranged controllers both damage the arena's own practice dummy;
-  - the showcase avatar carries no gameplay, melee, ranged, pool, or timescale components;
+  - a real projectile arriving at a raised shield from the front drains stability and leaves health
+    whole; the same shot from behind does the reverse; a lowered shield blocks nothing; ten frontal
+    blocks break it and the eleventh reaches health;
+  - raising the shield stops an active firing sequence through the real controllers and lowering it
+    lets held fire resume by itself; starting melee drops a raised shield and it returns after the
+    swing; a raised shield slows movement without changing the authored speed;
+  - a dodge is stopped by a wall instead of crossing it, is contained by a corner from the inside,
+    covers its full distance through the character controller when nothing is in the way, drops a
+    raised shield with the button still held and gives back the movement penalty, stops an active
+    firing sequence and lets a held trigger resume by itself afterwards, suspends ordinary movement
+    for its duration and hands it back, and ignores damage for the whole burst and not after it;
+  - the arena player's own melee and ranged controllers both damage the arena's own practice dummy,
+    and its own shield blocks from the front but not from behind;
+  - the showcase avatar carries no gameplay, melee, ranged, pool, shield, dodge, or timescale
+    components;
   - every equipment combination swaps at runtime without losing a socket.
 - **Zero compiler warnings** across all four assemblies.
-- **Windows development build** produces a running executable — `Builds/Vaultbreakers_Phase6/`.
+- **Windows development build** produces a running executable — `Builds/Vaultbreakers_Phase8/`.
 
 **Not verified — needs a human, a controller, or a display:**
 
 - Controller feel: acceleration, stopping, reversal, wall sliding, dead zones. This is the deferred
   Phase 3 checkpoint and is the highest-value next validation.
-- Melee feel: whether the 0.06 s startup reads as immediate, whether the 0.4 s cadence is satisfying,
+- Melee feel: whether the 0.06 s startup reads as immediate, whether the 0.3 s cadence is satisfying,
   whether the arc and hit-stop make contact legible, and whether misses are understandable. This is
   the Phase 5 exit gate and no test can answer it.
 - Ranged feel and readability: whether holding fire is pleasant for a minute, and whether the tracer,
   flash, and impact marks stay readable at the far side of the arena. This is the Phase 6 exit gate.
+- Shield readability and the cost of a break: whether the band's direction is obvious at gameplay
+  camera distance, whether a break is unmistakable, and whether 2.5 seconds is the right punish. This
+  is the Phase 7 exit gate.
+- Dodge feel: whether three units is far enough to escape, whether 0.2 seconds reads as a burst, and
+  whether a one second cooldown makes it a decision. This is most of the Phase 7 gate's sibling for
+  Phase 8; the mechanical half is fully tested.
+- Whether the dodge solves a different problem from the shield. This is the one Phase 8 gate item that
+  a controller session cannot close either, because it is a comparison between two answers to a threat
+  and there are no threats yet. It carries into Phase 9.
+- Whether the fire-versus-defence exclusion is a useful choice rather than a frustration. This is
+  plan Checkpoint B, and Phase 7 is the first point at which it can be asked at all.
 - Frame-rate behaviour under sustained fire. The pool is proven not to grow, which is the allocation
   half of the Phase 6 gate; the 60 FPS half needs a profiler on a real display.
 - Placeholder audio. Every cue is generated at runtime; every automated run so far used
@@ -372,7 +494,8 @@ ground is not re-covered.
 
 1. **A projectile has no rigidbody and no collider.** Each step sweeps a sphere from where it was to
    where it is going. That is what makes tunnelling and double-hits *impossible* rather than merely
-   unlikely at 20 units/sec, and it removes the need for continuous collision detection, trigger
+   unlikely at any speed the game can reach, and it removes the need for continuous collision
+   detection, trigger
    callbacks, or a physics body per shot. The collision matrix still describes the projectile layers
    correctly for anything later that does want to collide with them.
 2. **The pool drives every projectile from one Update.** Thirty-two shots in flight cost one call, not
@@ -400,21 +523,159 @@ ground is not re-covered.
 
 ---
 
-## 9. Immediate next steps
+## 9. Phase 7 pass of 2026-08-02
 
-1. **Run the deferred Phase 3, 5 and 6 feel checkpoints together.** Two minutes of movement, a few
-   minutes of swinging, and a minute of held fire, with a real gamepad on a real display. All three
-   gates are about feel and none can be answered by the test suites.
-2. **Commit this baseline.** The entire foundation is still uncommitted on top of the initial
-   check-in. Suggested slicing: foundation and setup tooling, input, locomotion, combat kernel,
-   cleanup pass, balance asset, melee slice, ranged slice.
-3. **Start Phase 7 (directional shield)** per `Docs/COMBAT_POC_PLAN.md` section 6. This is the phase
-   that makes the other two verbs a choice: the coordinator rules, the shield socket and anchor, and
-   the source-aware `DamageInfo` the arc maths needs are all already in place and already exercised.
+### What was built
+
+- `IDamageMitigator`, `ShieldArc`, `ShieldController`, and `ShieldPresentation`, plus the
+  `VB_ShieldArc` and `VB_ShieldMarker` materials and transparency support in the material generator.
+- `PlayerMotor.SpeedMultiplier`, so the raised shield slows the player without editing the tuned speed.
+- `DamageInfo.StabilityDamage` and `DamageResult.Blocked`.
+- Directed-hit buttons on the debug overlay — front, rear, heavy, and break — because nothing in the
+  arena attacks the player, so without them the exit gate could not be checked by hand at all.
+
+### Decisions worth knowing
+
+1. **Blocking is a mitigator on `Health`, not an interception.** Every attack in the game still calls
+   `ReceiveDamage` and none of them know shields exist. That is why the shield already works against
+   melee, against projectiles, and against the debug buttons without any of them being told about it —
+   and why enemy attacks in Phase 9 will be blockable the day they are written.
+2. **A hit with no known source is unshieldable.** Guessing a direction would hand the player an
+   accidental omnidirectional block, which the plan names as a risk for this phase.
+3. **A hit larger than the remaining stability is still blocked in full.** The cost of coming up short
+   is the break, not leaked damage; letting part of a hit through would make the moment of breaking
+   impossible to read.
+4. ~~**A broken shield cannot be raised until it is whole again**~~ — **superseded the same day by
+   the arcade feel pass in section 10.** It was implemented as five seconds locked out and then
+   refilling before it could be used, roughly thirteen seconds in total, on the reasoning that a
+   shield raisable at three stability would be unpredictable. It was flagged in this section as the
+   most likely thing to need tuning, and it was: the wait now *is* the lockout, the shield refills
+   during it, and a break costs 2.5 seconds.
+5. **The band never lies about coverage.** It always spans the true arc; stability changes its
+   *height*, not its width, and it stutters below a third. State is readable in grayscale.
+
+### Bugs fixed
+
+1. **A hit landing exactly on the edge of the arc did not block.** Rotating a direction and measuring
+   the angle back out lands a hair either side of the authored value, so a hit placed at exactly 60
+   degrees off a 120-degree arc blocked or not depending on float representation. `ShieldArc` now
+   carries a hundredth of a degree of tolerance — under a millimetre at melee range. Found by the
+   boundary test the plan asks for, which is the reason it asks for it.
+2. **Ten uses of `?.` on `UnityEngine.Object` fields**, across the melee, ranged, and shield
+   controllers. The null-conditional operator skips Unity's lifetime check, so a destroyed
+   coordinator, motor, or pool reads as alive and throws on the call. This is the same bug class the
+   2026-08-02 cleanup pass fixed in `PlayerFacing`, `TargetDummy`, and `CombatDebugOverlay`, and it had
+   crept straight back in. All replaced with explicit `!= null` checks.
+3. **The shield band was built from an Awake-order-dependent value.** `ShieldPresentation` read the
+   controller's arc in `Awake`, which is only correct because the controller happens to be added to
+   the prefab first. Moved to `Start`, where every `Awake` has run. It would have drawn an arc of the
+   wrong width the moment component order changed.
+4. **The generated band mesh leaked.** Runtime-created meshes are not collected with the object that
+   holds them; it is now destroyed with the component.
 
 ---
 
-## 10. How to reproduce every check
+## 10. Arcade feel pass of 2026-08-02
+
+Run after the project was confirmed to be **reactive and arcade**, against the items Phase 5 to 7 had
+flagged as needing a human. Every change here is tuning or responsiveness; no system was added.
+
+### Changes
+
+1. **A break now costs the lockout and nothing after it.** Stability refills during the lockout, so
+   the shield returns usable at about 30 — three light hits — instead of being unusable until full.
+   The lockout dropped from 5 s to 2.5 s. Total downtime went from roughly thirteen seconds to two and
+   a half. This reverses a decision recorded in `IMPLEMENTATION_NOTES.md`, which is updated with why.
+2. **Melee buffers an early press.** A press during recovery or the tail of the cooldown is remembered
+   for 0.15 s and fires on the first legal frame. Without it, mashing produced *fewer* swings than
+   metronomic timing — punishing exactly the player an arcade game should reward.
+3. **The melee cadence now equals the authored swing** (0.4 s to 0.3 s). The old cadence left a 0.1 s
+   window where the swing was over, nothing was happening, and input was still refused: the classic
+   shape of "it ate my press".
+4. **Projectiles travel at 32 units/sec instead of 20.** A shot used to take half a second to reach
+   something ten units away, which is longer than the gap between shots and reads as disconnected from
+   the trigger.
+
+The rules these follow from are now written into `COMBAT_POC_PLAN.md` section 4 as project-wide
+responsiveness rules, and four of them are asserted by EditMode tests against `PrototypeBalance`, so a
+later retune cannot quietly undo them.
+
+### Bug fixed
+
+- **The balance asset was silently incomplete.** `EnsureBalanceAsset` returned early whenever the file
+  existed, to protect playtest results — which also meant fields added by later phases were never
+  written to it. After Phase 7 the asset on disk still held only the Phase 3 to 5 values, and every
+  ranged and shield value was falling back to a C# default where nobody could find or tune it in the
+  Inspector. The tool now always re-serialises the asset: existing values are preserved exactly and
+  new fields appear at their defaults. It still never changes a value.
+
+---
+
+## 11. Phase 8 pass of 2026-08-03
+
+### What was built
+
+- `DodgeController` and `DodgePresentation`, plus the `VB_DodgeStreak` material and the dodge section
+  of `PrototypeBalance`.
+- `PlayerMotor.SetMovementSuspended`, so the dodge can own horizontal displacement outright for the
+  length of the burst without touching the tuned speed or the shield's separate multiplier.
+- A dodge line on the combat overlay carrying the cooldown, the distance actually travelled, and the
+  invulnerability window — the last of which nothing else could show.
+
+### Decisions worth knowing
+
+1. **Collision safety is `CharacterController`, not a distance check.** The dodge never inspects
+   geometry; it asks the controller to move each step of its schedule and lets it resolve walls,
+   corners, and bodies. "Never crosses an arena wall" is therefore true by construction rather than by
+   a straight-line test a corner could defeat, and the reported distance is what happened rather than
+   what was asked for.
+2. **The displacement curve is a schedule of total distance, not a speed.** That is what makes three
+   units exact at any frame rate and stops a long frame from overshooting. It is a quadratic ease-out,
+   so the burst is fastest on the frame the button is pressed.
+3. **The dodge does not interrupt melee active frames**, which is the plan's own stated default for
+   task 6. Startup and recovery are both interruptible. Because refusing a press outright would break
+   the project's responsiveness rules, the press is buffered across the 0.08 second window and fires
+   the moment it closes. The rule lives in the dodge controller rather than in the coordinator, which
+   deliberately owns no timing.
+4. **Invulnerability is restored, not cleared.** `Health.SetInvulnerable` is a flag with no notion of
+   ownership and Phase 11's debug panel is specified to hold it too, so the dodge puts back whatever
+   it found. Without this a dodge taken with debug invulnerability on would silently switch it off.
+5. **Combat facing is not forced to the dodge direction.** Rolling away from a threat while still
+   aiming at it is the point of having independent aim.
+6. **`SpeedMultiplier` and `IsMovementSuspended` are separate seams with separate owners** — the
+   shield writes one, the dodge the other. Briefly they were the same field, and the shield's `Lower()`
+   would have reset the dodge's value on the frame after a dodge cancelled a raised guard.
+
+### Bug fixed while integrating
+
+- **`ModularAvatar` used `?.` on an `EquipmentModule`.** The null-conditional operator skips Unity's
+  lifetime check, so a destroyed module reads as alive and throws when the call lands. This is the
+  same bug class the 2026-08-02 cleanup pass fixed in `PlayerFacing`, `TargetDummy` and
+  `CombatDebugOverlay`, and the Phase 7 pass fixed ten more of in the three combat controllers — this
+  one instance had been missed both times. The other three loops in the same file already used
+  explicit checks, so it was inconsistent with its own neighbours as well as with the project rule.
+
+## 12. Immediate next steps
+
+1. **Run the deferred feel checkpoints, and Checkpoint B with them.** Movement, swinging, held fire,
+   the shield, and now the dodge, with a real gamepad on a real display. Five exit gates and one
+   decision checkpoint are waiting on the same session, and none of them can be answered by the test
+   suites. The whole player kit is complete for the first time, so this session can now be run once
+   rather than repeated per verb — which makes it, by some distance, the highest-value thing left.
+2. **Commit this baseline.** The entire foundation is still uncommitted on top of the initial
+   check-in. Suggested slicing: foundation and setup tooling, input, locomotion, combat kernel,
+   cleanup pass, balance asset, melee slice, ranged slice, shield slice, dodge slice.
+3. **Decide the enemy projectile question before starting Phase 9.** The pool is player-only today.
+   Enemy projectiles need either a second pool or a small generalisation, and that is much cheaper to
+   choose deliberately now than to discover halfway through the largest phase in the plan.
+4. **Start Phase 9 (enemy teaching set)** per `Docs/COMBAT_POC_PLAN.md` section 6. It is the largest
+   remaining phase — roughly Phases 5, 6 and 7 combined — but the kit it has to be designed against is
+   now finished and tested, and enemy attacks will be blockable and dodgeable the day they are
+   written, because neither the shield nor the dodge needs to know what hit the player.
+
+---
+
+## 13. How to reproduce every check
 
 ```powershell
 # Regenerate every generated asset and self-validate
@@ -436,7 +697,7 @@ ground is not re-covered.
 # Windows development build
 & 'D:\Unity\Hub\6000.4.4f1\Editor\Unity.exe' -batchmode -nographics -quit `
   -projectPath 'D:\Unity\Projects\VaultBreakers' `
-  -buildWindows64Player 'Builds\Vaultbreakers_Phase6\Vaultbreakers.exe' -development `
+  -buildWindows64Player 'Builds\Vaultbreakers_Phase8\Vaultbreakers.exe' -development `
   -logFile 'Logs\build.log'
 ```
 
@@ -449,7 +710,7 @@ Rebuilding the avatar from Blender first:
 
 ---
 
-## 11. Package baseline
+## 14. Package baseline
 
 | Package | Version |
 |---|---|

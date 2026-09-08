@@ -1,6 +1,6 @@
 ﻿<Solution>
   <Project Path="Vaultbreakers.Editor.csproj" />
+  <Project Path="Vaultbreakers.Tests.EditMode.csproj" />
   <Project Path="Vaultbreakers.Runtime.csproj" />
   <Project Path="Vaultbreakers.Tests.PlayMode.csproj" />
-  <Project Path="Vaultbreakers.Tests.EditMode.csproj" />
 </Solution>

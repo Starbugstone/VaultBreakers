@@ -131,6 +131,23 @@ namespace Vaultbreakers.Combat
             }
         }
 
+        /// <summary>
+        /// Mirrors the shield's broken state into the conflict rules, which already refuse to raise a
+        /// broken shield. The shield controller owns the timing; this is only the flag other systems
+        /// and the debug overlay read.
+        /// </summary>
+        public void SetShieldBroken(bool broken)
+        {
+            if (broken)
+            {
+                State |= PlayerActionState.ShieldBroken;
+            }
+            else
+            {
+                State &= ~PlayerActionState.ShieldBroken;
+            }
+        }
+
         public void ResetState()
         {
             meleeActive = false;

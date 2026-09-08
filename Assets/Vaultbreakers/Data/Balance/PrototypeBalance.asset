@@ -20,7 +20,8 @@ MonoBehaviour:
   visualTurnSpeed: 900
   playerMaximumHealth: 100
   meleeDamage: 10
-  meleeCooldown: 0.4
+  meleeCooldown: 0.3
+  meleeInputBuffer: 0.15
   meleeRange: 2.5
   meleeRadius: 1.5
   meleeAttackHeight: 1
@@ -29,4 +30,23 @@ MonoBehaviour:
   meleeStartupDuration: 0.06
   meleeActiveDuration: 0.08
   meleeRecoveryDuration: 0.16
+  projectileDamage: 8
+  projectileSpeed: 32
+  fireCooldown: 0.3
+  projectileLifetime: 1.5
+  projectileRadius: 0.12
+  projectilePoolSize: 32
+  shieldStability: 100
+  shieldArc: 120
+  lightStabilityDamage: 10
+  heavyStabilityDamage: 30
+  loweredStabilityRegeneration: 12
+  raisedStabilityRegeneration: 4
+  shieldBreakLockout: 2.5
+  shieldMoveMultiplier: 0.85
+  dodgeDistance: 3
+  dodgeDuration: 0.2
+  dodgeCooldown: 1
+  dodgeInvulnerability: 0.2
+  dodgeInputBuffer: 0.15
   hitStopDuration: 0.05

@@ -184,8 +184,9 @@ namespace Vaultbreakers.Tests.PlayMode
                 melee.Tick(1f / 60f);
             }
 
-            Assert.That(swings, Is.EqualTo(3), "A 0.4 second cadence allows three swings in one second.");
-            Assert.That(target.CurrentHealth, Is.EqualTo(20f));
+            Assert.That(swings, Is.EqualTo(4),
+                "The cadence equals the 0.3 second swing, so mashing yields four swings in a second and no more.");
+            Assert.That(target.CurrentHealth, Is.EqualTo(10f));
         }
 
         [UnityTest]

@@ -16,22 +16,30 @@ namespace Vaultbreakers.Debugging
         [SerializeField] private PlayerActionCoordinator actions;
         [SerializeField] private MeleeController melee;
         [SerializeField] private RangedController ranged;
+        [SerializeField] private ShieldController shield;
+        [SerializeField] private DodgeController dodge;
 
         private readonly HealthLogger playerLogger = new("Player");
         private readonly HealthLogger dummyLogger = new("Dummy");
+
+        private ShieldController subscribedShield;
 
         public void Configure(
             Health player,
             Health dummy,
             PlayerActionCoordinator coordinator,
             MeleeController meleeController,
-            RangedController rangedController)
+            RangedController rangedController,
+            ShieldController shieldController,
+            DodgeController dodgeController)
         {
             playerHealth = player;
             dummyHealth = dummy;
             actions = coordinator;
             melee = meleeController;
             ranged = rangedController;
+            shield = shieldController;
+            dodge = dodgeController;
 
             if (isActiveAndEnabled)
             {
@@ -45,13 +53,54 @@ namespace Vaultbreakers.Debugging
         {
             playerLogger.Detach();
             dummyLogger.Detach();
+            DetachShield();
         }
 
         private void Resubscribe()
         {
             playerLogger.Attach(playerHealth);
             dummyLogger.Attach(dummyHealth);
+            AttachShield();
         }
+
+        /// <summary>
+        /// A blocked hit never reaches Health, so it raises no Damaged event and would otherwise be
+        /// invisible in the log — exactly the case a tester most needs to see confirmed.
+        /// </summary>
+        private void AttachShield()
+        {
+            if (ReferenceEquals(subscribedShield, shield))
+            {
+                return;
+            }
+
+            DetachShield();
+            if (shield == null)
+            {
+                return;
+            }
+
+            subscribedShield = shield;
+            subscribedShield.Blocked += OnShieldBlocked;
+            subscribedShield.StateChanged += OnShieldStateChanged;
+        }
+
+        private void DetachShield()
+        {
+            if (subscribedShield != null)
+            {
+                subscribedShield.Blocked -= OnShieldBlocked;
+                subscribedShield.StateChanged -= OnShieldStateChanged;
+            }
+
+            subscribedShield = null;
+        }
+
+        private static void OnShieldBlocked(DamageInfo damage, float stabilityRemaining) =>
+            CombatEventLog.Record($"Shield blocked {damage.Amount:0.#} (stability {stabilityRemaining:0})");
+
+        private static void OnShieldStateChanged(ShieldState state) =>
+            CombatEventLog.Record("Shield " + state);
 
         private void OnGUI()
         {
@@ -60,13 +109,15 @@ namespace Vaultbreakers.Debugging
                 return;
             }
 
-            GUILayout.BeginArea(new Rect(16f, 190f, 430f, 370f), GUI.skin.box);
+            GUILayout.BeginArea(new Rect(16f, 190f, 430f, 465f), GUI.skin.box);
             GUILayout.Label("COMBAT KERNEL (development)");
             GUILayout.Label($"Player: {Format(playerHealth)}   Dummy: {Format(dummyHealth)}");
             GUILayout.Label("Action state: " + (actions != null ? actions.State.ToString() : "Unavailable"));
             GUILayout.Label("Melee: " + FormatMelee());
             GUILayout.Label("Ranged: " + FormatRanged());
             GUILayout.Label("Projectiles: " + FormatPool());
+            GUILayout.Label("Shield: " + FormatShield());
+            GUILayout.Label("Dodge: " + FormatDodge());
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Damage dummy 10"))
@@ -81,10 +132,35 @@ namespace Vaultbreakers.Debugging
 
             GUILayout.EndHorizontal();
 
+            // Nothing in the arena attacks the player yet, so the shield can only be judged with
+            // directed hits. These four are what make the Phase 7 exit gate checkable by hand.
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Hit player: front"))
+            {
+                HitPlayerFrom(ShieldFacingOrForward, 10f, 0f);
+            }
+
+            if (GUILayout.Button("Hit player: rear"))
+            {
+                HitPlayerFrom(-ShieldFacingOrForward, 10f, 0f);
+            }
+
+            if (GUILayout.Button("Heavy: front"))
+            {
+                HitPlayerFrom(ShieldFacingOrForward, 20f, 30f);
+            }
+
+            GUILayout.EndHorizontal();
+
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Damage player 10"))
             {
                 Damage(playerHealth, 10f, dummyHealth);
+            }
+
+            if (GUILayout.Button("Break shield") && shield != null)
+            {
+                shield.Break();
             }
 
             if (GUILayout.Button("Reset both"))
@@ -102,6 +178,24 @@ namespace Vaultbreakers.Debugging
             }
 
             GUILayout.EndArea();
+        }
+
+        private Vector3 ShieldFacingOrForward =>
+            shield != null ? shield.ShieldFacing : Vector3.forward;
+
+        /// <summary>
+        /// Fires a hit at the player from a chosen direction, four metres out, so the arc test gets a
+        /// real source position rather than an attacker that happens to stand somewhere.
+        /// </summary>
+        private void HitPlayerFrom(Vector3 direction, float amount, float stabilityDamage)
+        {
+            if (playerHealth == null)
+            {
+                return;
+            }
+
+            var origin = playerHealth.transform.position + direction.normalized * 4f;
+            playerHealth.ReceiveDamage(new DamageInfo(amount, origin, null, Vector3.zero, stabilityDamage));
         }
 
         private static void Damage(Health target, float amount, Health source)
@@ -130,7 +224,34 @@ namespace Vaultbreakers.Debugging
             {
                 actions.ResetState();
             }
+
+            if (shield != null)
+            {
+                shield.ResetShield();
+            }
+
+            if (dodge != null)
+            {
+                dodge.ResetDodge();
+            }
         }
+
+        /// <summary>
+        /// The invulnerability window is the half of the dodge nothing else can show: it is the
+        /// difference between a dodge that worked and one that only looked like it did.
+        /// </summary>
+        private string FormatDodge() =>
+            dodge == null
+                ? "Unavailable"
+                : $"{(dodge.IsDodging ? $"dodging {dodge.Progress * 100f:0}%" : dodge.IsReady ? "ready" : "not ready")}" +
+                  $"   cooldown {dodge.CooldownRemaining:0.00}s   travelled {dodge.DistanceTravelled:0.00}" +
+                  (dodge.IsInvulnerableFromDodge ? "   INVULNERABLE" : string.Empty);
+
+        private string FormatShield() =>
+            shield == null
+                ? "Unavailable"
+                : $"{shield.State}   stability {shield.Stability:0}/{shield.MaximumStability:0}" +
+                  (shield.IsUnavailable ? $"   back in {(1f - shield.RecoveryProgress) * 100f:0}%" : string.Empty);
 
         private string FormatRanged() =>
             ranged == null

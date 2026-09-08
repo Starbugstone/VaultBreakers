@@ -211,6 +211,26 @@ namespace Vaultbreakers.Editor
                 VaultbreakersRenderSetup.LoadMaterial("VB_ProjectileCore"),
                 0.22f,
                 0.28f);
+
+            // The camera is resolved at runtime, like the motor's, because shield facing is aimed in
+            // camera-relative space.
+            var shield = prefabRoot.AddComponent<ShieldController>();
+            shield.Configure(balance, inputReader, coordinator, facing, motor, health, null);
+            prefabRoot.AddComponent<ShieldPresentation>().Configure(
+                shield,
+                VaultbreakersRenderSetup.LoadMaterial("VB_ShieldArc"),
+                VaultbreakersRenderSetup.LoadMaterial("VB_ShieldMarker"),
+                0.15f);
+
+            // The dodge is given the melee controller because it refuses to interrupt a swing that is
+            // already dealing damage, which is a question only the melee phase can answer.
+            var dodge = prefabRoot.AddComponent<DodgeController>();
+            dodge.Configure(balance, inputReader, coordinator, facing, motor, health, melee);
+            prefabRoot.AddComponent<DodgePresentation>().Configure(
+                dodge,
+                modelRoot,
+                VaultbreakersRenderSetup.LoadMaterial("VB_DodgeStreak"),
+                0.04f);
         }
 
         /// <summary>

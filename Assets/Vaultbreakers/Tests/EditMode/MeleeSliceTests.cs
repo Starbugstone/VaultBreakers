@@ -211,24 +211,68 @@ namespace Vaultbreakers.Tests.EditMode
             Assert.That(actions.TryStart(PlayerAction.Shield), Is.True);
         }
 
+        /// <summary>
+        /// The cadence is set equal to the authored swing, so a swing flows straight into the next
+        /// one. A cooldown longer than the swing would leave a window where the game is visibly idle
+        /// and still refusing input, which is the classic source of "it ate my press".
+        /// </summary>
         [Test]
-        public void Cooldown_RejectsSpamAndAcceptsTheSwingOnTheExactReadyFrame()
+        public void Cooldown_RejectsSpamAndLetsTheNextSwingFollowImmediately()
         {
             Assert.That(melee.TryStartSwing(), Is.True);
             Assert.That(melee.TryStartSwing(), Is.False, "A second swing during startup must be refused.");
 
             melee.Tick(0.06f);
+            Assert.That(melee.TryStartSwing(), Is.False, "Nor during the active window.");
+
             melee.Tick(0.08f);
+            Assert.That(melee.TryStartSwing(), Is.False, "Nor during recovery.");
+
             melee.Tick(0.16f);
             Assert.That(melee.Phase, Is.EqualTo(MeleePhase.Ready));
-            Assert.That(melee.TryStartSwing(), Is.False, "The cooldown outlasts the swing, so recovery alone is not ready.");
-
-            melee.Tick(0.09f);
-            Assert.That(melee.TryStartSwing(), Is.False);
-
-            melee.Tick(0.01f);
             Assert.That(melee.CooldownRemaining, Is.EqualTo(0f).Within(0.001f));
-            Assert.That(melee.TryStartSwing(), Is.True, "The swing must be accepted on the frame the cadence allows it.");
+            Assert.That(melee.TryStartSwing(), Is.True, "The swing ends and the next one may start on that frame.");
+        }
+
+        /// <summary>
+        /// The reactivity rule: a press during recovery is remembered, not discarded. Without this,
+        /// mashing produces fewer swings than pressing in perfect rhythm, which is the opposite of
+        /// how an arcade game should reward a player.
+        /// </summary>
+        [Test]
+        public void BufferedPress_FiresOnTheFirstFrameTheSwingBecomesLegal()
+        {
+            Assert.That(melee.TryStartSwing(), Is.True);
+            melee.Tick(0.06f);
+            melee.Tick(0.08f);
+
+            // Pressed midway through recovery, well before another swing is allowed.
+            melee.BufferSwing();
+            melee.Tick(0.08f);
+            Assert.That(melee.Phase, Is.EqualTo(MeleePhase.Recovery), "Still recovering, so nothing has started yet.");
+
+            melee.Tick(0.08f);
+            Assert.That(melee.Phase, Is.EqualTo(MeleePhase.Startup), "The queued press must fire the moment it can.");
+        }
+
+        /// <summary>
+        /// The buffer forgives a press made slightly too early, not one made a swing and a half ago.
+        /// Without an expiry it would be a queue, and the player would watch swings they no longer
+        /// want play out after they stopped pressing.
+        /// </summary>
+        [Test]
+        public void BufferedPress_ExpiresWhenTheSwingStaysIllegalForLongerThanTheWindow()
+        {
+            Assert.That(melee.TryStartSwing(), Is.True);
+            melee.BufferSwing();
+
+            // 0.2 seconds of the press being refused, against a 0.15 second window.
+            melee.Tick(0.1f);
+            melee.Tick(0.1f);
+            melee.Tick(0.1f);
+
+            Assert.That(melee.Phase, Is.EqualTo(MeleePhase.Ready),
+                "The first swing has ended and the stale press must not have started another.");
         }
 
         [Test]
@@ -272,12 +316,16 @@ namespace Vaultbreakers.Tests.EditMode
                 Assert.That(balance.AimDeadZone, Is.EqualTo(0.25f));
                 Assert.That(balance.PlayerMaximumHealth, Is.EqualTo(100f));
                 Assert.That(balance.MeleeDamage, Is.EqualTo(10f));
-                Assert.That(balance.MeleeCooldown, Is.EqualTo(0.4f));
                 Assert.That(balance.MeleeRange, Is.EqualTo(2.5f));
                 Assert.That(balance.MeleeRadius, Is.EqualTo(1.5f));
                 Assert.That(balance.MeleeTargetCorrection, Is.EqualTo(15f));
-                Assert.That(balance.MeleeSwingDuration, Is.LessThanOrEqualTo(balance.MeleeCooldown),
-                    "A swing that outlasts its own cooldown would make the cadence unreachable.");
+                Assert.That(balance.MeleeSwingDuration, Is.EqualTo(balance.MeleeCooldown).Within(0.0001f),
+                    "The cadence is deliberately the swing length: any longer and there is a window " +
+                    "where the game is idle and still refusing input.");
+                Assert.That(balance.MeleeInputBuffer, Is.GreaterThan(0f),
+                    "A press made slightly early must be forgiven, or mashing loses to metronomic timing.");
+                Assert.That(balance.MeleeInputBuffer, Is.LessThan(balance.MeleeCooldown),
+                    "The buffer forgives an early press; it must not queue a whole extra swing.");
             }
             finally
             {

@@ -16,22 +16,39 @@ namespace Vaultbreakers.Combat
         public bool HasSourcePosition { get; }
         public Vector3 Knockback { get; }
 
-        public DamageInfo(float amount, GameObject source = null, Vector3 knockback = default)
+        /// <summary>
+        /// Stability drained from a shield that blocks this hit. Zero means the attack did not declare
+        /// one, which a shield treats as an ordinary light hit; heavy attacks state their own value.
+        /// </summary>
+        public float StabilityDamage { get; }
+
+        public DamageInfo(
+            float amount,
+            GameObject source = null,
+            Vector3 knockback = default,
+            float stabilityDamage = 0f)
         {
             Amount = Mathf.Max(0f, amount);
             Source = source;
             SourcePosition = source != null ? source.transform.position : default;
             HasSourcePosition = source != null;
             Knockback = knockback;
+            StabilityDamage = Mathf.Max(0f, stabilityDamage);
         }
 
-        public DamageInfo(float amount, Vector3 sourcePosition, GameObject source = null, Vector3 knockback = default)
+        public DamageInfo(
+            float amount,
+            Vector3 sourcePosition,
+            GameObject source = null,
+            Vector3 knockback = default,
+            float stabilityDamage = 0f)
         {
             Amount = Mathf.Max(0f, amount);
             Source = source;
             SourcePosition = sourcePosition;
             HasSourcePosition = true;
             Knockback = knockback;
+            StabilityDamage = Mathf.Max(0f, stabilityDamage);
         }
     }
 
@@ -44,12 +61,20 @@ namespace Vaultbreakers.Combat
         public bool WasApplied => AppliedDamage > 0f;
         public bool Killed { get; }
 
-        public DamageResult(float previousHealth, float currentHealth, bool killed)
+        /// <summary>
+        /// True when a mitigator absorbed the hit before it reached health. Distinguishes a shielded
+        /// hit from one that simply missed or landed on an invulnerable body, both of which also
+        /// report no applied damage.
+        /// </summary>
+        public bool Blocked { get; }
+
+        public DamageResult(float previousHealth, float currentHealth, bool killed, bool blocked = false)
         {
             PreviousHealth = previousHealth;
             CurrentHealth = currentHealth;
             AppliedDamage = Mathf.Max(0f, previousHealth - currentHealth);
             Killed = killed;
+            Blocked = blocked;
         }
     }
 }

@@ -166,10 +166,15 @@ namespace Vaultbreakers.Tests.EditMode
             try
             {
                 Assert.That(balance.ProjectileDamage, Is.EqualTo(8f));
-                Assert.That(balance.ProjectileSpeed, Is.EqualTo(20f));
+                Assert.That(balance.ProjectileSpeed, Is.EqualTo(32f));
                 Assert.That(balance.FireCooldown, Is.EqualTo(0.3f));
                 Assert.That(balance.ProjectileSpeed * balance.ProjectileLifetime, Is.GreaterThan(28.3f),
                     "A projectile must outlive the arena's corner-to-corner distance.");
+
+                // The whole arena is 20 units across. A shot that takes longer than the time between
+                // shots to cross it stops feeling like a response to the trigger.
+                Assert.That(20f / balance.ProjectileSpeed, Is.LessThan(balance.FireCooldown * 2.5f),
+                    "Shots must arrive while the pull that fired them still feels connected.");
                 Assert.That(balance.ProjectilePoolSize,
                     Is.GreaterThan(Mathf.CeilToInt(balance.ProjectileLifetime / balance.FireCooldown)),
                     "The pool must comfortably outnumber the projectiles the cadence can keep alive.");

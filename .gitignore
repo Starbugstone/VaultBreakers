@@ -20,6 +20,10 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+# Unity metadata created beside local diagnostic logs is also machine output.
+/Assets/Vaultbreakers/Logs/
+/Assets/Vaultbreakers/Logs.meta
+
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be committed to version control.
 *.blend1
 *.blend1.meta

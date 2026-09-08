@@ -36,6 +36,40 @@ namespace Vaultbreakers.Player
         public Vector3 MoveDirection { get; private set; }
         public float MaximumSpeed => maximumSpeed;
 
+        /// <summary>
+        /// Scales top speed without changing the tuning. The raised shield is the only writer today;
+        /// anything else that slows the player should go through here rather than editing the speed,
+        /// so the authored value stays recoverable.
+        /// </summary>
+        public float SpeedMultiplier { get; private set; } = 1f;
+
+        public float EffectiveSpeed => maximumSpeed * SpeedMultiplier;
+
+        public void SetSpeedMultiplier(float value) => SpeedMultiplier = Mathf.Max(0f, value);
+
+        /// <summary>
+        /// True while another system owns horizontal displacement outright. The dodge is the only
+        /// writer: its distance is authored, so ordinary input velocity must not add to the burst or
+        /// the dodge would travel further when the player happened to be running.
+        /// </summary>
+        public bool IsMovementSuspended { get; private set; }
+
+        /// <summary>
+        /// Hands horizontal movement to another system, or takes it back. Gravity and grounding keep
+        /// running either way, so a suspended player still stays on the floor. Suspending clears the
+        /// accumulated velocity rather than storing it: a dodge is a hard change of direction, and
+        /// resuming into the momentum the player had a fifth of a second ago would fight the input
+        /// they are holding now.
+        /// </summary>
+        public void SetMovementSuspended(bool suspended)
+        {
+            IsMovementSuspended = suspended;
+            if (suspended)
+            {
+                planarVelocity = Vector3.zero;
+            }
+        }
+
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
@@ -51,10 +85,20 @@ namespace Vaultbreakers.Player
                 return;
             }
 
+            // Direction is resolved even while suspended, so whatever owns the displacement can read
+            // this frame's intent — the dodge takes its bearing from exactly this value.
             MoveDirection = CameraRelativeDirection(input.Move, cameraTransform);
-            var targetVelocity = MoveDirection * maximumSpeed;
-            var rate = targetVelocity.sqrMagnitude > 0f ? acceleration : deceleration;
-            planarVelocity = Vector3.MoveTowards(planarVelocity, targetVelocity, rate * Time.deltaTime);
+
+            if (IsMovementSuspended)
+            {
+                planarVelocity = Vector3.zero;
+            }
+            else
+            {
+                var targetVelocity = MoveDirection * EffectiveSpeed;
+                var rate = targetVelocity.sqrMagnitude > 0f ? acceleration : deceleration;
+                planarVelocity = Vector3.MoveTowards(planarVelocity, targetVelocity, rate * Time.deltaTime);
+            }
 
             if (controller.isGrounded && verticalVelocity < 0f)
             {
