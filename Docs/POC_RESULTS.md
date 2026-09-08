@@ -35,8 +35,9 @@ The 231 tests cover the deterministic combat rules, action priority/cancellation
 shield aiming, projectile sweep/pooling, enemy attacks and removal, wave counting,
 death/retry resets, repeated runs, pause, controller disconnection, equipment imports,
 dungeon gates/props, camera locking, score reset and one-time reward behavior.
-The last change after the suites only adjusts the opt-in review bot's doorway waypoints;
-it was compiled in the final build and exercised by both successful graphics runs.
+Later changes adjust the opt-in review bot's doorway waypoints and flash stress capture,
+and cap bloom input brightness in the profile and its setup builder. They are validated
+by compilation and the subsequent real-graphics checks; deterministic combat is unchanged.
 
 Actual Windows screenshots:
 
@@ -62,11 +63,11 @@ Screenshots taken at room transitions are inside the journey interval and can st
 
 | Workload | Mean frame ms | P95 ms | Maximum ms | Mean GC bytes/frame |
 |---|---:|---:|---:|---:|
-| 1080p journey | 7.10 | 6.95 | 178.15 | 425 |
-| 720p journey | 7.01 | 6.95 | 83.33 | 423 |
+| 1080p journey | 7.15 | 6.95 | 173.62 | 425 |
+| 720p journey | 7.05 | 6.95 | 97.22 | 425 |
 
 [1080p data](Images/Dock9_1080p/metrics.json), [720p data](Images/Dock9_720p/metrics.json).
-The 30-second Editor mixed-encounter sample (2560 × 1440 Game view) measured mean 6.31 ms, P95 9.27 ms and maximum 76.82 ms, with 11,301 mean / 129,909 maximum GC bytes per frame. See [Editor data](Images/Dock9_Editor/metrics.json). Editor overhead is included. The sustained Windows sample is still being recorded.
+The 30-second Editor mixed-encounter sample (2560 × 1440 Game view) measured mean 6.31 ms, P95 9.27 ms and maximum 76.82 ms, with 11,301 mean / 129,909 maximum GC bytes per frame. See [Editor data](Images/Dock9_Editor/metrics.json). Editor overhead is included; this Editor sample also preceded the final bloom cap. The **600-second 1080p Windows mixed encounter before the final bloom cap** completed with 69,636 sampled frames: mean **8.59 ms**, P95 **13.90 ms**, maximum **97.23 ms**; mean **409 bytes/frame** and maximum **888 bytes/frame** of managed allocation. See [sustained data](Images/Dock9_Soak/metrics.json) and [end-of-run capture](Images/Dock9_Soak/02-combat.png). All seven enemies remained active. No gameplay exception appeared during the run. The final image exposed a large bloom flare: these endurance captures document that defect, not the corrected visual state. `completed: false` is expected in this endurance mode: the encounter is deliberately kept alive.
 
 The sustained workload starts the final mixed encounter and gives its seven enemies
 1,000,000 health so it remains active. Input cycles movement, firing, shield, melee and
@@ -74,6 +75,13 @@ dodge. Two seconds of warm-up are excluded; end screenshots occur after frame sa
 `durationSeconds` includes roughly four seconds of capture/cleanup after the requested
 interval. GC numbers are whole-frame allocations, including input injection, UI and
 engine work; they do not isolate gameplay code or prove zero-allocation updates.
+
+The sustained P95 is below the 16.67 ms frame budget for 60 FPS. The 97.23 ms maximum
+means occasional hitches remain; this is not a claim that every frame met the target.
+Allocations stayed small in this synthetic workload, but an allocation-free gameplay
+claim and memory-leak sign-off would require profiling without injected review input.
+
+The corrected build was measured for **60 seconds at 1080p**: mean **7.37 ms**, P95 **13.89 ms**, maximum **20.84 ms**, with **409 mean / 888 maximum GC bytes/frame**. The capture then triggers all eight pooled impact flashes together. The [overlap capture](Images/Dock9_FlashStress/02-combat.png) keeps the room readable; [raw data](Images/Dock9_FlashStress/metrics.json) records the preceding timed interval. Both journey runs and their screenshots above were repeated with the capped bloom profile. The 600-second run was not repeated after this rendering-only cap; its earlier measurements remain identified separately.
 
 ## Asset costs and reproducibility
 
@@ -103,11 +111,21 @@ python3 Tools/Unity/validate.py Review setup EditMode PlayMode build
 python3 Tools/Unity/review.py journey 1920 1080 Dock9_1080p
 python3 Tools/Unity/review.py journey 1280 720 Dock9_720p
 python3 Tools/Unity/review.py benchmark 1920 1080 Dock9_Soak 600
+python3 Tools/Unity/review.py benchmark 1920 1080 Dock9_FlashStress 60 --poc-stress-flashes
 ```
 
 The review switch is disabled in normal play and compiled only for Editor/development
 builds. Review input/background settings are restored on exit. No gameplay invulnerability
 or inflated enemy health is enabled when launching the build normally.
+
+## Backup verification
+
+Source/art checkpoint `ffdb6aaa93af48e392081ca7f9059e13e56456c7` was pushed to
+GitHub `main`. A separate clone restored **547 tracked files and 50 real Git LFS files**;
+`git lfs pull` and `git lfs fsck` passed. No Blender/FBX/image remained an unresolved
+pointer. The evidence commit adds the sustained-run captures and report; the complete final tree is also fetched and LFS-checked after pushing.
+Generated Unity caches, raw logs and the reproducible Windows build remain local.
+The proprietary root license and third-party notices are included in the restored tree.
 
 ## Remaining acceptance and known limits
 

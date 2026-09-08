@@ -73,6 +73,12 @@ namespace Vaultbreakers.Debugging
             }
             else yield return new WaitForSecondsRealtime(duration);
             review=false;
+            if(Array.IndexOf(args,"--poc-stress-flashes")>=0)
+            {
+                var feedback=GetComponent<ArcadeFeedback>();
+                for(var i=0;i<8;i++)feedback.Burst(zone.Player.transform.position+Vector3.up*(.4f+i*.1f),Color.white,10);
+                yield return null;
+            }
             ScreenCapture.CaptureScreenshot(Path.Combine(output,"02-combat.png"));
             yield return new WaitForSecondsRealtime(1);
             review=false;InputSystem.QueueStateEvent(pad,new GamepadState());

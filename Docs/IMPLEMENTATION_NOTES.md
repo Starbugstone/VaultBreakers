@@ -315,3 +315,11 @@ Material remapping explicitly prefers the shared generated palette, so adjacent 
 materials cannot silently override tuning. Mouse world aim also rotates an already-raised shield;
 a synthetic keyboard/mouse PlayMode test verifies this using an isolated editor focus policy.
 The opt-in capture harness runs in the background and restores its temporary input focus settings.
+
+### Sustained-run bloom correction (2026-09-09)
+
+The 600-second mixed-wave capture exposed a room-obscuring white bloom flare with the
+URP default prefilter clamp of 65,472. ArcadePost now limits bloom input to 4 while
+retaining the authored intensity, threshold and scatter. The setup builder applies the
+same value. The opt-in `--poc-stress-flashes` review flag emits all eight pooled impact
+bursts together at capture time to inspect overlap; it is never enabled in normal play.

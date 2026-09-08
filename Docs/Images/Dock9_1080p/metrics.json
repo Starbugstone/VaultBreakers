@@ -1,1 +1,1 @@
-{"durationSeconds":21.79774,"p95FrameMs":6.951311,"journeyRun":true,"completed":true,"frames":2181,"meanFrameMs":7.096218,"maxFrameMs":178.148,"meanGcBytes":425,"maxGcBytes":28514,"gpu":"NVIDIA GeForce RTX 2060"}
+{"durationSeconds":22.05515,"p95FrameMs":6.951403,"journeyRun":true,"completed":true,"frames":2201,"meanFrameMs":7.14623,"maxFrameMs":173.6185,"meanGcBytes":425,"maxGcBytes":28514,"gpu":"NVIDIA GeForce RTX 2060"}
