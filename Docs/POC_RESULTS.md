@@ -92,7 +92,7 @@ they exercise repeated fire, guard, dodge and melee for 60 seconds, then stress 
 flashes. `completed: false` is expected. Normal-health routes are separate. Route maxima include
 in-route screenshot readback stalls. GC is whole-frame data including input injection/UI/engine
 work, not proof that every engine subsystem allocates zero bytes. Final steady means of 1–2 bytes
-per frame show no recurring allocation growth in this measured workload.
+per frame show very low managed allocation in this measured workload; native leaks were not audited.
 
 The earlier 600-second soak and pre-repair captures remain in `Docs/Images/` and Git history;
 they are historical evidence, not substitutes for these final-build measurements.
@@ -124,6 +124,10 @@ source assets. `Tools/Unity/review.py` performs individual graphics/controller r
 `Tools/Unity/package.py` packages the build and validates ZIP CRC/SHA-256.
 
 Source, Blender files, Unity assets/metadata and review evidence are backed up through Git/Git LFS
-on GitHub `main`. The packaged Windows build is prepared for a GitHub draft-release backup; its source revision
-and checksum are recorded by packaging in `Validation/BuildPackage.json`.
+on GitHub `main`. The 72,400,535-byte Windows ZIP is uploaded as a GitHub draft-release asset; GitHub's SHA-256
+digest matches the locally CRC-verified archive. [Package record](Validation/BuildPackage.json).
+An independent GitHub clone of the delivered source restores **694 tracked files and 155 real
+Git LFS files**, with a clean tree and successful LFS object check:
+[restore record](Validation/GitBackup.json). These counts describe source commit `9930ec0`;
+the following documentation-only commit adds the two verification records.
 The root `LICENSE` is proprietary; `LICENSES/THIRD_PARTY_ASSETS.md` records exceptions.

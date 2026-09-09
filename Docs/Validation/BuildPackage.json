@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "9930ec0b451d37673c60e0c8c8f66f47b9c186d8",
+  "archive": "Vaultbreakers_Dock9_POC_Windows.zip",
+  "bytes": 72400535,
+  "sha256": "0e59446ea12f5befb5b9b481c2ce643a9b75617954a75ed82a62e6ef0b735f2e",
+  "entries": 343,
+  "zipCrcVerified": true,
+  "excluded": "Generated Burst debug information marked DoNotShip",
+  "githubDraft": true,
+  "githubReleaseUrl": "https://github.com/Starbugstone/VaultBreakers/releases/tag/untagged-f4b624f62dd0b9b7d978",
+  "githubAssetUrl": "https://github.com/Starbugstone/VaultBreakers/releases/download/untagged-f4b624f62dd0b9b7d978/Vaultbreakers_Dock9_POC_Windows.zip",
+  "githubDigestVerified": true
+}

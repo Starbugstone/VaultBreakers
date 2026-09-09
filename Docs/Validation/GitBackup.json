@@ -1,0 +1,8 @@
+{
+  "verifiedCommit": "9930ec0b451d37673c60e0c8c8f66f47b9c186d8",
+  "trackedFiles": 694,
+  "restoredLfsFiles": 155,
+  "lfsFsckPassed": true,
+  "workingTreeClean": true,
+  "method": "Independent shallow GitHub clone, explicit LFS pull, object integrity and no unresolved working-tree pointers"
+}
