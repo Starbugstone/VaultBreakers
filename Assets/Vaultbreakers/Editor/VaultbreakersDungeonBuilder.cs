@@ -63,6 +63,7 @@ namespace Vaultbreakers.Editor
             zone.gameObject.AddComponent<DungeonAudio>();
             player.AddComponent<DungeonCombat>().Configure(VaultbreakersEnemyBuilder.UnlitMaterial("DungeonEffects",Color.white));
             player.GetComponent<PlayerFacing>().EnableMouseAim();
+            player.GetComponent<RangedController>().SetMuzzleConvergence(true);
             // The large diagnostic melee disc is replaced by the directional sword crescent.
             player.GetComponent<MeleePresentation>().SetArcVisible(false);
             TunePlayer(player);

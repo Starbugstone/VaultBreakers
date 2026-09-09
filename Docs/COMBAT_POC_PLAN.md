@@ -25,8 +25,9 @@ This plan deliberately stops before the larger progression loop. Gems, gauges, c
 ---
 
 The 2026-09-08 completion request authorizes finishing Phases 9–13 and rebuilding the
-3D assets. Earlier human feel gates carry forward explicitly; no automated result is a
-substitute for their sign-off. The user's updated art direction is clean and stylized,
+3D assets. Earlier human feel gates originally carried forward; the subsequent 2026-09-09 AFK
+request explicitly replaces the blocking sign-off with labelled simulation/reviewer judgement
+for this delivery (see Phase 13). The user's updated art direction is clean and stylized,
 with flashy, dynamic, high-contrast arcade lighting and feedback. See `PROJECT_STATUS.md`
 and `POC_RESULTS.md` for current implementation, validation evidence and remaining gates.
 
@@ -730,6 +731,16 @@ Exit gate:
 - replacing primitives changes presentation only, not hit timing or movement;
 - imported assets use consistent scale, orientation, materials, and rig settings;
 - no root-motion dependency has entered player or enemy mechanics.
+
+### Current delivery tuning — 2026-09-09
+
+The user's later request for substantially larger playing areas and lower enemy health
+supersedes the original small-room framing/tuning for Dock 9: floors are 24 × 24 metres,
+Grunt/Shooter/Bruiser HP is 18/14/42, and the camera tracks within the larger rooms while
+retaining its fixed isometric orientation. The regression arena keeps its original camera/player balance; shared enemy definitions use
+the lowered HP too.
+Dock 9's arm barrel may converge by at most 15° onto the surface already hit by the gameplay
+aiming ray; this fixes weapon-offset misses without target searching or curved projectiles.
 
 ### Phase 13 — Tests, profiling, build, and playtest gate
 

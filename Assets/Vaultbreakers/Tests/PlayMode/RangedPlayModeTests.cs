@@ -100,6 +100,25 @@ namespace Vaultbreakers.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator OffsetArmBarrelConvergesOnTheAimedSurfaceAndStillStopsAtCover()
+        {
+            var muzzle=Track(new GameObject("Offset muzzle"));muzzle.transform.position=new Vector3(1.1f,1.2f,0);
+            var sockets=rig.AddComponent<Vaultbreakers.Equipment.AvatarSocketRegistry>();
+            sockets.Configure(new[]{new Vaultbreakers.Equipment.AvatarSocketBinding(Vaultbreakers.Equipment.AvatarSocketId.Muzzle,muzzle.transform)});
+            ranged.Configure(null,null,actions,null,playerHealth,sockets,pool);
+            var target=CreateTarget("Aimed target",new Vector3(0,1,6));yield return SyncPhysics();
+            FireOneShot(Vector3.forward);StepUntilIdle();
+            Assert.That(target.CurrentHealth,Is.EqualTo(50),"Baseline parallel barrel misses the centre aiming line.");
+            ranged.SetMuzzleConvergence(true);
+            FireOneShot(Vector3.forward);StepUntilIdle();
+            Assert.That(target.CurrentHealth,Is.EqualTo(42),"The arm-offset correction must hit what the player aims at.");
+            var wall=Track(GameObject.CreatePrimitive(PrimitiveType.Cube));wall.layer=GameLayers.Environment;
+            wall.transform.position=new Vector3(0,1,3);wall.transform.localScale=new Vector3(3,3,.2f);yield return SyncPhysics();
+            FireOneShot(Vector3.forward);StepUntilIdle();
+            Assert.That(target.CurrentHealth,Is.EqualTo(42),"Barrel convergence must never shoot through cover.");
+        }
+
+        [UnityTest]
         public IEnumerator Projectile_DamagesATargetAndReturnsToThePool()
         {
             var target = CreateTarget("Target", new Vector3(0f, 1f, 3f));

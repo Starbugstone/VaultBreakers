@@ -7,6 +7,7 @@ assert (build/'Vaultbreakers.exe').stat().st_size > 0
 output = root/'Builds/Vaultbreakers_Dock9_POC_Windows.zip'
 readme = '''VAULTBREAKERS - DOCK 9 COMBAT POC
 Extract this entire archive before running Vaultbreakers.exe. Windows x64.
+Play_720p.bat and Play_1080p.bat select a window size. Use 720p when other games/editors are active.
 Three connected zones: clear the guardians, cross the open gates, recover the final vault core.
 Rooms are 24 x 24 metres; enemy HP is Grunt 18 / Shooter 14 / Bruiser 42.
 
@@ -22,6 +23,8 @@ This is the combat POC: no persistent inventory, gems/gauges, Relic powers, scan
 Automated/controller-policy evidence and known limits: Docs/POLISH_PASSES.md in the source repo.
 Original project materials: Copyright (c) 2026 StarbugStone. All rights reserved.
 '''
+for width, height in [(1280, 720), (1920, 1080)]:
+    (build/f'Play_{height}p.bat').write_text(f'@echo off\nstart "" "%~dp0Vaultbreakers.exe" -screen-width {width} -screen-height {height} -screen-fullscreen 0\n', newline='\r\n')
 with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
     for file in sorted(build.rglob('*')):
         if file.is_file() and not any('DoNotShip' in part for part in file.parts):

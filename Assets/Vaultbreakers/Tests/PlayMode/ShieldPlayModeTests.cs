@@ -56,6 +56,23 @@ namespace Vaultbreakers.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator ShieldBandHasIndependentFiniteNormalsOnBothVisibleSides()
+        {
+            var defender=CreateDefender(Vector3.zero,Vector3.forward);
+            defender.Shield.gameObject.AddComponent<ShieldPresentation>().Configure(defender.Shield,null,null,.15f);
+            yield return null;
+            var mesh=defender.Shield.transform.Find("ShieldArc/Band").GetComponent<MeshFilter>().sharedMesh;
+            var normals=mesh.normals;var count=normals.Length/2;
+            Assert.That(count,Is.GreaterThan(0));
+            for(var i=0;i<count;i++)
+            {
+                Assert.That(normals[i].magnitude,Is.EqualTo(1).Within(.001f));
+                Assert.That(normals[i+count].magnitude,Is.EqualTo(1).Within(.001f));
+                Assert.That(Vector3.Dot(normals[i],normals[i+count]),Is.LessThan(-.99f));
+            }
+        }
+
+        [UnityTest]
         public IEnumerator FrontProjectile_DrainsTheShieldAndLeavesHealthWhole()
         {
             var defender = CreateDefender(new Vector3(0f, 1f, 5f), facing: Vector3.back);

@@ -6,7 +6,7 @@ characters and scenery, melee/fire/directional guard/dodge, sealed gates, checkp
 a final vault core and replay. It draws on Minecraft Dungeons for readability and pacing,
 while keeping the Shatterbelt lore and modular Breaker Rig combat.
 
-![Dock 9 running in the Windows build](Docs/Images/Dock9_1080p/zone-3.png)
+![Dock 9 running in the Windows build](Docs/Images/Dock9_Controller_Mixed/zone-1.png)
 
 The user authorized simulated controller acceptance for this delivery. Human playtest findings
 remain unmeasured. See [polish passes](Docs/POLISH_PASSES.md) and [results](Docs/POC_RESULTS.md).

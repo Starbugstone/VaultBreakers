@@ -80,8 +80,12 @@ The user authorized scripted controller simulation and reviewer judgement while 
 Fresh-player discoverability, physical controller feel and subjective enjoyment remain
 unmeasured follow-up checks, not blockers for this delivery.
 
-The latest automated suite passes **175 EditMode + 64 PlayMode tests**, including moving-leg
+The latest automated suite passes **175 EditMode + 66 PlayMode tests**, including moving-leg
 animation beneath raised guard. Three-pass evidence is in [POLISH_PASSES.md](POLISH_PASSES.md).
 
 The proprietary license is in `LICENSE`; third-party exceptions are in `LICENSES/`.
 Source, assets and review evidence use Git/Git LFS; generated caches and raw logs remain local.
+
+All five normal-health controller policies finish the level and replay reset. Use the packaged
+720p launcher for the verified conservative frame budget while other games/editors are active.
+The final 1080p stress run averages about 86 FPS but has intermittent hitches; see the results.

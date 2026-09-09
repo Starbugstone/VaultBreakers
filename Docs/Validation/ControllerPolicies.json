@@ -1,0 +1,175 @@
+{
+  "method": "Five programmed policies using a virtual Gamepad with normal health/damage. World-state targeting is privileged. No human comprehension, preference or physical-device claims.",
+  "runs": [
+    {
+      "name": "MeleeFirst",
+      "evidence": "Docs/Images/Dock9_Controller_MeleeFirst",
+      "passed": true,
+      "session": {
+        "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+        "policy": 0,
+        "meleeSwings": 16,
+        "shots": 11,
+        "guardRaises": 0,
+        "blocks": 0,
+        "dodges": 0,
+        "deaths": 0,
+        "shotsWhileGuardRaised": 0,
+        "firstWaveSeconds": 3.10410737991333,
+        "damageTaken": 0.0,
+        "completed": true,
+        "replayReset": true,
+        "understanding": "Not measurable by simulation",
+        "replayChoice": "Scripted replay reset only; no preference inferred"
+      },
+      "metrics": {
+        "durationSeconds": 25.62296,
+        "p95FrameMs": 20.8329,
+        "journeyRun": true,
+        "completed": true,
+        "frames": 1694,
+        "meanFrameMs": 11.38289,
+        "maxFrameMs": 201.39,
+        "meanGcBytes": 74,
+        "maxGcBytes": 58318,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    },
+    {
+      "name": "RangedPressure",
+      "evidence": "Docs/Images/Dock9_Controller_RangedPressure",
+      "passed": true,
+      "session": {
+        "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+        "policy": 1,
+        "meleeSwings": 0,
+        "shots": 46,
+        "guardRaises": 0,
+        "blocks": 0,
+        "dodges": 0,
+        "deaths": 0,
+        "shotsWhileGuardRaised": 0,
+        "firstWaveSeconds": 2.006904125213623,
+        "damageTaken": 16.0,
+        "completed": true,
+        "replayReset": true,
+        "understanding": "Not measurable by simulation",
+        "replayChoice": "Scripted replay reset only; no preference inferred"
+      },
+      "metrics": {
+        "durationSeconds": 24.65311,
+        "p95FrameMs": 20.8334,
+        "journeyRun": true,
+        "completed": true,
+        "frames": 1575,
+        "meanFrameMs": 11.63044,
+        "maxFrameMs": 200.621,
+        "meanGcBytes": 81,
+        "maxGcBytes": 58318,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    },
+    {
+      "name": "GuardApproach",
+      "evidence": "Docs/Images/Dock9_Controller_GuardApproach",
+      "passed": true,
+      "session": {
+        "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+        "policy": 2,
+        "meleeSwings": 14,
+        "shots": 20,
+        "guardRaises": 5,
+        "blocks": 4,
+        "dodges": 0,
+        "deaths": 0,
+        "shotsWhileGuardRaised": 0,
+        "firstWaveSeconds": 3.7761282920837402,
+        "damageTaken": 0.0,
+        "completed": true,
+        "replayReset": true,
+        "understanding": "Not measurable by simulation",
+        "replayChoice": "Scripted replay reset only; no preference inferred"
+      },
+      "metrics": {
+        "durationSeconds": 28.98182,
+        "p95FrameMs": 20.84682,
+        "journeyRun": true,
+        "completed": true,
+        "frames": 1621,
+        "meanFrameMs": 13.95578,
+        "maxFrameMs": 298.6067,
+        "meanGcBytes": 82,
+        "maxGcBytes": 58318,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    },
+    {
+      "name": "Evasive",
+      "evidence": "Docs/Images/Dock9_Controller_Evasive",
+      "passed": true,
+      "session": {
+        "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+        "policy": 3,
+        "meleeSwings": 7,
+        "shots": 34,
+        "guardRaises": 0,
+        "blocks": 0,
+        "dodges": 6,
+        "deaths": 0,
+        "shotsWhileGuardRaised": 0,
+        "firstWaveSeconds": 2.241450786590576,
+        "damageTaken": 0.0,
+        "completed": true,
+        "replayReset": true,
+        "understanding": "Not measurable by simulation",
+        "replayChoice": "Scripted replay reset only; no preference inferred"
+      },
+      "metrics": {
+        "durationSeconds": 24.08825,
+        "p95FrameMs": 13.91071,
+        "journeyRun": true,
+        "completed": true,
+        "frames": 1582,
+        "meanFrameMs": 11.21968,
+        "maxFrameMs": 215.2763,
+        "meanGcBytes": 80,
+        "maxGcBytes": 58318,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    },
+    {
+      "name": "Mixed",
+      "evidence": "Docs/Images/Dock9_Controller_Mixed",
+      "passed": true,
+      "session": {
+        "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+        "policy": 4,
+        "meleeSwings": 13,
+        "shots": 26,
+        "guardRaises": 3,
+        "blocks": 1,
+        "dodges": 2,
+        "deaths": 0,
+        "shotsWhileGuardRaised": 0,
+        "firstWaveSeconds": 2.96523380279541,
+        "damageTaken": 30.0,
+        "completed": true,
+        "replayReset": true,
+        "understanding": "Not measurable by simulation",
+        "replayChoice": "Scripted replay reset only; no preference inferred"
+      },
+      "metrics": {
+        "durationSeconds": 25.63844,
+        "p95FrameMs": 13.89621,
+        "journeyRun": true,
+        "completed": true,
+        "frames": 1858,
+        "meanFrameMs": 10.39769,
+        "maxFrameMs": 215.2821,
+        "meanGcBytes": 69,
+        "maxGcBytes": 58318,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    }
+  ]
+}

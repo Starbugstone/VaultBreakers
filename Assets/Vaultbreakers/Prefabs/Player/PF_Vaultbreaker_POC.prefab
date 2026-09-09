@@ -430,6 +430,7 @@ MonoBehaviour:
   fireCooldown: 0.3
   projectileLifetime: 1.5
   fallbackMuzzleHeight: 1.2
+  muzzleConvergence: 0
 --- !u!114 &7180105730073321429
 MonoBehaviour:
   m_ObjectHideFlags: 0

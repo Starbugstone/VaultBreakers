@@ -27,7 +27,10 @@ The camera retains fixed isometric orientation and follows within each room, the
 close framing keeps characters readable without fitting the entire larger floor onscreen.
 Grunt/Shooter/Bruiser health is now 18/14/42 (previously 30/24/75).
 Hold melee to repeat at the authored cadence. Mouse-ground aiming is an additional PC fallback;
-controller movement-facing and optional right-stick precision remain authoritative. A short
+controller movement-facing and optional right-stick precision remain authoritative.
+The offset arm barrel converges by at most 15° onto the surface already intersected by the
+gameplay aiming ray, preventing parallel-offset misses. It does not search for targets or
+curve projectiles, and cover still blocks shots. A short
 collision-aware attack step replaces stationary swiping. Balance is in DungeonBalance.asset;
 the regression arena retains PrototypeBalance.asset.
 

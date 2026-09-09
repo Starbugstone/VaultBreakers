@@ -9,7 +9,7 @@ logs = root / 'Logs' / label
 logs.mkdir(parents=True, exist_ok=True)
 steps = sys.argv[2:] or ['setup', 'EditMode', 'PlayMode', 'build']
 for step in steps:
-    args = [editor, '-batchmode', '-nographics', '-projectPath', win(root), '-logFile', win(logs / (step + '.log'))]
+    args = [editor, '-batchmode', '-nographics', '-job-worker-count', os.environ.get('VB_UNITY_WORKERS', '2'), '-projectPath', win(root), '-logFile', win(logs / (step + '.log'))]
     if step == 'setup': args += ['-quit', '-executeMethod', 'Vaultbreakers.Editor.VaultbreakersProjectSetup.BuildAll']
     elif step == 'build':
         target = root / 'Builds' / 'Vaultbreakers_POC' / 'Vaultbreakers.exe'

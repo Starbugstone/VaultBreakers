@@ -226,7 +226,9 @@ namespace Vaultbreakers.Combat
         /// </summary>
         private static Mesh BuildArcBand(float arcDegrees, float radius, float height)
         {
-            var vertices = new Vector3[(ArcSegments + 1) * 2];
+            var frontCount = (ArcSegments + 1) * 2;
+            // Separate vertices prevent opposite faces from cancelling their lighting normals.
+            var vertices = new Vector3[frontCount * 2];
             var half = arcDegrees * 0.5f;
 
             for (var index = 0; index <= ArcSegments; index++)
@@ -237,6 +239,7 @@ namespace Vaultbreakers.Combat
                 vertices[index * 2 + 1] = offset + Vector3.up * height;
             }
 
+            System.Array.Copy(vertices, 0, vertices, frontCount, frontCount);
             var triangles = new int[ArcSegments * 12];
             for (var index = 0; index < ArcSegments; index++)
             {
@@ -251,12 +254,12 @@ namespace Vaultbreakers.Combat
                 triangles[t + 5] = v + 3;
 
                 // Reversed winding for the inside face.
-                triangles[t + 6] = v + 2;
-                triangles[t + 7] = v + 1;
-                triangles[t + 8] = v;
-                triangles[t + 9] = v + 3;
-                triangles[t + 10] = v + 1;
-                triangles[t + 11] = v + 2;
+                triangles[t + 6] = frontCount + v + 2;
+                triangles[t + 7] = frontCount + v + 1;
+                triangles[t + 8] = frontCount + v;
+                triangles[t + 9] = frontCount + v + 3;
+                triangles[t + 10] = frontCount + v + 1;
+                triangles[t + 11] = frontCount + v + 2;
             }
 
             var mesh = new Mesh { name = "ShieldArcBand" };

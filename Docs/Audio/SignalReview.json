@@ -30,6 +30,27 @@
       "silentEndpoints": true
     },
     {
+      "cue": "EnemyTell_Bruiser.wav",
+      "seconds": 0.38,
+      "peak": 0.5892333984375,
+      "rms": 0.18973798502414457,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "EnemyTell_Grunt.wav",
+      "seconds": 0.12,
+      "peak": 0.55792236328125,
+      "rms": 0.18808414631162185,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "EnemyTell_Shooter.wav",
+      "seconds": 0.12,
+      "peak": 0.589752197265625,
+      "rms": 0.1864650455117924,
+      "silentEndpoints": true
+    },
+    {
       "cue": "VB_Dodge.wav",
       "seconds": 0.18,
       "peak": 0.594390869140625,

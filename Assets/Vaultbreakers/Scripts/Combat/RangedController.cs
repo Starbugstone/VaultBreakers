@@ -41,6 +41,8 @@ namespace Vaultbreakers.Combat
         [Tooltip("Muzzle height used only when the avatar has no Muzzle anchor, as in a bare test rig.")]
         [SerializeField, Min(0f)] private float fallbackMuzzleHeight = 1.2f;
 
+        [SerializeField] private bool muzzleConvergence;
+        public void SetMuzzleConvergence(bool value) => muzzleConvergence=value;
         private Health subscribedHealth;
         private float fireTimer;
 
@@ -179,6 +181,19 @@ namespace Vaultbreakers.Combat
         {
             var origin = MuzzlePosition;
             var direction = FiringDirection;
+            if(muzzleConvergence)
+            {
+                // Zero the offset arm barrel onto the surface already under the gameplay aim ray.
+                // No target search, prediction or bending after launch; solid cover is still swept.
+                var aimOrigin=new Vector3(transform.position.x,origin.y,transform.position.z);
+                if(Physics.Raycast(aimOrigin,direction,out var hit,projectileSpeed*projectileLifetime,
+                    GameLayers.PlayerProjectileHits,QueryTriggerInteraction.Ignore))
+                {
+                    var toPoint=hit.point-origin;toPoint.y=0;
+                    if(Vector3.Dot(toPoint,direction)>0)
+                        direction=Vector3.RotateTowards(direction,toPoint.normalized,15*Mathf.Deg2Rad,0);
+                }
+            }
 
             if (pool != null)
             {
