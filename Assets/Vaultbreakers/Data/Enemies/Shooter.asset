@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Enemies.EnemyDefinition
   role: 1
   displayName: Repo Shooter
-  health: 24
+  health: 14
   speed: 2.4
   range: 1.7
   windup: 0.9

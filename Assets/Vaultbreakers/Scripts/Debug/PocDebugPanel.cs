@@ -10,17 +10,19 @@ namespace Vaultbreakers.Debugging
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private ZoneController zone;
-        private bool visible;
+        private PocDebugView view;
         private void Start()
         {
             zone=GetComponent<ZoneController>();
+            view=gameObject.AddComponent<PocDebugView>();view.Owner=this;view.enabled=false;
             var inputOverlay=zone.Player.GetComponent<InputDebugOverlay>();if(inputOverlay!=null)inputOverlay.enabled=false;
             var combatOverlay=GetComponent<CombatDebugOverlay>();if(combatOverlay!=null)combatOverlay.enabled=false;
         }
-        private void Update(){if(Keyboard.current!=null && Keyboard.current.f1Key.wasPressedThisFrame)visible=!visible;}
-        private void OnGUI()
+        private void Update(){if(Keyboard.current!=null && Keyboard.current.f1Key.wasPressedThisFrame)view.enabled=!view.enabled;}
+        private void OnDisable(){if(view!=null)view.enabled=false;}
+        internal void DrawPanel()
         {
-            if(!visible || zone==null)return;
+            if(zone==null)return;
             GUILayout.BeginArea(new Rect(20,130,310,600),GUI.skin.box);
             GUILayout.Label("COMBAT LAB  /  F1 TO CLOSE");
             var invulnerable=GUILayout.Toggle(zone.Player.IsInvulnerable,"Invulnerable");zone.Player.SetInvulnerable(invulnerable);
@@ -31,7 +33,7 @@ namespace Vaultbreakers.Debugging
             if(GUILayout.Button("Return to wave one"))zone.RestartRun();
             for(var i=0;i<3;i++)if(GUILayout.Button("Start wave "+(i+1)))zone.StartSelectedWave(i);
             foreach(var role in new[]{EnemyRole.Grunt,EnemyRole.Shooter,EnemyRole.Bruiser})
-                if(GUILayout.Button("Spawn "+role))zone.Spawner.Roster.Spawn(role,new Vector3(4,0,4));
+                if(GUILayout.Button("Spawn "+role))zone.Spawner.Roster.Spawn(role,zone.RoomOrigin+new Vector3(4,0,4));
             if(GUILayout.Button("Kill all enemies"))foreach(var enemy in zone.Spawner.Roster.Instances)
                 if(enemy.gameObject.activeSelf)enemy.Health.ReceiveDamage(new DamageInfo(1000));
             if(GUILayout.Button("Stress encounter (24 enemies)"))

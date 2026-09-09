@@ -1,9 +1,10 @@
 # Dock 9 combat POC results
 
-Recorded 2026-09-09. Recommendation: **iterate with human playtests**. The implemented
-combat POC is playable from intake to recovered vault core and replay. The Phase 13
-fresh-player acceptance gate is still open; automated completion is not a fun or
-controller-feel verdict. Later progression systems remain outside this combat milestone.
+Recorded 2026-09-09. The user authorized scripted controller simulation/reviewer judgement
+while AFK and requested three further polish passes, larger rooms and lower enemy health.
+The current iteration is recorded in [polish passes](POLISH_PASSES.md); measurements below
+are the earlier baseline unless explicitly updated. Human understanding and replay preference
+are not claimed. Later progression systems remain outside this combat milestone.
 
 ## Delivered build and loop
 
@@ -11,7 +12,7 @@ Windows x64 development build: `Builds/Vaultbreakers_POC/Vaultbreakers.exe`.
 Keep its entire folder together. Unity 6000.4.4f1, URP 17.4.0, explicit
 `BuildOptions.Development`; Dock9_Dungeon is the first enabled build scene.
 
-Three connected Shatterbelt zones, locked combat framing, traversal between cleared
+Three connected Shatterbelt zones, fixed-angle bounded camera tracking, traversal between cleared
 encounters, Grunt/Shooter/Bruiser roles, melee/fire/directional guard/dodge, room retry,
 full-kit checkpoint resets, run-local salvage score, one-time core reward and replay.
 The clean Blender pilot, robot enemies, equipment, scenery and animation exports replace
@@ -127,15 +128,15 @@ pointer. The evidence commit adds the sustained-run captures and report; the com
 Generated Unity caches, raw logs and the reproducible Windows build remain local.
 The proprietary root license and third-party notices are included in the restored tree.
 
-## Remaining acceptance and known limits
+## Human follow-up and known limits
 
-- **Five fresh-player sessions with physical controllers are outstanding.** Record action
+- **Five human sessions remain unmeasured; the user waived them as a delivery blocker.** Future research can record action
   discovery, deliberate use of all four actions, understanding of fire/shield exclusion,
   first-wave time and replay interest against the Phase 13 thresholds.
 - Subjective character quality, combat feel, camera comfort, rumble strength and difficulty
   need the user's review. Mouse/controller logic is covered by tests; physical rumble is not.
-- Combat sounds are generated placeholders. The ten code-driven animation clips establish
-  readable POC actions, not a final animation/audio production pass.
+- Combat and progression sounds use original tapered synthesis, with explicit enemy windup cues.
+  Ten authored animation clips remain presentation-only; gameplay owns all timing.
 - No persistent loot/inventory, gems/gauges, Relic power, scans/cards, pets or co-op are claimed.
 - Unity reports a ComputeBuffer disposal warning and native allocation diagnostics during
   development-player teardown. No gameplay exception was found in the completed route logs;
@@ -144,7 +145,10 @@ The proprietary root license and third-party notices are included in the restore
 The decision is to test and tune this playable combat loop before implementing the next
 systems. No claim is made that the documented human playtest gate has passed.
 
-## Completion audit against the plan's definition of done
+## Historical audit before the AFK simulation override
+
+This historical audit predates the user's explicit simulation authorization and larger-room
+request. The current delivery decision and measurements are in `POLISH_PASSES.md`.
 
 Audit baseline: `a35e8d2b4d968a7a445b633f0276de78aa4556c3`, inspected after delivery.
 The local tree was clean and matched the delivered source. The Windows executable,
@@ -170,7 +174,7 @@ to distinguish their actual assertions from broader human acceptance claims.
 | Compile and repository hygiene | Final build succeeded without C# errors; clean source tree at audit baseline; final fresh restore verified 557 tracked files and 58 real LFS files. |
 | Results note and milestone recommendation | This note records tests, measurements, tuning, remaining risks and **iterate with human playtests**. It does not authorize the next systems or mark the human gate passed. |
 
-The remaining session record must include the manual scenarios in
+Optional future human research should include the manual scenarios in
 [the combat plan, sections 7 and 9](COMBAT_POC_PLAN.md): movement comfort, melee/ranged/shield/dodge
 situations, enemy comprehension, failure/retry, grayscale/reduced feedback and mixed-tool play.
 For the five fresh players, record first-wave completion/time, deliberate use of all four

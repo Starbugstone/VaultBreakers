@@ -1,0 +1,82 @@
+{
+  "method": "Exported source cues, PCM signal inspection; does not measure speaker output or in-game mix",
+  "cues": [
+    {
+      "cue": "Dock9_Clear.wav",
+      "seconds": 0.5,
+      "peak": 0.623291015625,
+      "rms": 0.20058035032469834,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "Dock9_Core.wav",
+      "seconds": 0.9,
+      "peak": 0.62689208984375,
+      "rms": 0.2290313459079044,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "Dock9_Enter.wav",
+      "seconds": 0.24,
+      "peak": 0.530914306640625,
+      "rms": 0.1746720367095147,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "Dock9_Retry.wav",
+      "seconds": 0.4,
+      "peak": 0.58831787109375,
+      "rms": 0.19792453461708806,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_Dodge.wav",
+      "seconds": 0.18,
+      "peak": 0.594390869140625,
+      "rms": 0.11534213536576236,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_MeleeImpact.wav",
+      "seconds": 0.09002267573696145,
+      "peak": 0.49517822265625,
+      "rms": 0.20026357990562507,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_MeleeSwing.wav",
+      "seconds": 0.16,
+      "peak": 0.617034912109375,
+      "rms": 0.10092542393463987,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_RangedFire.wav",
+      "seconds": 0.11002267573696145,
+      "peak": 0.57806396484375,
+      "rms": 0.1430579992950263,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_RangedImpact.wav",
+      "seconds": 0.07002267573696146,
+      "peak": 0.49761962890625,
+      "rms": 0.1941745269242091,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_ShieldBlock.wav",
+      "seconds": 0.1,
+      "peak": 0.56640625,
+      "rms": 0.18517400759130526,
+      "silentEndpoints": true
+    },
+    {
+      "cue": "VB_ShieldBreak.wav",
+      "seconds": 0.3,
+      "peak": 0.591705322265625,
+      "rms": 0.16180354583534293,
+      "silentEndpoints": true
+    }
+  ]
+}

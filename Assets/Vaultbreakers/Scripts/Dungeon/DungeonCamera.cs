@@ -13,7 +13,11 @@ namespace Vaultbreakers.Dungeon
         private void LateUpdate()
         {
             if(target==null)return;
-            var destination=zone.State==Vaultbreakers.Zones.ZoneState.BetweenWaves ? new Vector3(0,0,Mathf.Max(zone.RoomOrigin.z,target.position.z)) : zone.RoomOrigin;
+            // Fixed isometric orientation; bounded tracking keeps the larger rooms readable.
+            var offset = target.position - zone.RoomOrigin;
+            var destination = zone.RoomOrigin + new Vector3(Mathf.Clamp(offset.x, -8, 8), 0, Mathf.Clamp(offset.z, -8, 8));
+            if (zone.State == Vaultbreakers.Zones.ZoneState.BetweenWaves)
+                destination.z = Mathf.Max(destination.z, target.position.z);
             focus=Vector3.Lerp(focus,destination,1-Mathf.Exp(-6*Time.unscaledDeltaTime));Apply();
         }
         private void Apply()

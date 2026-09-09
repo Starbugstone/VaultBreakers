@@ -54,11 +54,11 @@ namespace Vaultbreakers.Editor
             var data = AssetDatabase.LoadAssetAtPath<EnemyDefinition>(path);
             if (data == null)
             {
-                data = ScriptableObject.CreateInstance<EnemyDefinition>(); data.role = role;
+                data = ScriptableObject.CreateInstance<EnemyDefinition>(); data.role = role; data.health = 18;
                 if (role == EnemyRole.Shooter)
-                { data.displayName = "Repo Shooter"; data.health = 24; data.speed = 2.4f; data.windup = 0.9f; data.recovery = 1.1f; data.damage = 8; data.accent = new Color(1, 0.23f, 0.35f); }
+                { data.displayName = "Repo Shooter"; data.health = 14; data.speed = 2.4f; data.windup = 0.9f; data.recovery = 1.1f; data.damage = 8; data.accent = new Color(1, 0.23f, 0.35f); }
                 else if (role == EnemyRole.Bruiser)
-                { data.displayName = "Heavy Bruiser"; data.health = 75; data.speed = 1.6f; data.range = 3; data.windup = 1.1f; data.recovery = 1.2f; data.damage = 22; data.stabilityDamage = 60; data.arc = 150; data.accent = new Color(0.8f, 0.4f, 1); }
+                { data.displayName = "Heavy Bruiser"; data.health = 42; data.speed = 1.6f; data.range = 3; data.windup = 1.1f; data.recovery = 1.2f; data.damage = 22; data.stabilityDamage = 60; data.arc = 150; data.accent = new Color(0.8f, 0.4f, 1); }
                 AssetDatabase.CreateAsset(data, path);
             }
             var root = new GameObject("PF_" + role) { layer = GameLayers.Enemy };

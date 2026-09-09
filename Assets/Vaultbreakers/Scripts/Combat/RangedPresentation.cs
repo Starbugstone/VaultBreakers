@@ -106,6 +106,11 @@ namespace Vaultbreakers.Combat
         private void Update()
         {
             var deltaTime = Time.deltaTime;
+            if (!Vaultbreakers.UI.FeedbackSettings.Flashes)
+            {
+                Show(flash, false);
+                for (var index = 0; index < impactMarks.Length; index++) Show(impactMarks[index], false);
+            }
 
             if (flashTimer > 0f)
             {
@@ -174,7 +179,7 @@ namespace Vaultbreakers.Combat
 
         private void OnFired(Vector3 origin, Vector3 direction)
         {
-            if (flash != null)
+            if (flash != null && Vaultbreakers.UI.FeedbackSettings.Flashes)
             {
                 flash.transform.position = origin;
                 Show(flash, true);
@@ -188,7 +193,7 @@ namespace Vaultbreakers.Combat
         private void OnImpacted(Vector3 point, Vector3 normal)
         {
             var mark = impactMarks[nextImpactMark];
-            if (mark != null)
+            if (mark != null && Vaultbreakers.UI.FeedbackSettings.Flashes)
             {
                 mark.transform.position = point;
                 Show(mark, true);

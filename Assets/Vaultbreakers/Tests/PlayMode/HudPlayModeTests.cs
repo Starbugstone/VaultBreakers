@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,50 @@ namespace Vaultbreakers.Tests.PlayMode
     {
         private Gamepad pad;
         [UnityTearDown] public IEnumerator Cleanup(){if(pad!=null && pad.added)InputSystem.RemoveDevice(pad);Time.timeScale=1;yield return IsolatedTestBed.Load();}
+        [UnityTest] public IEnumerator CombatLabCanReopenWhileItsHiddenGuiComponentIsDisabled()
+        {
+            var oldBackground=InputSystem.settings.backgroundBehavior;var oldEditorInput=InputSystem.settings.editorInputBehaviorInPlayMode;
+            InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+            InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+            var keyboard=InputSystem.AddDevice<Keyboard>();
+            try
+            {
+                yield return SceneManager.LoadSceneAsync("Prototype_Arena");yield return null;yield return null;
+                var view=Object.FindAnyObjectByType<ZoneController>().GetComponent<Vaultbreakers.Debugging.PocDebugView>();
+                Assert.That(view.enabled,Is.False);
+                for(var press=0;press<3;press++)
+                {
+                    InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.F1));yield return null;yield return null;
+                    Assert.That(view.enabled,Is.EqualTo(press%2==0));
+                    InputSystem.QueueStateEvent(keyboard,new KeyboardState());yield return null;yield return null;
+                }
+            }
+            finally{InputSystem.RemoveDevice(keyboard);InputSystem.settings.backgroundBehavior=oldBackground;InputSystem.settings.editorInputBehaviorInPlayMode=oldEditorInput;}
+        }
+        [UnityTest] public IEnumerator RaisedGuardKeepsMovingLegsAnimatedAndUpperBodyPoseActive()
+        {
+            var oldBackground=InputSystem.settings.backgroundBehavior;var oldEditorInput=InputSystem.settings.editorInputBehaviorInPlayMode;
+            InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+            InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+            pad=InputSystem.AddDevice<Gamepad>();
+            try
+            {
+                yield return SceneManager.LoadSceneAsync("Dock9_Dungeon");yield return null;yield return null;
+                var zone=Object.FindAnyObjectByType<ZoneController>();zone.EnterTraining();
+                zone.Player.GetComponent<PlayerInput>().SwitchCurrentControlScheme("Gamepad",pad);
+                var animator=zone.Player.GetComponentInChildren<Animator>();
+                var leg=animator.GetComponentsInChildren<Transform>(true).First(t=>t.name=="UpperLeg_L");
+                InputSystem.QueueStateEvent(pad,new GamepadState{leftStick=Vector2.up,rightStick=Vector2.up,leftTrigger=1});
+                yield return new WaitForSeconds(.15f);var rotation=leg.localRotation;
+                yield return new WaitForSeconds(.12f);
+                Assert.That(zone.Player.GetComponent<ShieldController>().IsRaised,Is.True);
+                Assert.That(animator.GetCurrentAnimatorStateInfo(0).IsName("Move"),Is.True);
+                Assert.That(animator.GetCurrentAnimatorStateInfo(1).IsName("Shield"),Is.True);
+                Assert.That(animator.GetLayerWeight(1),Is.EqualTo(1));
+                Assert.That(Quaternion.Angle(rotation,leg.localRotation),Is.GreaterThan(2),"Leg must move while guard remains raised.");
+            }
+            finally{InputSystem.settings.backgroundBehavior=oldBackground;InputSystem.settings.editorInputBehaviorInPlayMode=oldEditorInput;}
+        }
         [UnityTest] public IEnumerator VirtualControllerDisconnectPausesAndClearsItsHeldActions()
         {
             pad=InputSystem.AddDevice<Gamepad>();

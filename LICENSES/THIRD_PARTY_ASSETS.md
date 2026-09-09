@@ -20,7 +20,10 @@ redistributing it. Review the actual distribution contents before release.
 No externally sourced character, animation, texture, or audio collection was identified
 in the current project assets. Add its creator, source URL, version, license, proof of
 purchase/permission where required, and usage restrictions here before importing one.
-Future production audio and animation are not covered by the generated placeholders.
+The polished combat and progression cues in `Docs/Audio/` are original deterministic synthesis
+from `PlaceholderAudio.Synthesize`, exported by `VaultbreakersAudioReview`. No external samples
+or recordings are used. They are covered by the proprietary project license.
+Future externally sourced audio and animation require their own provenance entries.
 
 ## Repository templates
 

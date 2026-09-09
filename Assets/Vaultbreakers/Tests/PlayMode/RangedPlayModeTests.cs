@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -66,6 +67,36 @@ namespace Vaultbreakers.Tests.PlayMode
             }
 
             spawned.Clear();
+        }
+
+        [UnityTest]
+        public IEnumerator ReducedFlashesHideExistingAndFutureEffectsWithoutChangingDamage()
+        {
+            var previous=Vaultbreakers.UI.FeedbackSettings.Flashes;
+            try
+            {
+                Vaultbreakers.UI.FeedbackSettings.Flashes=true;
+                rig.AddComponent<RangedPresentation>();
+                var target=CreateTarget("Flash target",new Vector3(0,1,3));
+                yield return SyncPhysics();
+                var effects=Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None)
+                    .Where(t=>t.name=="MuzzleFlash" || t.name.StartsWith("ImpactMark_")).ToArray();
+                FireOneShot(Vector3.forward);StepUntilIdle();
+                Assert.That(effects.Any(t=>t.name=="MuzzleFlash" && t.gameObject.activeSelf),Is.True);
+                Assert.That(effects.Any(t=>t.name.StartsWith("ImpactMark_") && t.gameObject.activeSelf),Is.True);
+                var damage=50-target.CurrentHealth;
+                Vaultbreakers.UI.FeedbackSettings.Flashes=false;
+                yield return null;yield return null;
+                Assert.That(effects.All(t=>!t.gameObject.activeSelf),Is.True,"Turning flashes off must hide effects already on screen.");
+                var before=target.CurrentHealth;
+                FireOneShot(Vector3.forward);StepUntilIdle();
+                Assert.That(effects.All(t=>!t.gameObject.activeSelf),Is.True,"New shots must respect reduced feedback.");
+                Assert.That(before-target.CurrentHealth,Is.EqualTo(damage));
+                Vaultbreakers.UI.FeedbackSettings.Flashes=true;
+                FireOneShot(Vector3.forward);
+                Assert.That(effects.Any(t=>t.name=="MuzzleFlash" && t.gameObject.activeSelf),Is.True);
+            }
+            finally{Vaultbreakers.UI.FeedbackSettings.Flashes=previous;}
         }
 
         [UnityTest]

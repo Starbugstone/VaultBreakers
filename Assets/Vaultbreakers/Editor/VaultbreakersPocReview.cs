@@ -41,7 +41,7 @@ namespace Vaultbreakers.Editor
         [MenuItem("Vaultbreakers/Build/Windows development POC")]
         public static void BuildWindows()
         {
-            ReportArt();
+            ReportArt();VaultbreakersAudioReview.Export();
             const string path="Builds/Vaultbreakers_POC/Vaultbreakers.exe";
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {

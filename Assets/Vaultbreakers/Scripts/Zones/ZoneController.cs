@@ -11,7 +11,7 @@ namespace Vaultbreakers.Zones
     {
         [SerializeField] private bool dungeonJourney;
         public bool IsDungeon => dungeonJourney;
-        public Vector3 RoomOrigin => dungeonJourney ? Vector3.forward * 19.6f * waveIndex : Vector3.zero;
+        public Vector3 RoomOrigin => dungeonJourney ? Vector3.forward * Vaultbreakers.Dungeon.DungeonLayout.RoomSpacing * waveIndex : Vector3.zero;
         public void ConfigureDungeon(WaveDefinition[] encounters) { dungeonJourney=true; waves=encounters; }
         [SerializeField] private Health player;
         [SerializeField] private WaveSpawner spawner;
@@ -55,7 +55,7 @@ namespace Vaultbreakers.Zones
             {
                 if (dungeonJourney && State == ZoneState.BetweenWaves)
                 {
-                    if(player.transform.position.z < RoomOrigin.z + 14) return;
+                    if(player.transform.position.z < RoomOrigin.z + Vaultbreakers.Dungeon.DungeonLayout.AdvanceOffset) return;
                     waveIndex++; player.Heal(player.MaximumHealth);shield.ResetShield(); State=ZoneState.Fighting; spawner.Spawn(waves[waveIndex],waveIndex); return;
                 }
                 timer -= Time.deltaTime;

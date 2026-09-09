@@ -21,6 +21,18 @@ namespace Vaultbreakers.Tests.EditMode
                 Assert.That(animator,Is.Not.Null,path);Assert.That(animator.applyRootMotion,Is.False,path);Assert.That(animator.runtimeAnimatorController,Is.Not.Null,path);
             }
         }
+        [Test] public void UpperBodyMaskKeepsLocomotionBonesIndependent()
+        {
+            var mask=AssetDatabase.LoadAssetAtPath<AvatarMask>("Assets/Vaultbreakers/Art/Animation/UpperBody.mask");
+            Assert.That(mask,Is.Not.Null);var upper=0;var legs=0;
+            for(var i=0;i<mask.transformCount;i++)
+            {
+                var path=mask.GetTransformPath(i);
+                if(path.EndsWith("Chest") || path.EndsWith("Hand_L")){Assert.That(mask.GetTransformActive(i),Is.True,path);upper++;}
+                if(path.EndsWith("Hips") || path.Contains("UpperLeg")){Assert.That(mask.GetTransformActive(i),Is.False,path);legs++;}
+            }
+            Assert.That(upper,Is.GreaterThan(0));Assert.That(legs,Is.GreaterThan(0));
+        }
         [Test] public void EveryClipKeepsSocketLocalBindingsAndPlayerRootFixed()
         {
             var source=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Vaultbreakers/Prefabs/Player/PF_Vaultbreaker_POC.prefab");

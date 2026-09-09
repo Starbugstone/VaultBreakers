@@ -735,6 +735,13 @@ Exit gate:
 
 **Goal:** Decide with evidence whether combat is strong enough to justify the next systems.
 
+**Delivery override, 2026-09-09:** the user is AFK and explicitly authorized simulation or
+reviewer judgement in place of unavailable fresh-player sessions. For this combat POC delivery,
+run five labelled controller policies, report actual completion/action/death/replay-reset results,
+and complete three polish/sound/graphics passes. Human comprehension and replay preference
+cannot be simulated and must remain unclaimed. The original human criteria below are retained
+as follow-up research, not a blocker for this authorized delivery. Post-POC scope stays deferred.
+
 Tasks:
 
 1. Complete the automated test matrix below.
@@ -762,7 +769,7 @@ Exit gate:
 
 ## 7. Test plan
 
-The current automated results and remaining human gate are recorded in `Docs/POC_RESULTS.md`. The tables below retain the original phase-by-phase implementation history.
+The current automated results and human-validation limitations are recorded in `Docs/POC_RESULTS.md`. The tables below retain the original phase-by-phase implementation history.
 
 ### EditMode tests
 

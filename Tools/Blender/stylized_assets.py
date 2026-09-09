@@ -142,12 +142,19 @@ def animate(rig):
             if name=='Move':
                 pose('UpperLeg_L',(1,0,0),swing*27);pose('UpperLeg_R',(1,0,0),-swing*27)
                 pose('LowerLeg_L',(1,0,0),max(0,-swing)*32);pose('LowerLeg_R',(1,0,0),max(0,swing)*32)
-                pose('Chest',(0,0,1),swing*4)
-            if name=='Melee':pose('UpperArm_R',(0,1,0),-20-95*math.sin(t*math.pi));pose('Chest',(0,0,1),-25+70*t)
+                pose('Chest',(0,0,1),swing*4);pose('Spine',(1,0,0),7)
+                pose('LowerArm_L',(1,0,0),-12+swing*10);pose('LowerArm_R',(1,0,0),-12-swing*10)
+            if name=='Melee':
+                strike=math.sin(math.pi*min(1,t/.65))
+                pose('UpperArm_R',(0,1,0),-52-75*strike);pose('Chest',(0,0,1),-28*math.sin(t*math.tau));pose('LowerArm_R',(1,0,0),-15*strike)
             if name in ['Ranged','Shield','ShieldHit']:pose('UpperArm_L',(0,0,1),-78);pose('LowerArm_L',(0,0,1),-12)
             if name=='Ranged':pose('LowerArm_L',(1,0,0),-8*abs(swing))
             if name in ['Hit','ShieldHit','ShieldBreak']:pose('Chest',(1,0,0),-18*math.sin(t*math.pi))
-            if name=='Dodge':pose('Hips',(1,0,0),35*math.sin(t*math.pi));pose('UpperLeg_L',(1,0,0),-45*math.sin(t*math.pi))
+            if name=='Dodge':
+                tuck=math.sin(t*math.pi)
+                pose('Hips',(1,0,0),35*tuck);pose('Spine',(1,0,0),15*tuck)
+                pose('UpperLeg_L',(1,0,0),-45*tuck);pose('UpperLeg_R',(1,0,0),-30*tuck)
+                pose('LowerLeg_L',(1,0,0),65*tuck);pose('LowerLeg_R',(1,0,0),55*tuck)
             if name=='Death':pose('Hips',(1,0,0),-80*t)
             for pb in rig.pose.bones:pb.keyframe_insert(data_path='rotation_quaternion',frame=frame,group=pb.name)
         action=rig.animation_data.action;action.name=name;action.use_fake_user=True

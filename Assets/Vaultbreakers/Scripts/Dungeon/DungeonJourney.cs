@@ -46,8 +46,8 @@ namespace Vaultbreakers.Dungeon
                 exits[i].SetActive(i>room || (i==room && zone.State!=ZoneState.BetweenWaves && zone.State!=ZoneState.Complete));
                 entrances[i].SetActive(i==room && zone.State==ZoneState.Fighting);
             }
-            if(!zone.IsPaused && zone.State==ZoneState.Complete && !TreasureClaimed && Vector3.Distance(zone.Player.transform.position,new Vector3(0,0,44.1f))<2.3f)
-            {TreasureClaimed=true;Score+=1000;GetComponent<ArcadeFeedback>().Burst(new Vector3(0,1.5f,44.1f),new Color(1,.85f,.15f),0);}
+            if(!zone.IsPaused && zone.State==ZoneState.Complete && !TreasureClaimed && Vector3.Distance(zone.Player.transform.position,Vaultbreakers.Dungeon.DungeonLayout.CorePosition)<2.3f)
+            {TreasureClaimed=true;Score+=1000;GetComponent<ArcadeFeedback>().Burst(Vaultbreakers.Dungeon.DungeonLayout.CorePosition+Vector3.up*1.5f,new Color(1,.85f,.15f),0);}
         }
         private void OnDestroy(){if(zone!=null && zone.Spawner!=null && zone.Spawner.Roster!=null)foreach(var enemy in zone.Spawner.Roster.Instances)if(enemy!=null)enemy.HitReceived-=OnHit;}
     }

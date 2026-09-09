@@ -8,7 +8,8 @@ while keeping the Shatterbelt lore and modular Breaker Rig combat.
 
 ![Dock 9 running in the Windows build](Docs/Images/Dock9_1080p/zone-3.png)
 
-Human playtest acceptance remains pending. See [results and limitations](Docs/POC_RESULTS.md).
+The user authorized simulated controller acceptance for this delivery. Human playtest findings
+remain unmeasured. See [polish passes](Docs/POLISH_PASSES.md) and [results](Docs/POC_RESULTS.md).
 
 ## Open the project
 

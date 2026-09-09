@@ -1,5 +1,6 @@
 using UnityEngine;
 using Vaultbreakers.Core;
+using Vaultbreakers.Combat;
 
 namespace Vaultbreakers.Enemies
 {
@@ -14,9 +15,17 @@ namespace Vaultbreakers.Enemies
         private Transform model;
         private Vector3 restScale;
         private float deathTime;
+        private AudioSource audioSource;
+        private AudioClip warning;
+        private EnemyState previous;
+
         private void Start()
         {
             brain = GetComponent<EnemyBrain>();
+            audioSource=PlaceholderAudio.EnsureSource(gameObject);
+            warning=PlaceholderAudio.CreateBurst("EnemyTell_"+brain.Definition.role,
+                brain.Definition.role==EnemyRole.Bruiser?.38f:.12f,
+                brain.Definition.role==EnemyRole.Bruiser?110:brain.Definition.role==EnemyRole.Shooter?1100:220,.7f);
             model = transform.Find("ModelRoot"); if (model != null) restScale = model.localScale;
             var host = new GameObject("AttackTell") { layer = GameLayers.Debug };
             host.transform.SetParent(transform, false);
@@ -24,11 +33,14 @@ namespace Vaultbreakers.Enemies
             tell.sharedMaterial = new Material(tellTemplate);
             tell.widthMultiplier = 0.055f; tell.positionCount = 26; tell.enabled = false;
         }
-        private void OnEnable() { deathTime = 0; if (model != null) model.localScale = restScale; }
+        private void OnEnable() { previous=EnemyState.Approach; deathTime = 0; if (model != null) model.localScale = restScale; }
         private void LateUpdate()
         {
             if (brain == null || brain.Definition == null) return;
             var data = brain.Definition; var state = brain.Attack.State;
+            if(state==EnemyState.Windup && previous!=state && Time.timeScale>0)
+                PlaceholderAudio.Play(audioSource,warning,brain.Definition.role==EnemyRole.Bruiser?.28f:.12f);
+            previous=state;
             tell.enabled = state is EnemyState.Windup or EnemyState.Active;
             if (tell.enabled)
             {
@@ -50,6 +62,6 @@ namespace Vaultbreakers.Enemies
                 if (deathTime >= 0.4f) gameObject.SetActive(false);
             }
         }
-        private void OnDestroy() { if (tell != null) Destroy(tell.sharedMaterial); }
+        private void OnDestroy() { Destroy(warning); if (tell != null) Destroy(tell.sharedMaterial); }
     }
 }

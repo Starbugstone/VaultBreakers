@@ -12,6 +12,7 @@ clear, dodge to escape. Same-arm ranged/shield exclusion; melee suppresses guard
 attacks/guard; no ammo; optional precision aim; short code-driven attacks.
 `COMBAT_POC_PLAN.md`: combat POC phase gates, reset correctness and tests remain binding.
 Gems/gauges, Relic power, scanning/cards, pets and persistence remain subsequent milestones.
+The user explicitly confirmed on 2026-09-09: finish and polish this combat POC first.
 
 ## Playable redesign
 
@@ -20,8 +21,11 @@ bridges, sealed exits, room checkpoints, a final recovered vault core and replay
 contains three Scrap Grunts; later encounters add Repo Shooters and a Heavy Bruiser. Run-local
 salvage score provides arcade feedback, without a persistent economy or inventory.
 
-Combat retains a fixed zone camera. The camera glides between zones with fixed orientation;
-14-meter combat floors and closer framing keep the full floor visible and characters readable.
+The user subsequently requested substantially larger playing areas and lower enemy health.
+Combat floors are now 24 × 24 metres (previously 14 × 14), with 33.6-metre room spacing.
+The camera retains fixed isometric orientation and follows within each room, then across bridges;
+close framing keeps characters readable without fitting the entire larger floor onscreen.
+Grunt/Shooter/Bruiser health is now 18/14/42 (previously 30/24/75).
 Hold melee to repeat at the authored cadence. Mouse-ground aiming is an additional PC fallback;
 controller movement-facing and optional right-stick precision remain authoritative. A short
 collision-aware attack step replaces stationary swiping. Balance is in DungeonBalance.asset;
@@ -48,4 +52,9 @@ remain. Historical variant IDs remain stable. All gameplay remains code-driven.
 Compile and regression tests; dungeon traversal, death/retry, gate collision and final reward tests;
 source mesh front/back review; actual Windows 1080p and 720p captures; complete scripted input run;
 performance measurements with stated workload; inspect logs for runtime exceptions.
-Five fresh-player playtests and physical controller feel remain human acceptance checks.
+On 2026-09-09 the user explicitly authorized simulation and reviewer judgement while AFK.
+For this delivery, labelled scripted controller sessions replace the five-human blocking gate.
+They must report real gameplay outcomes, never invented understanding or replay preference.
+Human discoverability, enjoyment and physical controller feel remain optional follow-up validation.
+The user also requested at least three documented polish, sound and graphics passes; see
+`POLISH_PASSES.md` for evidence as those passes complete.

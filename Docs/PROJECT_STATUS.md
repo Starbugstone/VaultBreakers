@@ -4,7 +4,7 @@ Updated 2026-09-09. Unity **6000.4.4f1**, URP 17.4.0, Windows PC.
 
 The playable entry scene is **Dock9_Dungeon**, a three-zone arcade combat POC in the
 Shatterbelt. It replaces the rejected empty arena presentation with a dressed route,
-rebuilt Blender characters, locked combat cameras and short transitions. Minecraft
+rebuilt Blender characters, fixed-angle cameras with bounded tracking and short transitions. Minecraft
 Dungeons informs presentation and pacing; the lore and combat remain Vaultbreakers.
 
 ## Play
@@ -35,6 +35,9 @@ regression arena retains `PrototypeBalance.asset`.
 1. Salvage Intake: three Scrap Grunts, an open and readable first fight.
 2. Repo Transfer Court: five Grunts and three Repo Shooters.
 3. Black-glass Vault: four Grunts, two Shooters and one Heavy Bruiser, then the vault core.
+
+Each combat floor is 24 × 24 metres, almost three times the previous area. The fixed-angle
+camera follows within the room. Enemy health is Grunt 18, Shooter 14 and Bruiser 42.
 
 Exits seal during combat. Clearing a zone opens the gate; walking through the bridge starts
 the next encounter. Health and guard restore on successful transition. Death clears enemies,
@@ -73,8 +76,12 @@ See [DUNGEON_POC.md](DUNGEON_POC.md) for the user's clarified scope and
 [POC_RESULTS.md](POC_RESULTS.md) for the actual checks, captures and measured limitations.
 Gems/gauges, Relic powers, cards/scanning, pets, persistence and co-op remain the subsequent
 milestones defined by the combat POC plan. They are not implied by the score/core presentation.
-Five fresh-player sessions, physical controller feel and subjective art/fun acceptance remain
-human checks; scripted input does not establish those results.
+The user authorized scripted controller simulation and reviewer judgement while AFK.
+Fresh-player discoverability, physical controller feel and subjective enjoyment remain
+unmeasured follow-up checks, not blockers for this delivery.
+
+The latest automated suite passes **175 EditMode + 64 PlayMode tests**, including moving-leg
+animation beneath raised guard. Three-pass evidence is in [POLISH_PASSES.md](POLISH_PASSES.md).
 
 The proprietary license is in `LICENSE`; third-party exceptions are in `LICENSES/`.
 Source, assets and review evidence use Git/Git LFS; generated caches and raw logs remain local.

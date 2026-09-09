@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Enemies.EnemyDefinition
   role: 0
   displayName: Scrap Grunt
-  health: 30
+  health: 18
   speed: 3
   range: 1.7
   windup: 0.65

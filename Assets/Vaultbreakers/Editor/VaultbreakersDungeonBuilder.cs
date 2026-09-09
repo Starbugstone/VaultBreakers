@@ -47,19 +47,20 @@ namespace Vaultbreakers.Editor
                 }
                 foreach(var x in new[]{-5.44f,5.44f})foreach(var side in new[]{-8,8})
                 {
-                    var go=new GameObject("Torch glow");go.transform.position=new Vector3(x*.7f,1.7f,(z+side)*.7f);
+                    var go=new GameObject("Torch glow");go.transform.position=new Vector3(x*DungeonLayout.ArtScale,1.7f,(z+side)*DungeonLayout.ArtScale);
                     var light=go.AddComponent<Light>();light.type=LightType.Point;light.color=new Color(1,.48f,.16f);light.intensity=5;light.range=5;
                 }
             }
             ColliderBox("South boundary",new Vector3(0,1,-10.3f),new Vector3(6,3,.6f),environment.transform);
             ColliderBox("Vault boundary",new Vector3(0,1,66.3f),new Vector3(6,3,.6f),environment.transform);
-            environment.transform.localScale=new Vector3(.7f,1,.7f);
+            environment.transform.localScale=new Vector3(DungeonLayout.ArtScale,1,DungeonLayout.ArtScale);
             foreach(var marker in GameObject.Find("GameplayMarkers").GetComponentsInChildren<Transform>())
-                if(marker.name.StartsWith("SpawnPoint_") && !marker.name.EndsWith("Visual"))marker.position=new Vector3(marker.position.x*.7f,marker.position.y,marker.position.z*.7f);
-            GameObject.Find("SpawnPoint_C").transform.position=new Vector3(0,.05f,2.8f);
-            zone.ConfigureDungeon(Encounters());zone.Spawner.SetRoomSpacing(19.6f);
+                if(marker.name.StartsWith("SpawnPoint_") && !marker.name.EndsWith("Visual"))marker.position=new Vector3(marker.position.x*DungeonLayout.ArtScale,marker.position.y,marker.position.z*DungeonLayout.ArtScale);
+            GameObject.Find("SpawnPoint_C").transform.position=new Vector3(0,.05f,4.8f);
+            zone.ConfigureDungeon(Encounters());zone.Spawner.SetRoomSpacing(DungeonLayout.RoomSpacing);
             zone.gameObject.AddComponent<DungeonVitals>();
             zone.gameObject.AddComponent<DungeonJourney>().Configure(exit,entrance);
+            zone.gameObject.AddComponent<DungeonAudio>();
             player.AddComponent<DungeonCombat>().Configure(VaultbreakersEnemyBuilder.UnlitMaterial("DungeonEffects",Color.white));
             player.GetComponent<PlayerFacing>().EnableMouseAim();
             // The large diagnostic melee disc is replaced by the directional sword crescent.

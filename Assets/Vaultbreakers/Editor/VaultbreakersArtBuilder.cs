@@ -66,6 +66,24 @@ namespace Vaultbreakers.Editor
                 if(clip==null)throw new InvalidOperationException("Missing authored animation: "+name+". Imported: "+string.Join(",",clips.Select(c=>c.name)));
                 var state=machine.AddState(name);state.motion=clip;if(name=="Idle")machine.defaultState=state;
             }
+            // Preserve moving legs under guard, fire and melee. Generic transform mask, same skeleton.
+            while(controller.layers.Length>1)controller.RemoveLayer(1);
+            const string maskPath="Assets/Vaultbreakers/Art/Animation/UpperBody.mask";
+            var mask=AssetDatabase.LoadAssetAtPath<AvatarMask>(maskPath);
+            if(mask==null){mask=new AvatarMask();AssetDatabase.CreateAsset(mask,maskPath);}
+            var paths=clips.SelectMany(AnimationUtility.GetCurveBindings).Select(b=>b.path).Distinct().OrderBy(p=>p).ToArray();
+            mask.transformCount=paths.Length;
+            for(var i=0;i<paths.Length;i++)
+            {
+                mask.SetTransformPath(i,paths[i]);
+                mask.SetTransformActive(i,paths[i].Split('/').Any(b=>b=="Spine" || b=="Chest"));
+            }
+            controller.AddLayer("UpperBody");
+            var layers=controller.layers;layers[1].avatarMask=mask;layers[1].defaultWeight=0;controller.layers=layers;
+            var upper=controller.layers[1].stateMachine;
+            foreach(var entry in machine.states)
+            {var copy=upper.AddState(entry.state.name);copy.motion=entry.state.motion;copy.speed=copy.name=="Melee"?2.35f:copy.name=="Ranged" || copy.name=="ShieldHit"?2:1;if(copy.name=="Idle")upper.defaultState=copy;}
+            EditorUtility.SetDirty(mask);
             EditorUtility.SetDirty(controller);AssetDatabase.SaveAssets();
         }
         public static void Animate(GameObject root,GameObject model)
@@ -103,7 +121,9 @@ namespace Vaultbreakers.Editor
             grade.contrast.Override(16);grade.saturation.Override(0);grade.postExposure.Override(.25f);
             EditorUtility.SetDirty(profile);
             var go=new GameObject("Arcade lighting");var volume=go.AddComponent<Volume>();volume.isGlobal=true;volume.sharedProfile=profile;
-            Camera.main.GetUniversalAdditionalCameraData().renderPostProcessing=true;
+            var cameraData=Camera.main.GetUniversalAdditionalCameraData();cameraData.renderPostProcessing=true;
+            cameraData.antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+            cameraData.antialiasingQuality=AntialiasingQuality.High;
             foreach(var x in new[]{-7f,7f})
             {
                 var lightObject=new GameObject("Arena rim");lightObject.transform.position=new Vector3(x,4,5);
