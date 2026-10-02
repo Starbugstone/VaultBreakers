@@ -11,6 +11,7 @@ while keeping the Shatterbelt lore and modular Breaker Rig combat.
 ![Alpha 0.0.1 chest debris and gem burst in the Windows build](Docs/Images/Alpha001_Final_1080p/chest-1-burst.png)
 
 Local Windows demo: `Builds/Vaultbreakers_POC/Vaultbreakers.exe`. Keep its folder intact.
+Download the [Alpha 0.0.1 Windows prerelease](https://github.com/Starbugstone/VaultBreakers/releases/tag/v0.0.1-alpha).
 The current distributable is `Builds/Vaultbreakers_Alpha_0.0.1_Windows.zip`; extract it before
 playing. Walk near gems to collect them, and break gold-marked crates/chests with melee
 or fire. Their debris tumbles, shrinks and fades away within one second.

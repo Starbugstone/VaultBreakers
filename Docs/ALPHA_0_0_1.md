@@ -203,12 +203,29 @@ retained separately and does not contain this alpha.
 
 The alpha archive contains controls, third-party notices and the tested Windows player.
 ZIP CRC verification passed, and both the packaged executable and runtime assembly match
-the tested build byte for byte. The 74,457,356-byte archive's SHA-256 is
-`8dc77f8aa7f2e6fcd92fab02fb581853f7717054bcf26559fde1963853424586`.
-[Package verification](Validation/Alpha001_BuildPackage.json). This is a working-tree build;
-the report's Git commit identifies its base, not a claim that all delivered changes are committed.
+the tested build byte for byte. The 74,457,355-byte archive's SHA-256 is
+`cf5464ad0a4d002199573794c819bdb6e71769e545bbe1994e78b0e3295b0841`.
+[Package verification](Validation/Alpha001_BuildPackage.json). The release build inputs
+match source commit `b9228f99bcda77e867d0f9aba1d700d2fb5801ac`. Subsequent release-record changes are documentation only.
 
 Remaining acceptance work: human feel/readability/balance feedback and a physical controller
 session. Stable 60 FPS is not certified across machines or sessions. The pre-existing
 ComputeBuffer shutdown warning, intermittent automated-review teardown, and the single
 unreproduced guard-transition telemetry observation above are retained as follow-ups.
+
+## Release build verification
+
+On 2026-10-02 the user authorized commit, push, build and deployment. Source and Git LFS
+assets were pushed to `main`; `python3 Tools/Unity/validate.py Alpha001_Release build`
+rebuilt the Windows player successfully from the committed inputs. The runtime assembly
+matches the earlier tested assembly byte for byte.
+
+The rebuilt player's [release smoke session](Images/Alpha001_Release_Smoke/session.json)
+completed all three rooms, broke all nine containers, collected all 134 gems, and passed
+both replay checks. It took no damage, reported no shots under guard and exited normally
+with code 0. No gameplay exceptions were found; the known ComputeBuffer shutdown warning
+remains. The archive was CRC-checked and its executable/runtime assembly compared against
+the tested build before upload.
+
+Release and download links: [Alpha 0.0.1](https://github.com/Starbugstone/VaultBreakers/releases/tag/v0.0.1-alpha),
+[Windows ZIP](https://github.com/Starbugstone/VaultBreakers/releases/download/v0.0.1-alpha/Vaultbreakers_Alpha_0.0.1_Windows.zip).
