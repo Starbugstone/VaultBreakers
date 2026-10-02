@@ -37,7 +37,7 @@ namespace Vaultbreakers.Editor
 
             var rig=UnityEngine.Object.FindAnyObjectByType<ModularAvatar>();
             var idle=AssetDatabase.LoadAllAssetsAtPath("Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx").OfType<AnimationClip>().First(c=>c.name=="Idle");
-            idle.SampleAnimation(rig.transform.Find("ModelRoot").gameObject,0);
+            idle.SampleAnimation(rig.GetComponentInChildren<Animator>().gameObject,0);
             CaptureCamera(camera, DefaultImagePath);
 
             var avatar = UnityEngine.Object.FindAnyObjectByType<ModularAvatar>();

@@ -19,6 +19,17 @@ namespace Vaultbreakers.Tests.PlayMode
         private void Move(Vector3 position)
         {var controller=zone.Player.GetComponent<CharacterController>();controller.enabled=false;zone.Player.transform.position=position;controller.enabled=true;Physics.SyncTransforms();}
         private void Clear(){foreach(var e in zone.Spawner.Roster.Instances)if(e.gameObject.activeSelf && !e.Health.IsDead)e.Health.ReceiveDamage(new DamageInfo(10000));}
+        [UnityTest] public IEnumerator DungeonUsesTheDirectionalSlashDuringActiveMelee()
+        {
+            yield return Fight();
+            var melee=zone.Player.GetComponent<MeleeController>();melee.enabled=false;
+            Assert.That(melee.TryStartSwing(),Is.True);melee.Tick(.06f);
+            zone.Player.GetComponent<MeleePresentation>().SendMessage("LateUpdate");
+            var slash=zone.Player.transform.Find("MeleeSlash");
+            Assert.That(slash.gameObject.activeSelf,Is.True);
+            Assert.That(slash.GetComponent<MeshRenderer>().sharedMaterial.shader.name,Is.EqualTo("Vaultbreakers/ArcadeSlash"));
+            Assert.That(zone.Player.transform.Find("Impact crescent"),Is.Null,"The obsolete circular line must not render alongside the slash.");
+        }
         [UnityTest] public IEnumerator GateRequiresClearAndWalkingAdvancesAllRoomsToRewardAndReplay()
         {
             for(var room=0;room<3;room++)
@@ -26,6 +37,7 @@ namespace Vaultbreakers.Tests.PlayMode
                 yield return Fight();Assert.That(zone.WaveNumber,Is.EqualTo(room+1));
                 Assert.That(GameObject.Find("Dock9 exit "+room),Is.Not.Null);
                 Clear();yield return null;
+                yield return new WaitForSeconds(zone.TransitionRemaining + .1f);
                 Assert.That(GameObject.Find("Dock9 exit "+room),Is.Null,"The exit seal must be disabled after clear.");
                 if(room<2)
                 {

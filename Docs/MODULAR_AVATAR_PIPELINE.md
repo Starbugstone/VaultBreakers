@@ -118,6 +118,12 @@ The dodge presentation is the one piece of feedback that poses the model root ra
 squashes `ModelRoot` for the length of the burst and restores the scale it found. Anything else that
 wants to scale the model has to coordinate with it.
 
+`ModelRoot` is an identity-transform Unity-space pivot (+Y up, +Z forward). `PlayerFacing` owns its
+yaw and dodge presentation owns its scale. Its `ImportedRig` child retains the FBX axis conversion
+and the Animator. Never drive facing on the imported Animator transform: the animation restores
+the import rotation before LateUpdate, causing a frame-rate-dependent forward tilt. Sample imported
+clips on the Animator's GameObject. Bone names, bind transforms and socket relationships are unchanged.
+
 Three sockets are consumed at runtime by gameplay, which is why their authored transforms are
 versioned API rather than a convenience:
 
@@ -234,3 +240,12 @@ Blender sources remain under `ArtSource/Blender/`; Unity consumes only explicit 
 
 Front/back player renders and individual enemy renders in `Docs/Images/` are renders of
 the actual meshes. Runtime images and measured imported counts belong in the POC results.
+
+
+## Stylized AA revision — 2026-10-02
+
+`dungeon_assets.py` now calls `polished_dock9.py` for fitted armor layers, equipment
+hardware and enemy role details. Schema-1 transforms and all variant identifiers remain.
+The source pass evaluates bevel/weighted-normal modifiers in a batch, avoiding one scene
+rebuild per part. Front/back source renders remain mandatory; Unity gameplay captures
+are the evidence for the in-game result. See `ART_DIRECTION_AA.md` for the visual target.

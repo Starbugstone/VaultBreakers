@@ -1,0 +1,96 @@
+{
+  "method": "Windows development build on the RTX 2060; no video recording during measurements. Route uses normal-health scripted virtual controller. Stress uses seven immortal enemies and an invulnerable player for 30 seconds. Shared workstation, not an isolated benchmark.",
+  "tests": {
+    "EditMode": {
+      "result": "Passed",
+      "total": "175",
+      "passed": "175",
+      "failed": "0",
+      "skipped": "0"
+    },
+    "PlayMode": {
+      "result": "Passed",
+      "total": "66",
+      "passed": "66",
+      "failed": "0",
+      "skipped": "0"
+    }
+  },
+  "runs": [
+    {
+      "label": "AA_Delivery_Route",
+      "metrics": {
+        "durationSeconds": 25.23029,
+        "p95FrameMs": 13.89601,
+        "journeyRun": true,
+        "completed": true,
+        "frames": 2125,
+        "meanFrameMs": 8.894338,
+        "maxFrameMs": 180.564,
+        "meanGcBytes": 61,
+        "maxGcBytes": 58318,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      },
+      "session": {
+        "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+        "policy": 4,
+        "meleeSwings": 11,
+        "shots": 24,
+        "guardRaises": 3,
+        "blocks": 2,
+        "dodges": 2,
+        "deaths": 0,
+        "shotsWhileGuardRaised": 0,
+        "firstWaveSeconds": 2.9528980255126953,
+        "damageTaken": 0.0,
+        "completed": true,
+        "replayReset": true,
+        "understanding": "Not measurable by simulation",
+        "replayChoice": "Scripted replay reset only; no preference inferred"
+      }
+    },
+    {
+      "label": "AA_Delivery_1080p",
+      "metrics": {
+        "durationSeconds": 34.34658,
+        "p95FrameMs": 20.83901,
+        "journeyRun": false,
+        "completed": false,
+        "frames": 2507,
+        "meanFrameMs": 11.17117,
+        "maxFrameMs": 27.78441,
+        "meanGcBytes": 2,
+        "maxGcBytes": 198,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    },
+    {
+      "label": "AA_Delivery_720p",
+      "metrics": {
+        "durationSeconds": 34.36047,
+        "p95FrameMs": 20.8321,
+        "journeyRun": false,
+        "completed": false,
+        "frames": 2558,
+        "meanFrameMs": 10.95388,
+        "maxFrameMs": 62.50801,
+        "meanGcBytes": 2,
+        "maxGcBytes": 198,
+        "gpu": "NVIDIA GeForce RTX 2060"
+      }
+    }
+  ],
+  "video": {
+    "path": "Docs/Videos/AA_Overhaul.mp4",
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "durationSeconds": 24.1,
+    "audio": false,
+    "sourceFramesExclusiveEnd": 693,
+    "editing": "Diagnostic tail removed, 1-second final-frame hold with 0.4-second fade",
+    "performanceEvidence": false,
+    "recordedRunReplayProbe": false,
+    "normalTimingReplayPassed": true
+  }
+}

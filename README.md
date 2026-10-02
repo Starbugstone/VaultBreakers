@@ -3,10 +3,17 @@
 A controller-first science-fiction arcade brawler in Unity **6000.4.4f1** and URP.
 The playable **Dock 9** POC has three connected combat zones, rebuilt original Blender
 characters and scenery, melee/fire/directional guard/dodge, sealed gates, checkpoints,
-a final vault core and replay. It draws on Minecraft Dungeons for readability and pacing,
+a final vault core and replay. **Alpha 0.0.1** adds enemy gem bursts, proximity collection,
+and breakable gold-marked crates/chests. See [alpha scope and validation](Docs/ALPHA_0_0_1.md).
+It draws on Minecraft Dungeons for readability and pacing,
 while keeping the Shatterbelt lore and modular Breaker Rig combat.
 
-![Dock 9 running in the Windows build](Docs/Images/Dock9_Controller_Mixed/zone-1.png)
+![Alpha 0.0.1 chest debris and gem burst in the Windows build](Docs/Images/Alpha001_Final_1080p/chest-1-burst.png)
+
+Local Windows demo: `Builds/Vaultbreakers_POC/Vaultbreakers.exe`. Keep its folder intact.
+The current distributable is `Builds/Vaultbreakers_Alpha_0.0.1_Windows.zip`; extract it before
+playing. Walk near gems to collect them, and break gold-marked crates/chests with melee
+or fire. Their debris tumbles, shrinks and fades away within one second.
 
 The user authorized simulated controller acceptance for this delivery. Human playtest findings
 remain unmeasured. See [polish passes](Docs/POLISH_PASSES.md) and [results](Docs/POC_RESULTS.md).

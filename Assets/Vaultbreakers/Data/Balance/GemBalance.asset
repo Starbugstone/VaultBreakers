@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96529458090d3f44b0af01a0bfeaeae, type: 3}
+  m_Name: GemBalance
+  m_EditorClassIdentifier: Vaultbreakers.Runtime::Vaultbreakers.Gems.GemBalance
+  capacity: 40
+  lifetime: 8
+  magnetDelay: 0.2
+  magnetRadius: 2.5
+  pickupRadius: 0.65
+  pullSpeed: 5
+  pullAcceleration: 32
+  maximumPullSpeed: 18
+  collectionWindow: 3
+  gruntGems: 3
+  shooterGems: 4
+  bruiserGems: 6
+  crateGems: 6
+  chestGems: 12
+  crateHealth: 14
+  chestHealth: 28
+  goldScore: 25

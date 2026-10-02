@@ -16,7 +16,8 @@ namespace Vaultbreakers.Dungeon
         public int Score { get; private set; }
         public int Combo => Time.time<comboUntil?Mathf.Min(4,1+chain/3):1;
         public bool TreasureClaimed { get; private set; }
-        public string Objective => TreasureClaimed?"RELIC RECOVERED  /  R OR START TO PLAY AGAIN":zone.State==ZoneState.Complete?"CLAIM THE VAULT CORE  •  APPROACH THE CHEST":zone.State==ZoneState.BetweenWaves?"GATE OPEN  •  FOLLOW THE GOLD INLAY":"DEFEAT THE GUARDIANS TO OPEN THE GATE";
+        public void AddGemScore(int value) { if (value > 0) Score += value; }
+        public string Objective => TreasureClaimed?"RELIC RECOVERED  /  R OR START TO PLAY AGAIN":zone.IsCollecting?"ZONE SECURED  •  GATHER GEMS / BREAK GOLD-MARKED CACHES":zone.State==ZoneState.Complete?"CLAIM THE VAULT CORE  •  APPROACH THE CHEST":zone.State==ZoneState.BetweenWaves?"GATE OPEN  •  FOLLOW THE GOLD INLAY":"DEFEAT THE GUARDIANS TO OPEN THE GATE";
         public void Configure(GameObject[] gateExits,GameObject[] gateEntrances){exits=gateExits;entrances=gateEntrances;}
         private void Start()
         {
@@ -43,10 +44,10 @@ namespace Vaultbreakers.Dungeon
             lastState=zone.State;
             for(var i=0;i<exits.Length;i++)
             {
-                exits[i].SetActive(i>room || (i==room && zone.State!=ZoneState.BetweenWaves && zone.State!=ZoneState.Complete));
+                exits[i].SetActive(i>room || (i==room && (zone.IsCollecting || (zone.State!=ZoneState.BetweenWaves && zone.State!=ZoneState.Complete))));
                 entrances[i].SetActive(i==room && zone.State==ZoneState.Fighting);
             }
-            if(!zone.IsPaused && zone.State==ZoneState.Complete && !TreasureClaimed && Vector3.Distance(zone.Player.transform.position,Vaultbreakers.Dungeon.DungeonLayout.CorePosition)<2.3f)
+            if(!zone.IsPaused && !zone.IsCollecting && zone.State==ZoneState.Complete && !TreasureClaimed && Vector3.Distance(zone.Player.transform.position,Vaultbreakers.Dungeon.DungeonLayout.CorePosition)<2.3f)
             {TreasureClaimed=true;Score+=1000;GetComponent<ArcadeFeedback>().Burst(Vaultbreakers.Dungeon.DungeonLayout.CorePosition+Vector3.up*1.5f,new Color(1,.85f,.15f),0);}
         }
         private void OnDestroy(){if(zone!=null && zone.Spawner!=null && zone.Spawner.Roster!=null)foreach(var enemy in zone.Spawner.Roster.Instances)if(enemy!=null)enemy.HitReceived-=OnHit;}

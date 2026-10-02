@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "cbf1755870116543d05bd4f766f09388b21a053c",
+  "sourceState": "Working tree build; includes changes not necessarily committed at sourceCommit",
+  "archive": "Vaultbreakers_Alpha_0.0.1_Windows.zip",
+  "bytes": 74457356,
+  "sha256": "8dc77f8aa7f2e6fcd92fab02fb581853f7717054bcf26559fde1963853424586",
+  "entries": 343,
+  "zipCrcVerified": true,
+  "payloadMatchesBuild": true,
+  "payloadSha256": {
+    "Vaultbreakers.exe": "7d52ee70fb22771f4608d810d1015f539c37dd8b7b2fbb1a0ea9f6bc5c32d5c9",
+    "Vaultbreakers_Data/Managed/Vaultbreakers.Runtime.dll": "b0f0bb1b2000b92336f0061f0002e178608f4aae4d1587491734fe24d9f1a730"
+  },
+  "excluded": "Generated Burst debug information marked DoNotShip"
+}

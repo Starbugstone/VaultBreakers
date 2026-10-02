@@ -291,7 +291,7 @@ namespace Vaultbreakers.Combat
             var origin = AttackOrigin;
             var centre = MeleeSwing.QueryCentre(origin, swingDirection, range, radius);
             var count = Physics.OverlapSphereNonAlloc(
-                centre, radius, queryBuffer, GameLayers.EnemyTargets, QueryTriggerInteraction.Collide);
+                centre, radius, queryBuffer, GameLayers.PlayerAttackTargets, QueryTriggerInteraction.Collide);
 
             var landed = false;
             for (var index = 0; index < count; index++)

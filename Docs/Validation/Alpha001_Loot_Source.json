@@ -1,0 +1,47 @@
+[
+  {
+    "asset": "Loot_Crate",
+    "meshes": 18,
+    "triangles": 1944
+  },
+  {
+    "asset": "Loot_Crate_Broken",
+    "meshes": 21,
+    "triangles": 2156
+  },
+  {
+    "asset": "Loot_Chest",
+    "meshes": 20,
+    "triangles": 2160
+  },
+  {
+    "asset": "Loot_Chest_Broken",
+    "meshes": 21,
+    "triangles": 2156
+  },
+  {
+    "asset": "Gem_Melee",
+    "meshes": 1,
+    "triangles": 8
+  },
+  {
+    "asset": "Gem_Ranged",
+    "meshes": 1,
+    "triangles": 12
+  },
+  {
+    "asset": "Gem_Shield",
+    "meshes": 1,
+    "triangles": 12
+  },
+  {
+    "asset": "Gem_Relic",
+    "meshes": 1,
+    "triangles": 16
+  },
+  {
+    "asset": "Gem_Gold",
+    "meshes": 1,
+    "triangles": 10
+  }
+]

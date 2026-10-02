@@ -1,0 +1,17 @@
+{
+    "kind": "Scripted virtual controller; privileged world-state navigation; no human participant",
+    "policy": 0,
+    "meleeSwings": 19,
+    "shots": 11,
+    "guardRaises": 0,
+    "blocks": 0,
+    "dodges": 0,
+    "deaths": 0,
+    "shotsWhileGuardRaised": 0,
+    "firstWaveSeconds": 8.85328483581543,
+    "damageTaken": 8.0,
+    "completed": true,
+    "replayReset": false,
+    "understanding": "Not measurable by simulation",
+    "replayChoice": "Scripted replay reset only; no preference inferred"
+}

@@ -7,6 +7,36 @@ namespace Vaultbreakers.Tests.EditMode
 {
     public sealed class ArtImportTests
     {
+        [TestCase("Idle")]
+        [TestCase("Move")]
+        public void LocomotionKeepsThePlayerUpright(string clipName)
+        {
+            var source=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Vaultbreakers/Prefabs/Player/PF_Vaultbreaker_POC.prefab");
+            var instance=Object.Instantiate(source);
+            try
+            {
+                var facingRoot=instance.GetComponent<Vaultbreakers.Equipment.ModularAvatar>().ModelRoot;
+                var model=instance.GetComponentInChildren<Animator>().gameObject;
+                var bones=model.GetComponentsInChildren<Transform>(true);
+                var hips=bones.Single(t=>t.name=="Hips");
+                var neck=bones.Single(t=>t.name=="Neck");
+                var clip=AssetDatabase.LoadAllAssetsAtPath("Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx")
+                    .OfType<AnimationClip>().Single(c=>c.name==clipName);
+                for(var frame=0;frame<=24;frame++)
+                {
+                    clip.SampleAnimation(model,clip.length*frame/24f);
+                    // PlayerFacing owns this pivot. Turning must never replace the FBX's axis conversion.
+                    foreach(var yaw in new[]{0f,90f,180f,270f})
+                    {
+                        facingRoot.rotation=Quaternion.Euler(0,yaw,0);
+                        var tilt=Vector3.Angle(Vector3.up,neck.position-hips.position);
+                        Assert.That(tilt,Is.LessThan(12f),$"{clipName} frame {frame}, yaw {yaw}: hips {hips.position}, neck {neck.position}");
+                    }
+                }
+            }
+            finally {Object.DestroyImmediate(instance);}
+        }
+
         [Test] public void AllTenAuthoredClipsImportAndKeepTranslationInGameplay()
         {
             var clips=AssetDatabase.LoadAllAssetsAtPath("Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx").OfType<AnimationClip>().ToArray();
@@ -39,7 +69,7 @@ namespace Vaultbreakers.Tests.EditMode
             var instance=Object.Instantiate(source);
             try
             {
-                var model=instance.transform.Find("ModelRoot").gameObject;
+                var model=instance.GetComponentInChildren<Animator>().gameObject;
                 var sockets=model.GetComponentsInChildren<Transform>(true).Where(t=>t.name.StartsWith("SOCKET_") || t.name.StartsWith("ANCHOR_")).ToArray();
                 var positions=sockets.Select(t=>t.localPosition).ToArray();
                 foreach(var clip in AssetDatabase.LoadAllAssetsAtPath("Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx").OfType<AnimationClip>().Where(c=>!c.name.StartsWith("__preview__")))

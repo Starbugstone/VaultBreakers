@@ -92,7 +92,7 @@ namespace Vaultbreakers.Tests.EditMode
         public void PlayerProjectilesHitEnemiesAndGeometryOnly()
         {
             CollectionAssert.AreEquivalent(
-                new[] { GameLayers.Enemy, GameLayers.Environment },
+                new[] { GameLayers.Enemy, GameLayers.Environment, GameLayers.Interactable },
                 CollidingLayers(GameLayers.PlayerProjectile));
         }
 
@@ -100,14 +100,14 @@ namespace Vaultbreakers.Tests.EditMode
         public void EnemyProjectilesHitThePlayerAndGeometryOnly()
         {
             CollectionAssert.AreEquivalent(
-                new[] { GameLayers.Player, GameLayers.Environment },
+                new[] { GameLayers.Player, GameLayers.Environment, GameLayers.Interactable },
                 CollidingLayers(GameLayers.EnemyProjectile));
         }
 
         [Test]
         public void MeleeAndAttackVolumesOnlyReachTheOpposingBody()
         {
-            CollectionAssert.AreEquivalent(new[] { GameLayers.Enemy }, CollidingLayers(GameLayers.PlayerMeleeHit));
+            CollectionAssert.AreEquivalent(new[] { GameLayers.Enemy, GameLayers.Interactable }, CollidingLayers(GameLayers.PlayerMeleeHit));
             CollectionAssert.AreEquivalent(new[] { GameLayers.Player }, CollidingLayers(GameLayers.EnemyAttack));
         }
 

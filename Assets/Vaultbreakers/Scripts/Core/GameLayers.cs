@@ -55,17 +55,18 @@ namespace Vaultbreakers.Core
 
         /// <summary>Layers a player melee or projectile query should consider.</summary>
         public static LayerMask EnemyTargets => 1 << Enemy;
+        public static LayerMask PlayerAttackTargets => (1 << Enemy) | (1 << Interactable);
 
         /// <summary>Layers an enemy attack query should consider.</summary>
         public static LayerMask PlayerTargets => 1 << Player;
 
         /// <summary>Geometry that stops movement, dodges, and projectiles.</summary>
-        public static LayerMask Blocking => 1 << Environment;
+        public static LayerMask Blocking => (1 << Environment) | (1 << Interactable);
 
         /// <summary>
         /// Everything a player projectile must resolve against. A projectile sweeps against this in
         /// one query rather than relying on trigger callbacks, so it cannot tunnel at speed.
         /// </summary>
-        public static LayerMask PlayerProjectileHits => (1 << Enemy) | (1 << Environment);
+        public static LayerMask PlayerProjectileHits => PlayerAttackTargets | Blocking;
     }
 }

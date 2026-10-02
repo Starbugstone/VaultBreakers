@@ -22,7 +22,7 @@ namespace Vaultbreakers.Editor
             foreach(var name in new[]{"Floor","Wall_North","Wall_South","Wall_East","Wall_West"})Object.DestroyImmediate(GameObject.Find(name));
             VaultbreakersArtBuilder.Model("Assets/Vaultbreakers/Art/Environments/Dock9_Dungeon.fbx",environment.transform,"Dock9 Ruins");
             var exit=new GameObject[3];var entrance=new GameObject[3];
-            var gateMaterial=VaultbreakersEnemyBuilder.Material("Dock9Gate",new Color(.25f,.65f,.7f),.6f);
+            var gateMaterial=VaultbreakersRenderSetup.LoadMaterial("VB_Dock9Gate") ?? VaultbreakersEnemyBuilder.Material("Dock9Gate",new Color(.25f,.65f,.7f),.6f);
             for(var room=0;room<3;room++)
             {
                 var z=room*28f;
@@ -48,7 +48,7 @@ namespace Vaultbreakers.Editor
                 foreach(var x in new[]{-5.44f,5.44f})foreach(var side in new[]{-8,8})
                 {
                     var go=new GameObject("Torch glow");go.transform.position=new Vector3(x*DungeonLayout.ArtScale,1.7f,(z+side)*DungeonLayout.ArtScale);
-                    var light=go.AddComponent<Light>();light.type=LightType.Point;light.color=new Color(1,.48f,.16f);light.intensity=5;light.range=5;
+                    var light=go.AddComponent<Light>();light.type=LightType.Point;light.color=room==2?new Color(.12f,.65f,1):new Color(1,.51f,.19f);light.intensity=7;light.range=6;
                 }
             }
             ColliderBox("South boundary",new Vector3(0,1,-10.3f),new Vector3(6,3,.6f),environment.transform);
@@ -61,17 +61,32 @@ namespace Vaultbreakers.Editor
             zone.gameObject.AddComponent<DungeonVitals>();
             zone.gameObject.AddComponent<DungeonJourney>().Configure(exit,entrance);
             zone.gameObject.AddComponent<DungeonAudio>();
+            VaultbreakersLootBuilder.Build(zone);
             player.AddComponent<DungeonCombat>().Configure(VaultbreakersEnemyBuilder.UnlitMaterial("DungeonEffects",Color.white));
             player.GetComponent<PlayerFacing>().EnableMouseAim();
             player.GetComponent<RangedController>().SetMuzzleConvergence(true);
-            // The large diagnostic melee disc is replaced by the directional sword crescent.
-            player.GetComponent<MeleePresentation>().SetArcVisible(false);
+            // Use the shared tapered slash; DungeonCombat only owns movement and the foot marker.
+            player.GetComponent<MeleePresentation>().SetArcVisible(true);
             TunePlayer(player);
-            var camera=Camera.main;camera.orthographicSize=8.4f;camera.backgroundColor=new Color(.055f,.12f,.13f);
+            var camera=Camera.main;camera.orthographicSize=8.4f;camera.backgroundColor=new Color(.025f,.043f,.065f);
             camera.gameObject.AddComponent<DungeonCamera>().Configure(player.transform);
-            RenderSettings.ambientSkyColor=new Color(.48f,.60f,.65f);RenderSettings.ambientEquatorColor=new Color(.24f,.34f,.32f);RenderSettings.ambientGroundColor=new Color(.13f,.20f,.19f);
-            RenderSettings.fog=false;
-            var sun=GameObject.Find("Key Directional Light").GetComponent<Light>();sun.intensity=1.6f;sun.color=new Color(1,.90f,.72f);sun.transform.rotation=Quaternion.Euler(48,-35,0);
+            RenderSettings.ambientSkyColor=new Color(.48f,.60f,.72f);RenderSettings.ambientEquatorColor=new Color(.30f,.39f,.47f);RenderSettings.ambientGroundColor=new Color(.16f,.20f,.25f);
+            foreach(var rim in Object.FindObjectsByType<Light>(FindObjectsSortMode.None))
+                if(rim.name=="Arena rim")Object.DestroyImmediate(rim.gameObject);
+            for(var room=0;room<3;room++)
+            {
+                var probeObject=new GameObject("Dock reflection capture");probeObject.transform.position=new Vector3(0,3,room*DungeonLayout.RoomSpacing);
+                var probe=probeObject.AddComponent<ReflectionProbe>();probe.mode=UnityEngine.Rendering.ReflectionProbeMode.Realtime;
+                probe.refreshMode=UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake;probe.timeSlicingMode=UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
+                probe.resolution=128;probe.size=new Vector3(34,18,34);probe.boxProjection=true;probe.intensity=.35f;probe.shadowDistance=0;
+                var fillObject=new GameObject("Dock cool fill");fillObject.transform.position=new Vector3(-8,6,room*DungeonLayout.RoomSpacing);
+                var fill=fillObject.AddComponent<Light>();fill.type=LightType.Point;fill.range=22;fill.intensity=8;fill.color=new Color(.34f,.48f,.62f);fill.shadows=LightShadows.None;
+            }
+            RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=28;RenderSettings.fogEndDistance=85;RenderSettings.fogColor=new Color(.035f,.06f,.09f);
+            var sun=GameObject.Find("Key Directional Light").GetComponent<Light>();sun.intensity=2.1f;sun.color=new Color(1,.84f,.67f);sun.transform.rotation=Quaternion.Euler(42,-32,0);
+            sun.shadows=LightShadows.Soft;sun.shadowStrength=.78f;
+            var bounceObject=new GameObject("Cool bounce light");bounceObject.transform.rotation=Quaternion.Euler(35,145,0);
+            var bounce=bounceObject.AddComponent<Light>();bounce.type=LightType.Directional;bounce.color=new Color(.66f,.78f,.86f);bounce.intensity=.5f;bounce.shadows=LightShadows.None;
             EditorSceneManager.SaveScene(scene,ScenePath);
         }
         private static void TunePlayer(GameObject player)

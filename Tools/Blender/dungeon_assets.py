@@ -8,17 +8,18 @@ from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import generate_modular_vaultbreaker as b
 import stylized_assets as a
+import polished_dock9 as polished
 ROOT=Path(__file__).resolve().parents[2]
 PALETTE={
- 'BlackGlass':(.025,.07,.105),'VaultTile':(.12,.23,.28),'CoreWhite':(.68,.82,.85),'Skin':(.91,.56,.32),'Hair':(.18,.075,.035),'Cloth':(.035,.28,.48),'Cape':(.9,.22,.09),
- 'Leather':(.17,.075,.035),'Gold':(.95,.60,.13),'Steel':(.59,.80,.87),'Ink':(.015,.025,.038),
+ 'BlackGlass':(.025,.07,.105),'VaultTile':(.12,.23,.28),'CoreWhite':(.68,.82,.85),'Skin':(.91,.56,.32),'Hair':(.18,.075,.035),'Cloth':(.035,.28,.48),'Cape':(.62,.17,.065),
+ 'Leather':(.17,.075,.035),'Gold':(.76,.43,.12),'Steel':(.48,.59,.65),'Ink':(.015,.025,.038),
  'Eye':(.92,.98,1),'Goblin':(.38,.43,.43),'Hood':(.13,.24,.34),'Stone':(.17,.27,.30),
- 'StoneLight':(.43,.51,.49),'Tile':(.30,.39,.34),'TileLight':(.40,.47,.38),'Earth':(.095,.16,.15),
+ 'StoneLight':(.39,.46,.46),'Tile':(.19,.25,.25),'TileLight':(.28,.34,.33),'Earth':(.095,.16,.15),
  'Moss':(.21,.38,.16),'Leaf':(.095,.31,.20),'LeafLight':(.24,.49,.22),'Bark':(.18,.12,.085),
  'Rune':(.10,.85,.91),'Flame':(1,.52,.10),'Crystal':(.45,.20,.80),'Petal':(.81,.31,.60),
 }
 def mats():
- return {k:b.make_material('DG_'+k,v,.35 if k in ['Gold','Steel','Stone','StoneLight'] else 0,.6,v if k in ['Rune','Flame','Crystal'] else None,2 if k in ['Rune','Flame','Crystal'] else 0) for k,v in PALETTE.items()}
+ return {k:b.make_material('DG_'+k,v,.65 if k in ['Gold','Steel','BlackGlass'] else .18 if k in ['Stone','StoneLight','VaultTile'] else 0,.3 if k in ['Steel','BlackGlass'] else .65,v if k in ['Rune','Flame','Crystal'] else None,2 if k in ['Rune','Flame','Crystal'] else 0) for k,v in PALETTE.items()}
 def player():
  b.reset_scene();m=mats();rig=b.create_armature()
  def p(n,c,s,mat,bone,slot=None,var=None,default=True):return a.plate(('VAR_'+slot+'_'+var+'_' if slot else 'BASE_')+n,c,s,m[mat],bone,rig,slot,var,default)
@@ -77,6 +78,7 @@ def player():
   p('Reactor',(0,.45,1.3),(.13,.025,.22),'Rune' if not alt else 'Rune','Chest','Rig',var,not alt)
  for name,bone,loc in [('SOCKET_RightHand_Melee','Hand_R',(-.91,-.02,1.25)),('SOCKET_LeftArm_RangedShield','LowerArm_L',(.78,-.09,1.32)),('SOCKET_Back','Chest',(0,.24,1.36)),('SOCKET_PetAnchor','Chest',(.45,.25,1.55)),('ANCHOR_Muzzle','LowerArm_L',(1.13,-.09,1.31)),('ANCHOR_Shield','LowerArm_L',(.67,-.24,1.35)),('ANCHOR_MeleeTrail','Hand_R',(-.91,-.02,.68)),('ANCHOR_Hit','Chest',(0,-.22,1.35)),('ANCHOR_Feet','Root',(0,0,.02))]:b.make_socket(name,rig,bone,loc)
  rig['vb_schema_version']=1
+ polished.refine_actor(rig,m)
  return rig,m
 
 def save_actor(rig,m,path,fbx,preview):
@@ -122,6 +124,7 @@ def enemy(role):
  elif not big:
   p('CutterGrip',(-.91,-.02,1.12),(.09,.11,.29),'Ink','Hand_R')
   sh('Cutter',[(.55,.006,.006,-.91,-.02),(.65,.12,.035,-.91,-.02),(1.02,.10,.035,-.91,-.02)],'Steel','Hand_R')
+ polished.refine_actor(rig,m,role)
  source=ROOT/'ArtSource/Blender/Characters/Enemies'/('Enemy_'+role+'.blend');source.parent.mkdir(parents=True,exist_ok=True)
  save_actor(rig,m,source,ROOT/'Assets/Vaultbreakers/Art/Characters/Enemies'/('Enemy_'+role+'.fbx'),ROOT/'Docs/Images'/('Enemy_'+role+'_Preview.png'))
 
@@ -133,7 +136,8 @@ def export_environment():
   if obj.type!='MESH' or not obj.get('vb_export',False):continue
   for uv in obj.data.uv_layers:uv.name='UVMap'
   mat=obj.data.materials[0].name if obj.data.materials else 'None'
-  room=max(0,min(2,round(-obj.location.y/28)))
+  center=sum((obj.matrix_world @ Vector(corner) for corner in obj.bound_box),Vector())/8
+  room=max(0,min(2,round(-center.y/28)))
   groups.setdefault((room,mat),[]).append(obj)
  for (room,mat),objects in groups.items():
   bpy.ops.object.select_all(action='DESELECT')
@@ -144,108 +148,14 @@ def export_environment():
  a.export(ROOT/'Assets/Vaultbreakers/Art/Environments/Dock9_Dungeon.fbx')
 
 def environment():
- b.reset_scene();m=mats();rng=random.Random(721)
- def box(n,c,s,k,bevel=.05,rot=0):return b.add_box(n,c,s,m[k],bevel,(0,0,rot))
- def rock(n,c,s,k):
-  bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1,radius=1,location=c);o=bpy.context.object;o.name=n;o.scale=s;b.finish_mesh(o,m[k],0);return o
- def tree(x,y,h):
-  b.add_cylinder('TreeTrunk',(x,y,h*.35),.22,h*.7,m['Bark'],7)
-  for i in range(3):
-   bpy.ops.mesh.primitive_cone_add(vertices=7,radius1=1.25-i*.22,radius2=.18,depth=1.5,location=(x,y,h*.55+i*.66));o=bpy.context.object;o.name='PineCrown';b.finish_mesh(o,m['LeafLight' if i==2 else 'Leaf'],.025)
- def pillar(x,y,h=2.4):
-  box('PillarFoot',(x,y,.20),(1.1,1.1,.4),'Stone');box('PillarShaft',(x,y,h*.5),(.65,.65,h),'StoneLight');box('Capital',(x,y,h),(1.0,1.0,.28),'Stone')
-  box('RuneInset',(x,y-.335,h*.65),(.14,.025,.54),'Rune',.006)
- def brazier(x,y):
-  box('BrazierPlinth',(x,y,.35),(.66,.66,.7),'Stone');b.add_cylinder('FireBowl',(x,y,.75),.43,.23,m['Gold'],8)
-  for i in range(3):rock('Flame',(x+(i-1)*.15,y,.98+i*.08),(.18,.18,.42), 'Flame')
- # Blender -Y maps to Unity +Z. Rooms are centered at world Z 0,28,56.
- for room in range(3):
-  cy=-28*room
-  box('DungeonFoundation',(0,cy,-.75),(22,22,1.45),'Earth',.22)
-  for x in range(-9,10,2):
-   for y in range(-9,10,2):
-    box('Flagstone',(x,cy+y,-.08),(1.975,1.975,.20),'TileLight' if rng.random()<.22 else 'Tile',.045)
-    if rng.random()<.12:box('MossSeam',(x+.7,cy+y+.6,.025),(.44,.7,.03),'Moss',.01)
-  # Low broken walls keep near-side combat readable; tall silhouettes stay outside the walkable space.
-  for side in [-1,1]:
-   for v in range(-9,10,2):
-    box('SideRuin',(10.35*side,cy+v,.48),(.7,1.96,.96),'Stone',.075)
-    box('SideCoping',(10.35*side,cy+v,1.0),(.85,2,.16),'StoneLight')
-    if abs(v)>3:
-     box('EndRuin',(v,cy+10.35*side,.43),(1.96,.7,.86),'Stone',.06)
-     box('EndCoping',(v,cy+10.35*side,.9),(2,.85,.14),'StoneLight')
-  for x,y in [(-8,-8),(8,-8),(-8,8),(8,8)]:
-   pillar(x,cy+y,2.4 if y<0 else 1.5);brazier(x*.68,cy+y)
-  # Gate frame centered on the forward exit, with glowing arch keystone.
-  for x in [-2.8,2.8]:pillar(x,cy-10,3)
-  box('ArchLintel',(0,cy-10,3.15),(6.2,.85,.5),'StoneLight',.09)
-  box('ArchKeystone',(0,cy-10.48,3.1),(.52,.13,.7),'Gold');box('ArchRune',(0,cy-10.56,3.1),(.23,.03,.30),'Rune')
-  for x,y in [(-7,-2),(7,2),(-7,5),(7,-5)]:
-   for j in range(3):rock('Rubble',(x+rng.uniform(-.8,.8),cy+y+rng.uniform(-.7,.7),.22),(.45,.35,.35),'StoneLight')
-   for j in range(5):
-    px=x+rng.uniform(-1,1);py=cy+y+rng.uniform(-1,1)
-    rock('Fern',(px,py,.18),(.22,.17,.38),'LeafLight')
-  for i in range(22):
-   x=rng.choice([-1,1])*rng.uniform(11.7,17);y=cy+rng.uniform(-12,12)
-   rock('EarthBank',(x,y,-.5),(2.5,2.7,.85),'Moss')
-   if i%3==0:tree(x,y,rng.uniform(2.5,4.2))
-   else:rock('WildBush',(x,y,.25),(1.1,1.0,.9),'Leaf')
-  for x,y in [(-8,3),(8,-3),(-6,-8)]:
-   box('SalvageCrate',(x,cy+y,.48),(1.2,1.0,.96),'Steel',.06)
-   box('CratePanel',(x,cy+y-.515,.49),(.83,.04,.59),'Ink',.03)
-   for sign in [-1,1]:box('CrateLatch',(x+sign*.40,cy+y-.55,.49),(.08,.03,.65),'Gold',.01)
-  for side in [-1,1]:
-   b.add_cylinder_between('PowerConduit',(side*9.3,cy-8,.16),(side*9.3,cy+8,.16),.10,m['Gold'],10)
-  for x in [-3,-2,-1,0,1,2,3]:box('DockChevron',(x*.5,cy+7.5,.035),(.12,.55,.045),'Gold',.01,.45)
-  # Decorative runes/petals are sparse, with quiet floor beneath enemy tells.
-  for x in [-1,1]:box('ProcessionalInlay',(x*2,cy,.035),(.06,12,.04),'Gold',.008)
-  for i in range(10):
-   px=rng.choice([-1,1])*rng.uniform(6,9);py=cy+rng.uniform(-8,8)
-   rock('Flower',(px,py,.15),(.15,.15,.20),'Petal')
-  if room<2:
-   box('BridgeFoundation',(0,cy-14,-.5),(5.7,8,1),'Earth')
-   for j in range(4):box('BridgeSlab',(0,cy-11-j*2,-.06),(5.4,1.97,.16),'TileLight')
-   for side in [-1,1]:
-    for j in range(4):box('BridgeParapet',(side*2.9,cy-11-j*2,.3),(.4,1.96,.6),'Stone')
-  else:
-   # Vault dais is accessible after the guardian falls.
-   box('VaultDais',(0,cy-7,.06),(4,3,.12),'StoneLight')
-   box('VaultChest',(0,cy-7,.60),(1.8,.95,1),'Ink',.12)
-   box('VaultLid',(0,cy-7,1.17),(1.95,1.05,.30),'Steel',.12)
-   for x in [-.65,.65]:box('ChestStrap',(x,cy-6.50,.65),(.16,.055,.9),'Gold')
-   box('VaultLock',(0,cy-6.43,.76),(.28,.08,.35),'Rune')
- refine_environment(m)
+ b.reset_scene();m=mats();polished.environment(m)
  folder=ROOT/'ArtSource/Blender/Environments';folder.mkdir(parents=True,exist_ok=True)
  bpy.ops.wm.save_as_mainfile(filepath=str(folder/'Dock9_Dungeon.blend'));export_environment()
- print('Dungeon exported',flush=True)
-
-def refine_environment(m):
- # Surface progression: overgrown intake -> industrial transfer deck -> black-glass vault.
- for obj in list(bpy.context.scene.objects):
-  if obj.type!='MESH' or not obj.data.materials:continue
-  room=max(0,min(2,round(-obj.location.y/28)))
-  old=obj.data.materials[0].name
-  if room==1 and old in ['DG_Tile','DG_TileLight']:obj.data.materials[0]=m['VaultTile' if old=='DG_Tile' else 'StoneLight']
-  if room==2:
-   if old in ['DG_Tile','DG_Earth']:obj.data.materials[0]=m['BlackGlass']
-   if old in ['DG_TileLight','DG_Stone']:obj.data.materials[0]=m['VaultTile']
-   if old=='DG_StoneLight':obj.data.materials[0]=m['CoreWhite']
-   if obj.name.startswith(('PineCrown','TreeTrunk')):bpy.data.objects.remove(obj,do_unlink=True)
- for room in range(3):
-  cy=-28*room
-  for x,y in [(-8,3),(8,-3),(-6,-8)]:
-   b.add_box('CrateServicePanel',(x,cy+y+.515,.49),(.83,.04,.59),m['Ink'],.03)
-   for sign in [-1,1]:b.add_box('ServiceLatch',(x+sign*.40,cy+y+.55,.49),(.08,.03,.65),m['Gold'],.01)
-  if room==2:
-   for x in [-12,12]:
-    for y in [-7,7]:
-     a.plate('VaultPylon',(x,cy+y,1.5),(1.5,1.5,3),m['VaultTile'])
-     b.add_box('PylonGlass',(x,cy+y-.77,1.8),(1.05,.08,1.5),m['BlackGlass'],.025)
-     b.add_box('PylonCore',(x,cy+y-.83,1.8),(.20,.04,1.2),m['Rune'],.01)
-     a.plate('PylonCap',(x,cy+y,3),(1.6,1.6,.24),m['CoreWhite'])
-   for x in [-2,2]:b.add_box('VaultLightStrip',(x,cy,.045),(.08,12,.04),m['Rune'],.01)
+ print('Polished Dock9 environment exported',flush=True)
 
 def main():
+ if '--environment-only' in sys.argv:
+  environment();return
  rig,m=player();a.animate(rig);a.export(b.FBX_PATH)
  rig.animation_data_create();rig.animation_data.action=bpy.data.actions['Idle'];a.export(ROOT/'Assets/Vaultbreakers/Art/Animation/Vaultbreaker_Animations.fbx',True,True)
  rig.animation_data_clear()
@@ -253,6 +163,6 @@ def main():
  b.setup_preview({'dark':m['Ink']});bpy.ops.wm.save_as_mainfile(filepath=str(b.SOURCE_PATH))
  rig.animation_data_create();rig.animation_data.action=bpy.data.actions['Idle'];bpy.context.scene.frame_set(1);a.render(b.PREVIEW_PATH);a.render(ROOT/'Docs/Images/Vaultbreaker_Back_Preview.png',True)
  for role in ['Grunt','Shooter','Bruiser']:enemy(role)
- environment()
+ if '--actors-only' not in sys.argv:environment()
  print('Dock9 source models, animations and FBX exports complete.',flush=True)
 if __name__=='__main__':main()

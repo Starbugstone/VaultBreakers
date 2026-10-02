@@ -17,6 +17,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DG_CoreWhite
+    second: {fileID: 2100000, guid: 2749947318d929541ac7df2c390eab3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: DG_Crystal
     second: {fileID: 2100000, guid: e728744408cb23f4db50dbcc9feda2ea, type: 2}
   - first:
@@ -64,6 +69,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: DG_Steel
     second: {fileID: 2100000, guid: c9674f1a95b96f845a1f315ff79f1143, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Stone
+    second: {fileID: 2100000, guid: bd9fc6a92d77f3945bdc8f146d09825c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

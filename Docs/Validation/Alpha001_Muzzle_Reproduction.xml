@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6,3047339">
+  <test-suite type="TestSuite" id="1092" name="VaultBreakers" fullname="VaultBreakers" runstate="Runnable" testcasecount="75" result="Failed" site="Child" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.304734" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1088" name="Vaultbreakers.Tests.PlayMode.dll" fullname="D:/Unity/Projects/VaultBreakers/Library/ScriptAssemblies/Vaultbreakers.Tests.PlayMode.dll" runstate="Runnable" testcasecount="75" result="Failed" site="Child" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.272718" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="22128" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1089" name="Vaultbreakers" fullname="Vaultbreakers" runstate="Runnable" testcasecount="75" result="Failed" site="Child" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.266460" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1090" name="Tests" fullname="Vaultbreakers.Tests" runstate="Runnable" testcasecount="75" result="Failed" site="Child" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.263498" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1091" name="PlayMode" fullname="Vaultbreakers.Tests.PlayMode" runstate="Runnable" testcasecount="75" result="Failed" site="Child" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.260050" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1041" name="LootPlayModeTests" fullname="Vaultbreakers.Tests.PlayMode.LootPlayModeTests" classname="Vaultbreakers.Tests.PlayMode.LootPlayModeTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.251388" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1045" name="ActualCasterMuzzleCanBreakBothCacheTypesFromEveryCardinalDirection" fullname="Vaultbreakers.Tests.PlayMode.LootPlayModeTests.ActualCasterMuzzleCanBreakBothCacheTypesFromEveryCardinalDirection" methodname="ActualCasterMuzzleCanBreakBothCacheTypesFromEveryCardinalDirection" classname="Vaultbreakers.Tests.PlayMode.LootPlayModeTests" runstate="Runnable" seed="1444434110" result="Failed" start-time="2026-10-02 20:51:11Z" end-time="2026-10-02 20:51:17Z" duration="6.203876" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Crate cannot be shot from (0.00, 0.00, 1.00) with the animated caster muzzle at (-3.91, 1.36, -4.09), cache top 1,12
+  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at Vaultbreakers.Tests.PlayMode.LootPlayModeTests+<ActualCasterMuzzleCanBreakBothCacheTypesFromEveryCardinalDirection>d__10.MoveNext () [0x002a9] in D:\Unity\Projects\VaultBreakers\Assets\Vaultbreakers\Tests\PlayMode\LootPlayModeTests.cs:104
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@76560ee600cb\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:/Users/Matthew/AppData/LocalLow/DefaultCompany/VaultBreakers\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -22,6 +23,27 @@ namespace Vaultbreakers.Editor
                 AssetDatabase.CreateAsset(renderer, VaultbreakersSetupPaths.RendererPath);
             }
 
+            var ao = renderer.rendererFeatures.OfType<ScreenSpaceAmbientOcclusion>().FirstOrDefault();
+            if (ao == null)
+            {
+                ao = ScriptableObject.CreateInstance<ScreenSpaceAmbientOcclusion>();
+                ao.name = "Dock contact occlusion";
+                AssetDatabase.AddObjectToAsset(ao, renderer);
+                renderer.rendererFeatures.Add(ao);
+            }
+            var aoSettings = new SerializedObject(ao);
+            var settings = aoSettings.FindProperty("m_Settings");
+            settings.FindPropertyRelative("AOMethod").enumValueIndex = 1;
+            settings.FindPropertyRelative("Downsample").boolValue = true;
+            settings.FindPropertyRelative("Source").enumValueIndex = 0;
+            settings.FindPropertyRelative("Intensity").floatValue = 1.15f;
+            settings.FindPropertyRelative("Radius").floatValue = .32f;
+            settings.FindPropertyRelative("DirectLightingStrength").floatValue = .12f;
+            settings.FindPropertyRelative("Samples").enumValueIndex = 1;
+            aoSettings.ApplyModifiedPropertiesWithoutUndo();
+            ao.Create();
+            EditorUtility.SetDirty(ao);
+
             renderer.postProcessData=AssetDatabase.LoadAssetAtPath<PostProcessData>("Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
             if(renderer.postProcessData==null)throw new InvalidOperationException("URP post-process resources are missing.");
             EditorUtility.SetDirty(renderer);
@@ -40,9 +62,12 @@ namespace Vaultbreakers.Editor
             var shadowSettings = new SerializedObject(pipeline);
             shadowSettings.FindProperty("m_SoftShadowsSupported").boolValue = true;
             shadowSettings.ApplyModifiedPropertiesWithoutUndo();
-            pipeline.shadowNormalBias = .35f;
+            pipeline.shadowNormalBias = .18f;
+            pipeline.shadowDistance = 65;
+            pipeline.mainLightShadowmapResolution = 2048;
+            pipeline.shadowCascadeCount = 2;
             pipeline.shadowDepthBias = .6f;
-            pipeline.msaaSampleCount = 4;
+            pipeline.msaaSampleCount = 2;
             pipeline.renderScale = 1f;
             EditorUtility.SetDirty(pipeline);
 
@@ -77,24 +102,24 @@ namespace Vaultbreakers.Editor
                     "URP Lit shader is unavailable; the 3D pipeline cannot be configured safely.");
             }
 
-            CreateOrUpdate(shader,"DG_BlackGlass",new Color(.025f,.07f,.105f),.2f,.4f);
-            CreateOrUpdate(shader,"DG_VaultTile",new Color(.12f,.23f,.28f),.15f,.3f);
-            CreateOrUpdate(shader,"DG_CoreWhite",new Color(.68f,.82f,.85f),.15f,.3f);
+            CreateOrUpdate(shader,"DG_BlackGlass",new Color(.12f,.17f,.21f),.45f,.36f);
+            CreateOrUpdate(shader,"DG_VaultTile",new Color(.30f,.38f,.43f),.45f,.5f);
+            CreateOrUpdate(shader,"DG_CoreWhite",new Color(.64f,.73f,.75f),.15f,.48f);
             CreateOrUpdate(shader, "DG_Skin", new Color(0.91f,0.56f,0.32f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Hair", new Color(0.18f,0.075f,0.035f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Cloth", new Color(0.035f,0.28f,0.48f), 0f, .3f);
-            CreateOrUpdate(shader, "DG_Cape", new Color(0.9f,0.22f,0.09f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Cape", new Color(.62f,.17f,.065f), .12f, .35f);
             CreateOrUpdate(shader, "DG_Leather", new Color(0.17f,0.075f,0.035f), 0f, .3f);
-            CreateOrUpdate(shader, "DG_Gold", new Color(0.95f,0.6f,0.13f), .35f, .3f);
-            CreateOrUpdate(shader, "DG_Steel", new Color(0.59f,0.8f,0.87f), .35f, .3f);
+            CreateOrUpdate(shader, "DG_Gold", new Color(.76f,.43f,.12f), .65f, .58f);
+            CreateOrUpdate(shader, "DG_Steel", new Color(.48f,.59f,.65f), .65f, .48f);
             CreateOrUpdate(shader, "DG_Ink", new Color(0.015f,0.025f,0.038f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Eye", new Color(0.92f,0.98f,1.0f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Goblin", new Color(.38f,.43f,.43f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Hood", new Color(.13f,.24f,.34f), 0f, .3f);
-            CreateOrUpdate(shader, "DG_Stone", new Color(0.25f,0.35f,0.37f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Stone", new Color(.20f,.28f,.31f), .25f, .4f);
             CreateOrUpdate(shader, "DG_StoneLight", new Color(0.4f,0.49f,0.46f), 0f, .3f);
-            CreateOrUpdate(shader, "DG_Tile", new Color(0.3f,0.39f,0.34f), 0f, .3f);
-            CreateOrUpdate(shader, "DG_TileLight", new Color(0.4f,0.47f,0.38f), 0f, .3f);
+            CreateOrUpdate(shader, "DG_Tile", new Color(.36f,.40f,.39f), .18f, .3f);
+            CreateOrUpdate(shader, "DG_TileLight", new Color(.32f,.38f,.36f), .2f, .4f);
             CreateOrUpdate(shader, "DG_Earth", new Color(0.095f,0.16f,0.15f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Moss", new Color(0.21f,0.38f,0.16f), 0f, .3f);
             CreateOrUpdate(shader, "DG_Leaf", new Color(0.095f,0.31f,0.2f), 0f, .3f);
@@ -117,7 +142,19 @@ namespace Vaultbreakers.Editor
             CreateOrUpdate(shader, "VB_ArenaFloor", new Color(0.055f, 0.065f, 0.075f), 0.25f, 0.62f);
             CreateOrUpdate(shader, "VB_ArenaWall", new Color(0.14f, 0.16f, 0.17f), 0.45f, 0.48f);
             CreateOrUpdate(shader, "VB_ArenaAccent", new Color(0.72f, 0.16f, 0.035f), 0.25f, 0.38f, new Color(0.55f, 0.055f, 0.005f));
-            CreateOrUpdate(shader, "VB_MeleeArc", new Color(0.95f, 0.62f, 0.12f), 0f, 0.6f, new Color(1f, 0.5f, 0.08f) * 4f);
+            var slashShader = Shader.Find("Vaultbreakers/ArcadeSlash");
+            if (slashShader == null) throw new InvalidOperationException("Arcade slash shader is missing.");
+            var slash = LoadMaterial("VB_MeleeArc");
+            if (slash == null)
+            {
+                slash = new Material(slashShader) { name = "VB_MeleeArc" };
+                AssetDatabase.CreateAsset(slash, MaterialPath("VB_MeleeArc"));
+            }
+            slash.shader = slashShader;
+            slash.shaderKeywords = Array.Empty<string>();
+            slash.renderQueue = -1;
+            slash.SetFloat("_Intensity", 1.6f);
+            EditorUtility.SetDirty(slash);
 
             // Player ranged fire reads cyan. Phase 9 gives enemy projectiles a different palette and
             // silhouette, so this colour is the player's half of that contrast.

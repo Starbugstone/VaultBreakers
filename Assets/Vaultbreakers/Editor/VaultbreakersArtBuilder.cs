@@ -114,11 +114,13 @@ namespace Vaultbreakers.Editor
             var profile=AssetDatabase.LoadAssetAtPath<VolumeProfile>(profilePath);
             if(profile==null){profile=ScriptableObject.CreateInstance<VolumeProfile>();AssetDatabase.CreateAsset(profile,profilePath);}
             if(!profile.TryGet<Bloom>(out var bloom)){bloom=profile.Add<Bloom>();AssetDatabase.AddObjectToAsset(bloom,profile);}
-            bloom.intensity.Override(.65f);bloom.threshold.Override(1.1f);bloom.scatter.Override(.45f);
+            bloom.intensity.Override(.28f);bloom.threshold.Override(1.2f);bloom.scatter.Override(.35f);
             // Keep contact highlights from spreading an overexposed flash across the room.
             bloom.clamp.Override(4f);
             if(!profile.TryGet<ColorAdjustments>(out var grade)){grade=profile.Add<ColorAdjustments>();AssetDatabase.AddObjectToAsset(grade,profile);}
-            grade.contrast.Override(16);grade.saturation.Override(0);grade.postExposure.Override(.25f);
+            grade.contrast.Override(7);grade.saturation.Override(0);grade.postExposure.Override(.4f);
+            if(!profile.TryGet<Tonemapping>(out var tone)){tone=profile.Add<Tonemapping>();AssetDatabase.AddObjectToAsset(tone,profile);}
+            tone.mode.Override(TonemappingMode.ACES);
             EditorUtility.SetDirty(profile);
             var go=new GameObject("Arcade lighting");var volume=go.AddComponent<Volume>();volume.isGlobal=true;volume.sharedProfile=profile;
             var cameraData=Camera.main.GetUniversalAdditionalCameraData();cameraData.renderPostProcessing=true;

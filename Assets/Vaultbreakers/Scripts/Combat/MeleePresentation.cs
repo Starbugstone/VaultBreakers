@@ -5,8 +5,7 @@ using Vaultbreakers.Equipment;
 namespace Vaultbreakers.Combat
 {
     /// <summary>
-    /// Placeholder feedback for the melee slice: a procedural swing pose on the equipped weapon, an
-    /// arc that shows the volume the swing actually queried, and generated placeholder audio. It only
+    /// Directional melee feedback: a tapered cutting arc, a thin trailing echo and swing audio. It only
     /// ever reads <see cref="MeleeController"/>; presentation never owns or delays combat timing, so
     /// removing this component changes nothing about what a swing hits.
     /// </summary>
@@ -27,6 +26,11 @@ namespace Vaultbreakers.Combat
         private Transform weaponSocket;
         private Quaternion weaponRest = Quaternion.identity;
         private GameObject arc;
+        private const int Segments = 40;
+        private const int Bands = 4;
+        private Mesh slashMesh;
+        private readonly Vector3[] vertices = new Vector3[(Segments + 1) * Bands * 2];
+        private readonly Color[] colors = new Color[(Segments + 1) * Bands * 2];
         private AudioSource audioSource;
         private AudioClip swingClip;
         private AudioClip impactClip;
@@ -87,14 +91,50 @@ namespace Vaultbreakers.Combat
 
             PoseWeapon(melee.Phase, melee.PhaseProgress);
 
+            var visible = melee.Phase == MeleePhase.Active ||
+                          melee.Phase == MeleePhase.Recovery && melee.PhaseProgress < .65f;
+            ShowArc(visible);
             if (arc != null && arc.activeSelf)
             {
-                var origin = transform.position + Vector3.up * arcHeight;
-                arc.transform.position = MeleeSwing.QueryCentre(
-                    origin, melee.SwingDirection, melee.Range, melee.Radius);
-                var diameter = melee.Radius * 2f;
-                arc.transform.localScale = new Vector3(diameter, 0.02f, diameter);
+                arc.transform.position = transform.position + Vector3.up * arcHeight;
+                arc.transform.rotation = Quaternion.LookRotation(melee.SwingDirection, Vector3.up);
+                UpdateSlash();
             }
+        }
+
+        private void UpdateSlash()
+        {
+            var recovery = melee.Phase == MeleePhase.Recovery;
+            var progress = recovery ? 1f : melee.PhaseProgress;
+            var fade = recovery ? 1f - Mathf.Clamp01(melee.PhaseProgress / .65f) : 1f;
+            // A moving, open crescent: its leading edge crosses the committed attack direction.
+            // The pointed ends and radial alpha falloff avoid a filled hit-volume disc.
+            var head = Mathf.Lerp(0f, -72f, progress);
+            var span = Mathf.Lerp(100f, 120f, progress);
+            var radius = melee.Range * .92f;
+            for (var ribbon = 0; ribbon < 2; ribbon++)
+                for (var segment = 0; segment <= Segments; segment++)
+                {
+                    var t = segment / (float)Segments;
+                    var angle = (head + span * (1f - t) - ribbon * 9f) * Mathf.Deg2Rad;
+                    var taper = Mathf.Pow(Mathf.Max(0f, Mathf.Sin(t * Mathf.PI)), .7f);
+                    var width = (ribbon == 0 ? .42f : .075f) * taper;
+                    var edge = radius - ribbon * .30f;
+                    for (var band = 0; band < Bands; band++)
+                    {
+                        var across = band == 0 ? 0f : band == 1 ? .56f : band == 2 ? .87f : 1f;
+                        var r = edge - width * (1f - across);
+                        var index = ribbon * (Segments + 1) * Bands + segment * Bands + band;
+                        vertices[index] = new Vector3(Mathf.Sin(angle) * r,
+                            Mathf.Sin(angle) * .18f + ribbon * .06f, Mathf.Cos(angle) * r);
+                        var color = band == 2 ? new Color(1f, .94f, .73f) : new Color(1f, .42f, .07f);
+                        color.a = band == 0 || band == 3 ? 0f : fade * taper * (ribbon == 0 ? .85f : .45f);
+                        colors[index] = color;
+                    }
+                }
+            slashMesh.vertices = vertices;
+            slashMesh.colors = colors;
+            slashMesh.RecalculateBounds();
         }
 
         public void Configure(
@@ -148,7 +188,7 @@ namespace Vaultbreakers.Combat
 
         private void ShowArc(bool visible)
         {
-            if (arc != null && arc.activeSelf != visible)
+            if (arc != null && arc.activeSelf != (visible && drawArc))
             {
                 arc.SetActive(visible && drawArc);
             }
@@ -156,30 +196,39 @@ namespace Vaultbreakers.Combat
 
         private void Play(AudioClip clip, float volume) => PlaceholderAudio.Play(audioSource, clip, volume);
 
-        /// <summary>
-        /// One reused disc, created here rather than per swing so a sustained fight never allocates.
-        /// It matches the query volume exactly, which is what makes a miss readable.
-        /// </summary>
+        // Reuse one small mesh across attacks. It is presentation only: no collider or shadow.
         private GameObject CreateArc()
         {
-            var disc = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            disc.name = "MeleeArc";
-            disc.layer = GameLayers.Debug;
-            disc.transform.SetParent(transform, true);
+            var slash = new GameObject("MeleeSlash", typeof(MeshFilter), typeof(MeshRenderer));
+            slash.layer = GameLayers.Debug;
+            slash.transform.SetParent(transform, false);
+            slashMesh = new Mesh { name = "Directional melee crescents" };
+            slashMesh.MarkDynamic();
+            slashMesh.vertices = vertices;
+            var triangles = new int[Segments * (Bands - 1) * 6 * 2];
+            var next = 0;
+            for (var ribbon = 0; ribbon < 2; ribbon++)
+                for (var segment = 0; segment < Segments; segment++)
+                    for (var band = 0; band < Bands - 1; band++)
+                    {
+                        var a = ribbon * (Segments + 1) * Bands + segment * Bands + band;
+                        var b = a + Bands;
+                        triangles[next++] = a; triangles[next++] = b; triangles[next++] = a + 1;
+                        triangles[next++] = a + 1; triangles[next++] = b; triangles[next++] = b + 1;
+                    }
+            slashMesh.triangles = triangles;
+            slash.GetComponent<MeshFilter>().sharedMesh = slashMesh;
+            var renderer = slash.GetComponent<MeshRenderer>();
+            renderer.sharedMaterial = arcMaterial;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            slash.SetActive(false);
+            return slash;
+        }
 
-            var collider = disc.GetComponent<Collider>();
-            if (collider != null)
-            {
-                Destroy(collider);
-            }
-
-            if (arcMaterial != null)
-            {
-                disc.GetComponent<Renderer>().sharedMaterial = arcMaterial;
-            }
-
-            disc.SetActive(false);
-            return disc;
+        private void OnDestroy()
+        {
+            if (slashMesh != null) Destroy(slashMesh);
         }
 
         private void SetUpAudio()

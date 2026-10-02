@@ -23,6 +23,44 @@ namespace Vaultbreakers.Tests.PlayMode
         private const string PrototypeArena = "Prototype_Arena";
         private const string AvatarShowcase = "Avatar_Showcase";
 
+        [UnityTest]
+        public IEnumerator PlayerAnimationAndFacingKeepTheBodyUprightAtDifferentFrameRates()
+        {
+            yield return LoadScene(PrototypeArena);
+            var avatar=UnityEngine.Object.FindAnyObjectByType<ModularAvatar>();
+            var animator=avatar.GetComponentInChildren<Animator>();
+            var facing=avatar.GetComponent<PlayerFacing>();
+            avatar.GetComponent<CombatAnimation>().enabled=false;
+            avatar.GetComponent<PlayerMotor>().enabled=false;
+            var bones=animator.GetComponentsInChildren<Transform>(true);
+            var hips=bones.Single(t=>t.name=="Hips");
+            var neck=bones.Single(t=>t.name=="Neck");
+            var oldCaptureRate=Time.captureFramerate;
+            try
+            {
+                foreach(var frameRate in new[]{30,60,120})
+                {
+                    Time.captureFramerate=frameRate;
+                    foreach(var state in new[]{"Idle","Move"})
+                        foreach(var direction in new[]{Vector3.forward,Vector3.right,Vector3.back,Vector3.left})
+                        {
+                            // Include recovery from an intentionally pitched pose.
+                            animator.Play("Dodge",0,.5f);
+                            animator.Update(0);
+                            animator.Play(state,0,0);
+                            facing.ApplyAttackFacing(direction);
+                            for(var frame=0;frame<12;frame++)
+                            {
+                                yield return null;
+                                Assert.That(Vector3.Angle(Vector3.up,neck.position-hips.position),Is.LessThan(12f),
+                                    $"{state}, {frameRate} fps, facing {direction}, frame {frame}");
+                            }
+                        }
+                }
+            }
+            finally {Time.captureFramerate=oldCaptureRate;}
+        }
+
         private static readonly (EquipmentSlot Slot, string Variant)[] DefaultLoadout =
         {
             (EquipmentSlot.Helmet, "Scrapper"),
@@ -165,6 +203,31 @@ namespace Vaultbreakers.Tests.PlayMode
         /// The melee slice has to work in the scene that ships, not only on a rig built by a test.
         /// This drives the arena player's own controller against the arena's own practice target.
         /// </summary>
+        [UnityTest]
+        public IEnumerator PrototypeArena_MeleeSlashStaysFiniteThroughTheSwingAndFade()
+        {
+            yield return LoadScene(PrototypeArena);
+            var melee=UnityEngine.Object.FindAnyObjectByType<MeleeController>();
+            melee.enabled=false;
+            var presentation=melee.GetComponent<MeleePresentation>();
+            var slash=melee.transform.Find("MeleeSlash");
+            Assert.That(slash,Is.Not.Null);
+            Assert.That(slash.GetComponent<Collider>(),Is.Null);
+            Assert.That(melee.TryStartSwing(),Is.True);
+            melee.Tick(.06f);
+            for(var frame=0;frame<12;frame++)
+            {
+                presentation.SendMessage("LateUpdate");
+                var mesh=slash.GetComponent<MeshFilter>().sharedMesh;
+                foreach(var vertex in mesh.vertices)
+                    Assert.That(float.IsNaN(vertex.sqrMagnitude) || float.IsInfinity(vertex.sqrMagnitude),Is.False);
+                Assert.That(mesh.bounds.size.sqrMagnitude,Is.LessThan(100f));
+                melee.Tick(.02f);
+            }
+            presentation.SendMessage("LateUpdate");
+            Assert.That(slash.gameObject.activeSelf,Is.False,"The slash must disappear after recovery.");
+        }
+
         [UnityTest]
         public IEnumerator PrototypeArena_MeleeSwingDamagesThePracticeDummy()
         {

@@ -40,12 +40,13 @@ namespace Vaultbreakers.Editor
             // Enemies separate from each other and take player damage. No friendly fire.
             {
                 GameLayers.Enemy,
-                new[] { GameLayers.Enemy, GameLayers.PlayerProjectile, GameLayers.PlayerMeleeHit, GameLayers.Environment }
+                new[] { GameLayers.Enemy, GameLayers.PlayerProjectile, GameLayers.PlayerMeleeHit, GameLayers.Environment, GameLayers.Interactable }
             },
 
             // Projectiles resolve one hit against the opposing faction or the arena.
-            { GameLayers.PlayerProjectile, new[] { GameLayers.Environment } },
-            { GameLayers.EnemyProjectile, new[] { GameLayers.Environment } },
+            { GameLayers.PlayerProjectile, new[] { GameLayers.Environment, GameLayers.Interactable } },
+            { GameLayers.EnemyProjectile, new[] { GameLayers.Environment, GameLayers.Interactable } },
+            { GameLayers.PlayerMeleeHit, new[] { GameLayers.Interactable } },
 
             // Gems settle on the floor and are collected by the player or a collector pet.
             // They never block movement or stop a projectile.

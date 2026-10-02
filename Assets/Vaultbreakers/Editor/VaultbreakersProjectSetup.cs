@@ -21,6 +21,8 @@ namespace Vaultbreakers.Editor
 
                 var pipeline = VaultbreakersRenderSetup.ConfigurePipeline();
                 VaultbreakersRenderSetup.CreateMaterials();
+                VaultbreakersSurfaceBuilder.Build();
+                VaultbreakersLootBuilder.PrepareMaterials();
                 VaultbreakersArtBuilder.Prepare();
                 var balance = VaultbreakersDataSetup.EnsureBalanceAsset();
                 var projectile = VaultbreakersProjectileBuilder.BuildPlayerProjectile(balance);

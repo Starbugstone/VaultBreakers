@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="175" result="Passed" total="175" passed="175" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:04Z" duration="1,5048692">
+  <test-suite type="TestSuite" id="1000" name="VaultBreakers" fullname="VaultBreakers" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:04Z" duration="1.504869" total="175" passed="175" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1203" name="Vaultbreakers.Tests.EditMode.dll" fullname="D:/Unity/Projects/VaultBreakers/Library/ScriptAssemblies/Vaultbreakers.Tests.EditMode.dll" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:04Z" duration="1.487131" total="175" passed="175" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20780" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1204" name="Vaultbreakers" fullname="Vaultbreakers" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:04Z" duration="1.483556" total="175" passed="175" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1205" name="Tests" fullname="Vaultbreakers.Tests" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:04Z" duration="1.480431" total="175" passed="175" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1206" name="EditMode" fullname="Vaultbreakers.Tests.EditMode" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:04Z" duration="1.476870" total="175" passed="175" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1009" name="ArcadeAudioTests" fullname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" classname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.285202" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1014" name="CuesAreRepeatableFiniteBoundedAndTaperToSilence" fullname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests.CuesAreRepeatableFiniteBoundedAndTaperToSilence" classname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.277145" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1010" name="CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;VB_MeleeSwing&quot;,0.16f,1400.0f,0.35f)" fullname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests.CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;VB_MeleeSwing&quot;,0.16f,1400.0f,0.35f)" methodname="CuesAreRepeatableFiniteBoundedAndTaperToSilence" classname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" runstate="Runnable" seed="995915584" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.073289" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;VB_RangedFire&quot;,0.11f,900.0f,0.4f)" fullname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests.CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;VB_RangedFire&quot;,0.11f,900.0f,0.4f)" methodname="CuesAreRepeatableFiniteBoundedAndTaperToSilence" classname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" runstate="Runnable" seed="308740453" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.026441" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;VB_ShieldBlock&quot;,0.1f,520.0f,0.7f)" fullname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests.CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;VB_ShieldBlock&quot;,0.1f,520.0f,0.7f)" methodname="CuesAreRepeatableFiniteBoundedAndTaperToSilence" classname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" runstate="Runnable" seed="1471679118" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.023909" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;Dock9_Core&quot;,0.9f,660.0f,1.2f)" fullname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests.CuesAreRepeatableFiniteBoundedAndTaperToSilence(&quot;Dock9_Core&quot;,0.9f,660.0f,1.2f)" methodname="CuesAreRepeatableFiniteBoundedAndTaperToSilence" classname="Vaultbreakers.Tests.EditMode.ArcadeAudioTests" runstate="Runnable" seed="140757169" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.131415" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1015" name="ArtImportTests" fullname="Vaultbreakers.Tests.EditMode.ArtImportTests" classname="Vaultbreakers.Tests.EditMode.ArtImportTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:03Z" duration="0.125991" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1016" name="AllTenAuthoredClipsImportAndKeepTranslationInGameplay" fullname="Vaultbreakers.Tests.EditMode.ArtImportTests.AllTenAuthoredClipsImportAndKeepTranslationInGameplay" methodname="AllTenAuthoredClipsImportAndKeepTranslationInGameplay" classname="Vaultbreakers.Tests.EditMode.ArtImportTests" runstate="Runnable" seed="1326548910" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.056269" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1018" name="EveryClipKeepsSocketLocalBindingsAndPlayerRootFixed" fullname="Vaultbreakers.Tests.EditMode.ArtImportTests.EveryClipKeepsSocketLocalBindingsAndPlayerRootFixed" methodname="EveryClipKeepsSocketLocalBindingsAndPlayerRootFixed" classname="Vaultbreakers.Tests.EditMode.ArtImportTests" runstate="Runnable" seed="2081416585" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:02Z" duration="0.027579" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="RebuiltAssetsHaveFiniteGeometryAndConsistentImportSettings" fullname="Vaultbreakers.Tests.EditMode.ArtImportTests.RebuiltAssetsHaveFiniteGeometryAndConsistentImportSettings" methodname="RebuiltAssetsHaveFiniteGeometryAndConsistentImportSettings" classname="Vaultbreakers.Tests.EditMode.ArtImportTests" runstate="Runnable" seed="2014946037" result="Passed" start-time="2026-10-02 18:07:02Z" end-time="2026-10-02 18:07:03Z" duration="0.036611" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1017" name="UpperBodyMaskKeepsLocomotionBonesIndependent" fullname="Vaultbreakers.Tests.EditMode.ArtImportTests.UpperBodyMaskKeepsLocomotionBonesIndependent" methodname="UpperBodyMaskKeepsLocomotionBonesIndependent" classname="Vaultbreakers.Tests.EditMode.ArtImportTests" runstate="Runnable" seed="1229422972" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002126" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1020" name="AvatarSocketRegistryTests" fullname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests" classname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.018755" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1024" name="Configure_WithNullClearsTheRegistryWithoutThrowing" fullname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests.Configure_WithNullClearsTheRegistryWithoutThrowing" methodname="Configure_WithNullClearsTheRegistryWithoutThrowing" classname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests" runstate="Runnable" seed="1312864633" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.007942" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="TryGet_ReturnsFalseForAnUnboundSocket" fullname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests.TryGet_ReturnsFalseForAnUnboundSocket" methodname="TryGet_ReturnsFalseForAnUnboundSocket" classname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests" runstate="Runnable" seed="574872081" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001049" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="TryGet_ReturnsFalseWhenTheBoundTransformWasDestroyed" fullname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests.TryGet_ReturnsFalseWhenTheBoundTransformWasDestroyed" methodname="TryGet_ReturnsFalseWhenTheBoundTransformWasDestroyed" classname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests" runstate="Runnable" seed="136619410" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000910" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="TryGet_ReturnsTheBoundTransform" fullname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests.TryGet_ReturnsTheBoundTransform" methodname="TryGet_ReturnsTheBoundTransform" classname="Vaultbreakers.Tests.EditMode.AvatarSocketRegistryTests" runstate="Runnable" seed="1159368574" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001801" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1025" name="CombatEventLogTests" fullname="Vaultbreakers.Tests.EditMode.CombatEventLogTests" classname="Vaultbreakers.Tests.EditMode.CombatEventLogTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.033219" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1029" name="Clear_EmptiesTheLog" fullname="Vaultbreakers.Tests.EditMode.CombatEventLogTests.Clear_EmptiesTheLog" methodname="Clear_EmptiesTheLog" classname="Vaultbreakers.Tests.EditMode.CombatEventLogTests" runstate="Runnable" seed="1582183172" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002799" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1027" name="Record_DropsTheOldestEntryPastCapacity" fullname="Vaultbreakers.Tests.EditMode.CombatEventLogTests.Record_DropsTheOldestEntryPastCapacity" methodname="Record_DropsTheOldestEntryPastCapacity" classname="Vaultbreakers.Tests.EditMode.CombatEventLogTests" runstate="Runnable" seed="1396674843" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002789" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1028" name="Record_IgnoresEmptyMessages" fullname="Vaultbreakers.Tests.EditMode.CombatEventLogTests.Record_IgnoresEmptyMessages" methodname="Record_IgnoresEmptyMessages" classname="Vaultbreakers.Tests.EditMode.CombatEventLogTests" runstate="Runnable" seed="367813313" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000691" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="Record_KeepsTheNewestEntryFirst" fullname="Vaultbreakers.Tests.EditMode.CombatEventLogTests.Record_KeepsTheNewestEntryFirst" methodname="Record_KeepsTheNewestEntryFirst" classname="Vaultbreakers.Tests.EditMode.CombatEventLogTests" runstate="Runnable" seed="1584455879" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.003305" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1030" name="CombatKernelTests" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.132073" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1039" name="ActionPolicy_EnforcesCombatConflictsAndDeathCancellation" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.ActionPolicy_EnforcesCombatConflictsAndDeathCancellation" methodname="ActionPolicy_EnforcesCombatConflictsAndDeathCancellation" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="427000375" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.010877" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1042" name="ActionPolicy_ResetClearsEveryFlagAfterDeath" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.ActionPolicy_ResetClearsEveryFlagAfterDeath" methodname="ActionPolicy_ResetClearsEveryFlagAfterDeath" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="1466403040" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.004097" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1040" name="ActionPolicy_ShieldIsRejectedWhileMeleeIsActiveAndAllowedOnceItEnds" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.ActionPolicy_ShieldIsRejectedWhileMeleeIsActiveAndAllowedOnceItEnds" methodname="ActionPolicy_ShieldIsRejectedWhileMeleeIsActiveAndAllowedOnceItEnds" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="678427545" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.003929" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1041" name="ActionPolicy_StoppingDodgeAllowsActionsAgain" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.ActionPolicy_StoppingDodgeAllowsActionsAgain" methodname="ActionPolicy_StoppingDodgeAllowsActionsAgain" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="275318419" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.006130" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1032" name="Health_ClampsDamageAtZero" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_ClampsDamageAtZero" methodname="Health_ClampsDamageAtZero" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="1571616357" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002578" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1034" name="Health_InvulnerabilityRejectsDamage" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_InvulnerabilityRejectsDamage" methodname="Health_InvulnerabilityRejectsDamage" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="853496158" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1036" name="Health_LethalHitIsAlreadyDeadWhenDamagedIsRaised" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_LethalHitIsAlreadyDeadWhenDamagedIsRaised" methodname="Health_LethalHitIsAlreadyDeadWhenDamagedIsRaised" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="223400630" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.005022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="Health_NonLethalHitDoesNotReportDeath" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_NonLethalHitDoesNotReportDeath" methodname="Health_NonLethalHitDoesNotReportDeath" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="1274368417" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.005802" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1035" name="Health_RepeatedLethalHitRaisesOneDeathEvent" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_RepeatedLethalHitRaisesOneDeathEvent" methodname="Health_RepeatedLethalHitRaisesOneDeathEvent" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="918249173" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.004356" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1038" name="Health_ResetRestoresValidAliveState" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_ResetRestoresValidAliveState" methodname="Health_ResetRestoresValidAliveState" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="68430784" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.005423" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1033" name="Health_ZeroAndNegativeDamageAreIgnored" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.Health_ZeroAndNegativeDamageAreIgnored" methodname="Health_ZeroAndNegativeDamageAreIgnored" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="598737225" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.006702" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1031" name="ZoneHealingClampsAndNeverRevivesADeadPlayer" fullname="Vaultbreakers.Tests.EditMode.CombatKernelTests.ZoneHealingClampsAndNeverRevivesADeadPlayer" methodname="ZoneHealingClampsAndNeverRevivesADeadPlayer" classname="Vaultbreakers.Tests.EditMode.CombatKernelTests" runstate="Runnable" seed="985753107" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.011094" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1043" name="DodgeSliceTests" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" testcasecount="25" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.568482" total="25" passed="25" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1064" name="Dodge_CancelledMidBurstReleasesEverythingAndStillOwesTheCooldown" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_CancelledMidBurstReleasesEverythingAndStillOwesTheCooldown" methodname="Dodge_CancelledMidBurstReleasesEverythingAndStillOwesTheCooldown" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="816575091" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.023157" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1060" name="Dodge_CancelsARaisedShieldImmediately" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_CancelsARaisedShieldImmediately" methodname="Dodge_CancelsARaisedShieldImmediately" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1014509363" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.008488" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1056" name="Dodge_CannotStartASecondBurstWhileOneIsRunning" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_CannotStartASecondBurstWhileOneIsRunning" methodname="Dodge_CannotStartASecondBurstWhileOneIsRunning" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="536013818" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.003658" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="Dodge_CoversTheAuthoredDistanceExactly" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_CoversTheAuthoredDistanceExactly" methodname="Dodge_CoversTheAuthoredDistanceExactly" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1756577219" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.004630" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1045" name="Dodge_CoversTheSameDistanceAtAnyFrameRate" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_CoversTheSameDistanceAtAnyFrameRate" methodname="Dodge_CoversTheSameDistanceAtAnyFrameRate" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1344443458" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001536" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1047" name="Dodge_DisplacementCurveIsClampedOutsideItsRange" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_DisplacementCurveIsClampedOutsideItsRange" methodname="Dodge_DisplacementCurveIsClampedOutsideItsRange" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="34114205" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000930" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="Dodge_EndsOnDeathWithoutLeavingThePlayerStuck" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_EndsOnDeathWithoutLeavingThePlayerStuck" methodname="Dodge_EndsOnDeathWithoutLeavingThePlayerStuck" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="236914206" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.090604" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1057" name="Dodge_FiresABufferedPressOnTheFirstLegalFrame" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_FiresABufferedPressOnTheFirstLegalFrame" methodname="Dodge_FiresABufferedPressOnTheFirstLegalFrame" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1871130996" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.082209" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1055" name="Dodge_HoldingTheButtonProducesOneDodge" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_HoldingTheButtonProducesOneDodge" methodname="Dodge_HoldingTheButtonProducesOneDodge" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="24740273" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.034014" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1062" name="Dodge_InterruptsMeleeStartupOutright" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_InterruptsMeleeStartupOutright" methodname="Dodge_InterruptsMeleeStartupOutright" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="962082054" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.012027" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="Dodge_IsFullyResetWhenHealthIsReset" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_IsFullyResetWhenHealthIsReset" methodname="Dodge_IsFullyResetWhenHealthIsReset" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="525740711" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001014" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="Dodge_IsInvulnerableForTheWholeBurstAndNotAfterIt" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_IsInvulnerableForTheWholeBurstAndNotAfterIt" methodname="Dodge_IsInvulnerableForTheWholeBurstAndNotAfterIt" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="2055674277" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001074" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1063" name="Dodge_IsRefusedWhileTheCoordinatorIsBlocked" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_IsRefusedWhileTheCoordinatorIsBlocked" methodname="Dodge_IsRefusedWhileTheCoordinatorIsBlocked" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="2036469735" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001251" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1049" name="Dodge_KeepsItsDirectionForTheWholeBurst" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_KeepsItsDirectionForTheWholeBurst" methodname="Dodge_KeepsItsDirectionForTheWholeBurst" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1118829958" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001894" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1058" name="Dodge_LetsAStalePressExpireInsteadOfFiringLate" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_LetsAStalePressExpireInsteadOfFiringLate" methodname="Dodge_LetsAStalePressExpireInsteadOfFiringLate" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1693146572" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001747" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1046" name="Dodge_MovesFastestOnTheFrameItStarts" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_MovesFastestOnTheFrameItStarts" methodname="Dodge_MovesFastestOnTheFrameItStarts" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1159962094" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001401" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1053" name="Dodge_RefusesASecondDodgeUntilTheCooldownElapses" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_RefusesASecondDodgeUntilTheCooldownElapses" methodname="Dodge_RefusesASecondDodgeUntilTheCooldownElapses" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="500066128" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001210" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1052" name="Dodge_RestoresInvulnerabilityItDidNotOwn" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_RestoresInvulnerabilityItDidNotOwn" methodname="Dodge_RestoresInvulnerabilityItDidNotOwn" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="298636420" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000944" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1054" name="Dodge_SpamCannotBeatTheCadence" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_SpamCannotBeatTheCadence" methodname="Dodge_SpamCannotBeatTheCadence" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="497520924" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001208" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1051" name="Dodge_TakesNoDamageDuringItsWindow" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_TakesNoDamageDuringItsWindow" methodname="Dodge_TakesNoDamageDuringItsWindow" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="2104741079" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001202" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1059" name="Dodge_TakesTheActionClaimAndReleasesItWhenTheBurstEnds" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_TakesTheActionClaimAndReleasesItWhenTheBurstEnds" methodname="Dodge_TakesTheActionClaimAndReleasesItWhenTheBurstEnds" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="767025812" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001088" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1048" name="Dodge_TravelsAlongTheLastCombatFacingWhenThereIsNoMovementInput" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_TravelsAlongTheLastCombatFacingWhenThereIsNoMovementInput" methodname="Dodge_TravelsAlongTheLastCombatFacingWhenThereIsNoMovementInput" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1698716596" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001340" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="Dodge_WaitsOutTheMeleeActiveWindowInsteadOfEatingThePress" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.Dodge_WaitsOutTheMeleeActiveWindowInsteadOfEatingThePress" methodname="Dodge_WaitsOutTheMeleeActiveWindowInsteadOfEatingThePress" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1995025964" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002664" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="DodgeController_TakesItsDistanceFromTheBalanceAssetAndNotItsFallback" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.DodgeController_TakesItsDistanceFromTheBalanceAssetAndNotItsFallback" methodname="DodgeController_TakesItsDistanceFromTheBalanceAssetAndNotItsFallback" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="1119757132" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001714" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1067" name="PrototypeBalance_ShipsTheDocumentedDodgeValues" fullname="Vaultbreakers.Tests.EditMode.DodgeSliceTests.PrototypeBalance_ShipsTheDocumentedDodgeValues" methodname="PrototypeBalance_ShipsTheDocumentedDodgeValues" classname="Vaultbreakers.Tests.EditMode.DodgeSliceTests" runstate="Runnable" seed="835490641" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001321" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1069" name="EnemyRulesTests" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.006565" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1070" name="AttackCannotLandBeforeItsTellAndOnlyStrikesOnce" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.AttackCannotLandBeforeItsTellAndOnlyStrikesOnce" methodname="AttackCannotLandBeforeItsTellAndOnlyStrikesOnce" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" seed="1124708648" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001471" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="DeathCancelsAnAttackEvenAtItsDamageBoundary" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.DeathCancelsAnAttackEvenAtItsDamageBoundary" methodname="DeathCancelsAnAttackEvenAtItsDamageBoundary" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" seed="966571421" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000280" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1076" name="StrikeMatchesCommittedFrontalArea" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.StrikeMatchesCommittedFrontalArea" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002519" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1072" name="StrikeMatchesCommittedFrontalArea(0,2,True)" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.StrikeMatchesCommittedFrontalArea(0,2,True)" methodname="StrikeMatchesCommittedFrontalArea" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" seed="290033915" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001182" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1073" name="StrikeMatchesCommittedFrontalArea(0,-2,False)" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.StrikeMatchesCommittedFrontalArea(0,-2,False)" methodname="StrikeMatchesCommittedFrontalArea" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" seed="541524608" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000155" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1074" name="StrikeMatchesCommittedFrontalArea(3,0,False)" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.StrikeMatchesCommittedFrontalArea(3,0,False)" methodname="StrikeMatchesCommittedFrontalArea" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" seed="2095931013" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000120" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1075" name="StrikeMatchesCommittedFrontalArea(0,3.1f,False)" fullname="Vaultbreakers.Tests.EditMode.EnemyRulesTests.StrikeMatchesCommittedFrontalArea(0,3.1f,False)" methodname="StrikeMatchesCommittedFrontalArea" classname="Vaultbreakers.Tests.EditMode.EnemyRulesTests" runstate="Runnable" seed="1893267344" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000088" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1077" name="GeneratedFoundationTests" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.147121" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1091" name="Avatar_FacesUnityForwardWithUnmirroredHandedness" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Avatar_FacesUnityForwardWithUnmirroredHandedness" methodname="Avatar_FacesUnityForwardWithUnmirroredHandedness" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1991247814" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.009829" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1095" name="Avatar_StandsOnTheGroundAtHumanScale" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Avatar_StandsOnTheGroundAtHumanScale" methodname="Avatar_StandsOnTheGroundAtHumanScale" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1319218637" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.007864" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1094" name="Hierarchy_HasNoNegativeScale" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Hierarchy_HasNoNegativeScale" methodname="Hierarchy_HasNoNegativeScale" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1592562173" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.003290" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1081" name="ModelImporter_MatchesTheDocumentedImportContract" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.ModelImporter_MatchesTheDocumentedImportContract" methodname="ModelImporter_MatchesTheDocumentedImportContract" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1966953396" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.005877" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[MaterialLocation.External is obsolete. External Material Location is no longer supported. (Assets/Vaultbreakers/Art/Characters/Player/Vaultbreaker_Modular.fbx)
+]]></output>
+              </test-case>
+              <test-case id="1088" name="Modules_ClaimEveryExportedVariantObject" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Modules_ClaimEveryExportedVariantObject" methodname="Modules_ClaimEveryExportedVariantObject" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="379457758" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.004174" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1087" name="Modules_CoverEverySlotWithAtLeastTwoVariants" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Modules_CoverEverySlotWithAtLeastTwoVariants" methodname="Modules_CoverEverySlotWithAtLeastTwoVariants" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1359726624" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.004537" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1079" name="Pipeline_IsAssignedAndUsesTheThreeDimensionalUniversalRenderer" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Pipeline_IsAssignedAndUsesTheThreeDimensionalUniversalRenderer" methodname="Pipeline_IsAssignedAndUsesTheThreeDimensionalUniversalRenderer" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="717355875" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.065099" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1080" name="Pipeline_IsAssignedToEveryQualityLevel" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Pipeline_IsAssignedToEveryQualityLevel" methodname="Pipeline_IsAssignedToEveryQualityLevel" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="2099615353" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001581" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1084" name="Prefab_ContainsAtMostOneAnimator" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Prefab_ContainsAtMostOneAnimator" methodname="Prefab_ContainsAtMostOneAnimator" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="924020692" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000503" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1089" name="Prefab_SavedStateMatchesTheDeclaredDefaults" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Prefab_SavedStateMatchesTheDeclaredDefaults" methodname="Prefab_SavedStateMatchesTheDeclaredDefaults" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="103301156" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002943" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1078" name="RendererHasPostProcessResourcesForBloomAndAccessibility" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.RendererHasPostProcessResourcesForBloomAndAccessibility" methodname="RendererHasPostProcessResourcesForBloomAndAccessibility" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="828269503" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000459" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1090" name="Renderers_UseUrpLitMaterialsAndHaveValidBounds" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Renderers_UseUrpLitMaterialsAndHaveValidBounds" methodname="Renderers_UseUrpLitMaterialsAndHaveValidBounds" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1936460095" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.013835" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1082" name="Scenes_ExistAndAreEnabledInBuildSettings" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Scenes_ExistAndAreEnabledInBuildSettings" methodname="Scenes_ExistAndAreEnabledInBuildSettings" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="806529366" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002118" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1083" name="Skeleton_ContainsEachCanonicalBoneExactlyOnce" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Skeleton_ContainsEachCanonicalBoneExactlyOnce" methodname="Skeleton_ContainsEachCanonicalBoneExactlyOnce" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1279629488" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001075" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1085" name="Sockets_AreAllRegisteredAndNamedCanonically" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Sockets_AreAllRegisteredAndNamedCanonically" methodname="Sockets_AreAllRegisteredAndNamedCanonically" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="810726566" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001651" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1086" name="Sockets_AreNeverOwnedByAnEquipmentModule" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Sockets_AreNeverOwnedByAnEquipmentModule" methodname="Sockets_AreNeverOwnedByAnEquipmentModule" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1315014197" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.003486" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1092" name="Sockets_ShareTheGameplayFacingOrientation" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Sockets_ShareTheGameplayFacingOrientation" methodname="Sockets_ShareTheGameplayFacingOrientation" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="295209634" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.006005" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1093" name="Sockets_StayWithTheirOwningBody" fullname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests.Sockets_StayWithTheirOwningBody" methodname="Sockets_StayWithTheirOwningBody" classname="Vaultbreakers.Tests.EditMode.GeneratedFoundationTests" runstate="Runnable" seed="1790299496" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.005838" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1096" name="InputFoundationTests" fullname="Vaultbreakers.Tests.EditMode.InputFoundationTests" classname="Vaultbreakers.Tests.EditMode.InputFoundationTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.013860" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1100" name="InputAsset_AppliesTheAimDeadZoneOnlyOnceInGameplay" fullname="Vaultbreakers.Tests.EditMode.InputFoundationTests.InputAsset_AppliesTheAimDeadZoneOnlyOnceInGameplay" methodname="InputAsset_AppliesTheAimDeadZoneOnlyOnceInGameplay" classname="Vaultbreakers.Tests.EditMode.InputFoundationTests" runstate="Runnable" seed="1184785776" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001973" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1098" name="InputAsset_HasControllerAndDevelopmentBindings" fullname="Vaultbreakers.Tests.EditMode.InputFoundationTests.InputAsset_HasControllerAndDevelopmentBindings" methodname="InputAsset_HasControllerAndDevelopmentBindings" classname="Vaultbreakers.Tests.EditMode.InputFoundationTests" runstate="Runnable" seed="1226234529" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.003383" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1097" name="InputAsset_HasTheDocumentedMapsAndActions" fullname="Vaultbreakers.Tests.EditMode.InputFoundationTests.InputAsset_HasTheDocumentedMapsAndActions" methodname="InputAsset_HasTheDocumentedMapsAndActions" classname="Vaultbreakers.Tests.EditMode.InputFoundationTests" runstate="Runnable" seed="992665593" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.002814" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1099" name="InputAsset_KeyboardAimIsADirectionalCompositeNotPointerDelta" fullname="Vaultbreakers.Tests.EditMode.InputFoundationTests.InputAsset_KeyboardAimIsADirectionalCompositeNotPointerDelta" methodname="InputAsset_KeyboardAimIsADirectionalCompositeNotPointerDelta" classname="Vaultbreakers.Tests.EditMode.InputFoundationTests" runstate="Runnable" seed="303713959" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001490" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1101" name="PlayerPrefab_CarriesTheInputLocomotionAndCombatComponents" fullname="Vaultbreakers.Tests.EditMode.InputFoundationTests.PlayerPrefab_CarriesTheInputLocomotionAndCombatComponents" methodname="PlayerPrefab_CarriesTheInputLocomotionAndCombatComponents" classname="Vaultbreakers.Tests.EditMode.InputFoundationTests" runstate="Runnable" seed="1502088698" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001434" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1102" name="MeleeSliceTests" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.025596" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1120" name="BufferedPress_ExpiresWhenTheSwingStaysIllegalForLongerThanTheWindow" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.BufferedPress_ExpiresWhenTheSwingStaysIllegalForLongerThanTheWindow" methodname="BufferedPress_ExpiresWhenTheSwingStaysIllegalForLongerThanTheWindow" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="697121452" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001194" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1119" name="BufferedPress_FiresOnTheFirstFrameTheSwingBecomesLegal" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.BufferedPress_FiresOnTheFirstFrameTheSwingBecomesLegal" methodname="BufferedPress_FiresOnTheFirstFrameTheSwingBecomesLegal" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1342066081" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000710" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1118" name="Cooldown_RejectsSpamAndLetsTheNextSwingFollowImmediately" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.Cooldown_RejectsSpamAndLetsTheNextSwingFollowImmediately" methodname="Cooldown_RejectsSpamAndLetsTheNextSwingFollowImmediately" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1642196309" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000797" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1114" name="CorrectionCandidate_RejectsTargetsOutOfReachOrOutOfCone" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.CorrectionCandidate_RejectsTargetsOutOfReachOrOutOfCone" methodname="CorrectionCandidate_RejectsTargetsOutOfReachOrOutOfCone" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1778322459" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001434" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1108" name="IsWithinSwing_AcceptsATargetPressedAgainstTheAttacker" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.IsWithinSwing_AcceptsATargetPressedAgainstTheAttacker" methodname="IsWithinSwing_AcceptsATargetPressedAgainstTheAttacker" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="977000871" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001102" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1106" name="IsWithinSwing_AcceptsTheEdgeOfRangeAndRejectsJustBeyondIt" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.IsWithinSwing_AcceptsTheEdgeOfRangeAndRejectsJustBeyondIt" methodname="IsWithinSwing_AcceptsTheEdgeOfRangeAndRejectsJustBeyondIt" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="389037767" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000788" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1109" name="IsWithinSwing_IgnoresHeightDifferences" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.IsWithinSwing_IgnoresHeightDifferences" methodname="IsWithinSwing_IgnoresHeightDifferences" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1881627616" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000576" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1107" name="IsWithinSwing_RejectsATargetBehindTheAttacker" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.IsWithinSwing_RejectsATargetBehindTheAttacker" methodname="IsWithinSwing_RejectsATargetBehindTheAttacker" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1056554131" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000502" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1115" name="Knockback_PointsAwayFromTheAttackerAndFallsBackToTheSwing" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.Knockback_PointsAwayFromTheAttackerAndFallsBackToTheSwing" methodname="Knockback_PointsAwayFromTheAttackerAndFallsBackToTheSwing" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="536482533" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001124" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1124" name="MeleeController_TakesItsTuningFromTheBalanceAssetAndNotItsFallback" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.MeleeController_TakesItsTuningFromTheBalanceAssetAndNotItsFallback" methodname="MeleeController_TakesItsTuningFromTheBalanceAssetAndNotItsFallback" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1091014226" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001219" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1123" name="PrototypeBalance_ShipsTheDocumentedStartingValues" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.PrototypeBalance_ShipsTheDocumentedStartingValues" methodname="PrototypeBalance_ShipsTheDocumentedStartingValues" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1548743437" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001120" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1105" name="QueryCentre_FallsBackToTheOriginForAZeroDirection" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.QueryCentre_FallsBackToTheOriginForAZeroDirection" methodname="QueryCentre_FallsBackToTheOriginForAZeroDirection" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1037531095" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000670" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1104" name="QueryCentre_IgnoresTheVerticalComponentOfTheSwingDirection" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.QueryCentre_IgnoresTheVerticalComponentOfTheSwingDirection" methodname="QueryCentre_IgnoresTheVerticalComponentOfTheSwingDirection" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1144480992" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000624" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1103" name="QueryCentre_PutsTheFarEdgeOfTheSphereAtTheConfiguredRange" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.QueryCentre_PutsTheFarEdgeOfTheSphereAtTheConfiguredRange" methodname="QueryCentre_PutsTheFarEdgeOfTheSphereAtTheConfiguredRange" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1001968496" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000594" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1117" name="Swing_ClaimsTheAttackStateAndReleasesItWhenRecoveryEnds" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.Swing_ClaimsTheAttackStateAndReleasesItWhenRecoveryEnds" methodname="Swing_ClaimsTheAttackStateAndReleasesItWhenRecoveryEnds" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="25551081" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000718" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1121" name="Swing_IsRefusedWhileDodgingAndAfterDeath" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.Swing_IsRefusedWhileDodgingAndAfterDeath" methodname="Swing_IsRefusedWhileDodgingAndAfterDeath" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="105954384" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001033" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1122" name="Swing_ResumesAfterDeathIsResetWithoutWaitingOutTheOldCooldown" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.Swing_ResumesAfterDeathIsResetWithoutWaitingOutTheOldCooldown" methodname="Swing_ResumesAfterDeathIsResetWithoutWaitingOutTheOldCooldown" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1465220897" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000553" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1116" name="Swing_RunsStartupActiveAndRecoveryAtTheAuthoredTimes" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.Swing_RunsStartupActiveAndRecoveryAtTheAuthoredTimes" methodname="Swing_RunsStartupActiveAndRecoveryAtTheAuthoredTimes" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="79572309" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000731" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1111" name="TargetCorrection_IgnoresATargetOutsideTheCone" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.TargetCorrection_IgnoresATargetOutsideTheCone" methodname="TargetCorrection_IgnoresATargetOutsideTheCone" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1348457972" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001156" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1112" name="TargetCorrection_NeverExceedsTheConfiguredDegrees" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.TargetCorrection_NeverExceedsTheConfiguredDegrees" methodname="TargetCorrection_NeverExceedsTheConfiguredDegrees" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="465377071" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.001473" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1110" name="TargetCorrection_SnapsOntoATargetInsideTheCone" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.TargetCorrection_SnapsOntoATargetInsideTheCone" methodname="TargetCorrection_SnapsOntoATargetInsideTheCone" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="1000664099" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000955" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1113" name="TargetCorrection_SurvivesZeroLengthVectors" fullname="Vaultbreakers.Tests.EditMode.MeleeSliceTests.TargetCorrection_SurvivesZeroLengthVectors" methodname="TargetCorrection_SurvivesZeroLengthVectors" classname="Vaultbreakers.Tests.EditMode.MeleeSliceTests" runstate="Runnable" seed="217736025" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:03Z" duration="0.000739" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1125" name="ModularAvatarTests" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" testcasecount="14" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:04Z" duration="0.019377" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1139" name="Configure_ReplacesModulesAndReinitializes" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Configure_ReplacesModulesAndReinitializes" methodname="Configure_ReplacesModulesAndReinitializes" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="554241220" result="Passed" start-time="2026-10-02 18:07:03Z" end-time="2026-10-02 18:07:04Z" duration="0.006139" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1133" name="Equip_EmptyVariantId_IsRejected" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_EmptyVariantId_IsRejected" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.003024" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1130" name="Equip_EmptyVariantId_IsRejected(null)" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_EmptyVariantId_IsRejected(null)" methodname="Equip_EmptyVariantId_IsRejected" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="1825880008" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000944" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1131" name="Equip_EmptyVariantId_IsRejected(&quot;&quot;)" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_EmptyVariantId_IsRejected(&quot;&quot;)" methodname="Equip_EmptyVariantId_IsRejected" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="794628260" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000493" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1132" name="Equip_EmptyVariantId_IsRejected(&quot;   &quot;)" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_EmptyVariantId_IsRejected(&quot;   &quot;)" methodname="Equip_EmptyVariantId_IsRejected" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="1958729152" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000426" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1134" name="Equip_IsCaseSensitiveSoDataIdsStayStable" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_IsCaseSensitiveSoDataIdsStayStable" methodname="Equip_IsCaseSensitiveSoDataIdsStayStable" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="1148062754" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000630" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1128" name="Equip_SwapsVisibilityWithinTheSlotOnly" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_SwapsVisibilityWithinTheSlotOnly" methodname="Equip_SwapsVisibilityWithinTheSlotOnly" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="226246759" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000607" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1129" name="Equip_UnknownVariant_FailsSafelyAndKeepsTheCurrentModule" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Equip_UnknownVariant_FailsSafelyAndKeepsTheCurrentModule" methodname="Equip_UnknownVariant_FailsSafelyAndKeepsTheCurrentModule" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="271174451" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000619" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1127" name="Initialize_IsIdempotent" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Initialize_IsIdempotent" methodname="Initialize_IsIdempotent" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="2052258223" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000600" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1126" name="Initialize_ShowsOnlyTheDefaultVariantOfEachSlot" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Initialize_ShowsOnlyTheDefaultVariantOfEachSlot" methodname="Initialize_ShowsOnlyTheDefaultVariantOfEachSlot" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="428676337" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000532" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1140" name="Modules_WithNullPartsDoNotThrow" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Modules_WithNullPartsDoNotThrow" methodname="Modules_WithNullPartsDoNotThrow" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="1068362847" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000618" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1137" name="TryGetEquipped_ReportsDefaultsWithoutAnExplicitEquip" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.TryGetEquipped_ReportsDefaultsWithoutAnExplicitEquip" methodname="TryGetEquipped_ReportsDefaultsWithoutAnExplicitEquip" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="1292535804" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000587" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1138" name="TryGetEquipped_ReturnsFalseForASlotWithNoDefault" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.TryGetEquipped_ReturnsFalseForASlotWithNoDefault" methodname="TryGetEquipped_ReturnsFalseForASlotWithNoDefault" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="997037077" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000551" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1135" name="Unequip_HidesEveryModuleInTheSlotAndClearsState" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Unequip_HidesEveryModuleInTheSlotAndClearsState" methodname="Unequip_HidesEveryModuleInTheSlotAndClearsState" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="1686801471" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001169" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1136" name="Unequip_ThenEquip_RestoresTheModule" fullname="Vaultbreakers.Tests.EditMode.ModularAvatarTests.Unequip_ThenEquip_RestoresTheModule" methodname="Unequip_ThenEquip_RestoresTheModule" classname="Vaultbreakers.Tests.EditMode.ModularAvatarTests" runstate="Runnable" seed="170490016" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000560" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1141" name="PhysicsLayerTests" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.017272" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1147" name="AttackVolumesNeverCollideWithEachOther" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.AttackVolumesNeverCollideWithEachOther" methodname="AttackVolumesNeverCollideWithEachOther" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1666230292" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000701" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1151" name="BodiesCollideWithArenaGeometry" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.BodiesCollideWithArenaGeometry" methodname="BodiesCollideWithArenaGeometry" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1818330696" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000270" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1144" name="CollisionMatrix_MatchesTheConfiguredRules" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.CollisionMatrix_MatchesTheConfiguredRules" methodname="CollisionMatrix_MatchesTheConfiguredRules" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1222869072" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.005649" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1154" name="DebugLayerIsInertInPlay" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.DebugLayerIsInertInPlay" methodname="DebugLayerIsInertInPlay" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1760066024" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000323" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1149" name="EnemyProjectilesHitThePlayerAndGeometryOnly" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.EnemyProjectilesHitThePlayerAndGeometryOnly" methodname="EnemyProjectilesHitThePlayerAndGeometryOnly" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1582339197" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000836" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1153" name="GemsNeverBlockMovementOrProjectiles" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.GemsNeverBlockMovementOrProjectiles" methodname="GemsNeverBlockMovementOrProjectiles" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="2108839357" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000193" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1142" name="Layers_AreRegisteredAtTheirDocumentedIndices" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.Layers_AreRegisteredAtTheirDocumentedIndices" methodname="Layers_AreRegisteredAtTheirDocumentedIndices" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="284049648" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000865" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1143" name="Layers_DoNotOverlapUnityBuiltins" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.Layers_DoNotOverlapUnityBuiltins" methodname="Layers_DoNotOverlapUnityBuiltins" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1852296665" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.003176" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1150" name="MeleeAndAttackVolumesOnlyReachTheOpposingBody" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.MeleeAndAttackVolumesOnlyReachTheOpposingBody" methodname="MeleeAndAttackVolumesOnlyReachTheOpposingBody" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1020592156" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000450" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1145" name="NoFriendlyFire" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.NoFriendlyFire" methodname="NoFriendlyFire" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1941457618" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000276" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1152" name="PetsDoNotObstructCombat" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.PetsDoNotObstructCombat" methodname="PetsDoNotObstructCombat" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1152320681" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000206" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1148" name="PlayerProjectilesHitEnemiesAndGeometryOnly" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.PlayerProjectilesHitEnemiesAndGeometryOnly" methodname="PlayerProjectilesHitEnemiesAndGeometryOnly" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="1842989494" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000327" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1146" name="PlayersDoNotCollideWithEachOther" fullname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests.PlayersDoNotCollideWithEachOther" methodname="PlayersDoNotCollideWithEachOther" classname="Vaultbreakers.Tests.EditMode.PhysicsLayerTests" runstate="Runnable" seed="430673624" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000187" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1155" name="PlayerLocomotionTests" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.007482" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1157" name="CameraRelativeDirection_ClampsDiagonalInput" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests.CameraRelativeDirection_ClampsDiagonalInput" methodname="CameraRelativeDirection_ClampsDiagonalInput" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" seed="1798974458" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001157" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1156" name="CameraRelativeDirection_ProjectsMovementOntoTheGroundPlane" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests.CameraRelativeDirection_ProjectsMovementOntoTheGroundPlane" methodname="CameraRelativeDirection_ProjectsMovementOntoTheGroundPlane" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" seed="1861295597" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001350" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1158" name="Facing_AimAboveDeadZoneOverridesMovement" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests.Facing_AimAboveDeadZoneOverridesMovement" methodname="Facing_AimAboveDeadZoneOverridesMovement" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" seed="851034876" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001020" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1159" name="Facing_AimBelowDeadZoneFallsBackToMovement" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests.Facing_AimBelowDeadZoneFallsBackToMovement" methodname="Facing_AimBelowDeadZoneFallsBackToMovement" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" seed="2068940226" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000410" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1161" name="Facing_NeutralInputPreservesPreviousDirection" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests.Facing_NeutralInputPreservesPreviousDirection" methodname="Facing_NeutralInputPreservesPreviousDirection" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" seed="1065391572" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000546" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1160" name="Facing_UsesAimAtExactDeadZoneBoundary" fullname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests.Facing_UsesAimAtExactDeadZoneBoundary" methodname="Facing_UsesAimAtExactDeadZoneBoundary" classname="Vaultbreakers.Tests.EditMode.PlayerLocomotionTests" runstate="Runnable" seed="1354697422" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000460" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1162" name="RangedSliceTests" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.014699" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1170" name="Death_StopsFireAndBlocksItUntilTheStateIsReset" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.Death_StopsFireAndBlocksItUntilTheStateIsReset" methodname="Death_StopsFireAndBlocksItUntilTheStateIsReset" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="119130916" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.004481" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1169" name="Dodging_StopsFireAndItResumesOnceTheDodgeEnds" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.Dodging_StopsFireAndItResumesOnceTheDodgeEnds" methodname="Dodging_StopsFireAndItResumesOnceTheDodgeEnds" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="1443801385" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000779" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1167" name="Fire_IsRefusedWhileShieldingAndResumesWhenTheShieldDrops" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.Fire_IsRefusedWhileShieldingAndResumesWhenTheShieldDrops" methodname="Fire_IsRefusedWhileShieldingAndResumesWhenTheShieldDrops" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="838497947" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000720" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1164" name="HoldingFire_KeepsTheCadenceStableOverALongBurst" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.HoldingFire_KeepsTheCadenceStableOverALongBurst" methodname="HoldingFire_KeepsTheCadenceStableOverALongBurst" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="1648778658" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000560" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1163" name="HoldingFire_ProducesTheAuthoredCadenceWithNoAmmunitionOrReload" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.HoldingFire_ProducesTheAuthoredCadenceWithNoAmmunitionOrReload" methodname="HoldingFire_ProducesTheAuthoredCadenceWithNoAmmunitionOrReload" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="1908120206" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000567" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1171" name="PrototypeBalance_ShipsTheDocumentedRangedValues" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.PrototypeBalance_ShipsTheDocumentedRangedValues" methodname="PrototypeBalance_ShipsTheDocumentedRangedValues" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="189844117" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001149" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1168" name="RaisingTheShield_StopsAnActiveBurstImmediately" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.RaisingTheShield_StopsAnActiveBurstImmediately" methodname="RaisingTheShield_StopsAnActiveBurstImmediately" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="1996583398" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000713" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1172" name="RangedController_TakesItsCadenceFromTheBalanceAssetAndNotItsFallback" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.RangedController_TakesItsCadenceFromTheBalanceAssetAndNotItsFallback" methodname="RangedController_TakesItsCadenceFromTheBalanceAssetAndNotItsFallback" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="906807948" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001027" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1166" name="ReleasingTheTrigger_NeverBanksShots" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.ReleasingTheTrigger_NeverBanksShots" methodname="ReleasingTheTrigger_NeverBanksShots" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="384594482" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000676" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1165" name="TappingFire_ProducesExactlyOneShot" fullname="Vaultbreakers.Tests.EditMode.RangedSliceTests.TappingFire_ProducesExactlyOneShot" methodname="TappingFire_ProducesExactlyOneShot" classname="Vaultbreakers.Tests.EditMode.RangedSliceTests" runstate="Runnable" seed="1737688215" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000606" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1173" name="ShieldSliceTests" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" testcasecount="26" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.036721" total="26" passed="26" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1186" name="AHitLargerThanTheRemainingStability_IsStillBlockedInFull" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.AHitLargerThanTheRemainingStability_IsStillBlockedInFull" methodname="AHitLargerThanTheRemainingStability_IsStillBlockedInFull" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1973436506" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.003161" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1174" name="Arc_BlocksDeadCentre" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_BlocksDeadCentre" methodname="Arc_BlocksDeadCentre" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="489668332" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000697" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1175" name="Arc_BlocksTheExactEdgeAndNotAHairBeyondIt" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_BlocksTheExactEdgeAndNotAHairBeyondIt" methodname="Arc_BlocksTheExactEdgeAndNotAHairBeyondIt" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="827013215" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000768" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1176" name="Arc_DoesNotBlockFromBehind" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_DoesNotBlockFromBehind" methodname="Arc_DoesNotBlockFromBehind" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="373023497" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000532" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1179" name="Arc_IgnoresHeightDifferences" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_IgnoresHeightDifferences" methodname="Arc_IgnoresHeightDifferences" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="671771969" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000552" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1177" name="Arc_RefusesToBlockWhenThereIsNoDirectionToJudge" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_RefusesToBlockWhenThereIsNoDirectionToJudge" methodname="Arc_RefusesToBlockWhenThereIsNoDirectionToJudge" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="287310766" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000701" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1180" name="Arc_TreatsAHitWithNoKnownSourceAsUnshieldable" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_TreatsAHitWithNoKnownSourceAsUnshieldable" methodname="Arc_TreatsAHitWithNoKnownSourceAsUnshieldable" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="709372810" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000586" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1178" name="Arc_WrapsThroughNorthWithoutAGap" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Arc_WrapsThroughNorthWithoutAGap" methodname="Arc_WrapsThroughNorthWithoutAGap" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1671174" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001076" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1187" name="Breaking_CostsExactlyTheLockoutAndReturnsAUsableShield" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Breaking_CostsExactlyTheLockoutAndReturnsAUsableShield" methodname="Breaking_CostsExactlyTheLockoutAndReturnsAUsableShield" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="264853502" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001291" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1194" name="Death_DropsARaisedShieldButDoesNotRepairABrokenOne" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Death_DropsARaisedShieldButDoesNotRepairABrokenOne" methodname="Death_DropsARaisedShieldButDoesNotRepairABrokenOne" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="791476024" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000952" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1193" name="Dodge_CancelsARaisedShield" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Dodge_CancelsARaisedShield" methodname="Dodge_CancelsARaisedShield" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="2028625126" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000558" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1182" name="FrontalHit_DrainsStabilityAndLeavesHealthAlone" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.FrontalHit_DrainsStabilityAndLeavesHealthAlone" methodname="FrontalHit_DrainsStabilityAndLeavesHealthAlone" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="2115249404" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000674" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1185" name="HeavyHit_DrainsTheStabilityItDeclares" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.HeavyHit_DrainsTheStabilityItDeclares" methodname="HeavyHit_DrainsTheStabilityItDeclares" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="2107835792" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000579" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1196" name="InvulnerablePlayer_DoesNotSpendStabilityBlockingHitsThatCouldNotLand" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.InvulnerablePlayer_DoesNotSpendStabilityBlockingHitsThatCouldNotLand" methodname="InvulnerablePlayer_DoesNotSpendStabilityBlockingHitsThatCouldNotLand" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="408545807" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000578" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1184" name="LoweredShield_BlocksNothingEvenFromDeadAhead" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.LoweredShield_BlocksNothingEvenFromDeadAhead" methodname="LoweredShield_BlocksNothingEvenFromDeadAhead" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="416836516" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001040" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1192" name="Melee_SuppressesARaisedShieldAndItReturnsWhenTheSwingEnds" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Melee_SuppressesARaisedShieldAndItReturnsWhenTheSwingEnds" methodname="Melee_SuppressesARaisedShieldAndItReturnsWhenTheSwingEnds" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="9523698" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001245" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1198" name="PrototypeBalance_ShipsTheDocumentedShieldValues" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.PrototypeBalance_ShipsTheDocumentedShieldValues" methodname="PrototypeBalance_ShipsTheDocumentedShieldValues" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="577527472" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.002002" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1181" name="Raising_ClaimsTheActionAndLoweringGivesItBack" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Raising_ClaimsTheActionAndLoweringGivesItBack" methodname="Raising_ClaimsTheActionAndLoweringGivesItBack" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1335704754" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001180" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1191" name="RaisingTheShield_AppliesTheMovementPenaltyAndLoweringRemovesIt" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.RaisingTheShield_AppliesTheMovementPenaltyAndLoweringRemovesIt" methodname="RaisingTheShield_AppliesTheMovementPenaltyAndLoweringRemovesIt" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1707432652" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001811" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1183" name="RearHit_DrainsHealthAndLeavesStabilityAlone" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.RearHit_DrainsHealthAndLeavesStabilityAlone" methodname="RearHit_DrainsHealthAndLeavesStabilityAlone" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1381650961" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1188" name="Recovering_IsAUsableStateThatBecomesLoweredOnceStabilityIsFull" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Recovering_IsAUsableStateThatBecomesLoweredOnceStabilityIsFull" methodname="Recovering_IsAUsableStateThatBecomesLoweredOnceStabilityIsFull" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1493004617" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001282" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1189" name="RecoveryProgress_RunsOnceFromZeroToOneAcrossTheLockout" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.RecoveryProgress_RunsOnceFromZeroToOneAcrossTheLockout" methodname="RecoveryProgress_RunsOnceFromZeroToOneAcrossTheLockout" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1876043790" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001964" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1190" name="Regeneration_RunsFasterLoweredThanRaised" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.Regeneration_RunsFasterLoweredThanRaised" methodname="Regeneration_RunsFasterLoweredThanRaised" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1631454446" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000988" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1195" name="RevivingThePlayer_RestoresAWholeShield" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.RevivingThePlayer_RestoresAWholeShield" methodname="RevivingThePlayer_RestoresAWholeShield" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="2030231885" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000650" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1199" name="ShieldController_TakesItsArcFromTheBalanceAssetAndNotItsFallback" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.ShieldController_TakesItsArcFromTheBalanceAssetAndNotItsFallback" methodname="ShieldController_TakesItsArcFromTheBalanceAssetAndNotItsFallback" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="1919819700" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000983" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1197" name="ShieldFacing_StartsFromCombatFacingAndAnswersOnlyToAim" fullname="Vaultbreakers.Tests.EditMode.ShieldSliceTests.ShieldFacing_StartsFromCombatFacingAndAnswersOnlyToAim" methodname="ShieldFacing_StartsFromCombatFacingAndAnswersOnlyToAim" classname="Vaultbreakers.Tests.EditMode.ShieldSliceTests" runstate="Runnable" seed="2048384153" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001923" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1200" name="WaveProgressTests" fullname="Vaultbreakers.Tests.EditMode.WaveProgressTests" classname="Vaultbreakers.Tests.EditMode.WaveProgressTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.004436" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1201" name="DuplicateDeathDoesNotCompleteAnOccupiedWave" fullname="Vaultbreakers.Tests.EditMode.WaveProgressTests.DuplicateDeathDoesNotCompleteAnOccupiedWave" methodname="DuplicateDeathDoesNotCompleteAnOccupiedWave" classname="Vaultbreakers.Tests.EditMode.WaveProgressTests" runstate="Runnable" seed="503452816" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.001921" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1202" name="RetryClearsActiveMembershipAndPreservesCompletedWaves" fullname="Vaultbreakers.Tests.EditMode.WaveProgressTests.RetryClearsActiveMembershipAndPreservesCompletedWaves" methodname="RetryClearsActiveMembershipAndPreservesCompletedWaves" classname="Vaultbreakers.Tests.EditMode.WaveProgressTests" runstate="Runnable" seed="385047221" result="Passed" start-time="2026-10-02 18:07:04Z" end-time="2026-10-02 18:07:04Z" duration="0.000660" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/Matthew/AppData/LocalLow/DefaultCompany/VaultBreakers\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

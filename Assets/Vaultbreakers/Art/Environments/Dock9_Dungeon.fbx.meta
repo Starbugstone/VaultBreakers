@@ -17,6 +17,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DG_Cape
+    second: {fileID: 2100000, guid: d77c53470eafcec4f96df21e791c503e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: DG_CoreWhite
     second: {fileID: 2100000, guid: 2749947318d929541ac7df2c390eab3e, type: 2}
   - first:
@@ -34,6 +39,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: DG_Gold
     second: {fileID: 2100000, guid: b7ca455291adb4e4d8077aaa0280c7ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DG_Hood
+    second: {fileID: 2100000, guid: 0d765849f8d064842b8eb4194256b12c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Vaultbreakers.Combat;
 using Vaultbreakers.Input;
@@ -6,6 +7,7 @@ using Vaultbreakers.Player;
 namespace Vaultbreakers.Zones
 {
     public enum ZoneState { Preparing, Fighting, BetweenWaves, Retry, Complete, Training }
+    public enum ZoneResetReason { Run, Retry, Death, Training }
     [DefaultExecutionOrder(-100)]
     public sealed class ZoneController : MonoBehaviour
     {
@@ -27,6 +29,11 @@ namespace Vaultbreakers.Zones
         private HitStop hitStop;
         private float timer;
         private int waveIndex;
+        [SerializeField] private float collectionDuration;
+        public bool IsCollecting => dungeonJourney && timer > 0 && State is ZoneState.BetweenWaves or ZoneState.Complete;
+        public event Action<ZoneResetReason> Resetting;
+        public event Action<int> RoomStarted, RoomCleared;
+        public void ConfigureCollectionWindow(float seconds) => collectionDuration = Mathf.Max(0, seconds);
         public ZoneState State { get; private set; }
         public bool IsPaused { get; private set; }
         public int WaveNumber => waveIndex + 1;
@@ -51,18 +58,20 @@ namespace Vaultbreakers.Zones
             if (input.PausePressedThisFrame) SetPaused(!IsPaused);
             if (input.RestartPressedThisFrame) { if (State == ZoneState.Complete) RestartRun(); else RestartWave(); }
             if (IsPaused) return;
+            if (IsCollecting) { timer = Mathf.Max(0, timer - Time.deltaTime); return; }
             if (State is ZoneState.Preparing or ZoneState.BetweenWaves or ZoneState.Retry)
             {
                 if (dungeonJourney && State == ZoneState.BetweenWaves)
                 {
                     if(player.transform.position.z < RoomOrigin.z + Vaultbreakers.Dungeon.DungeonLayout.AdvanceOffset) return;
-                    waveIndex++; player.Heal(player.MaximumHealth);shield.ResetShield(); State=ZoneState.Fighting; spawner.Spawn(waves[waveIndex],waveIndex); return;
+                    waveIndex++; player.Heal(player.MaximumHealth);shield.ResetShield(); State=ZoneState.Fighting; RoomStarted?.Invoke(waveIndex); spawner.Spawn(waves[waveIndex],waveIndex); return;
                 }
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {
                     if (State == ZoneState.BetweenWaves) waveIndex++;
                     ResetPlayer(); State = ZoneState.Fighting;
+                    RoomStarted?.Invoke(waveIndex);
                     spawner.Spawn(waves[waveIndex], waveIndex);
                 }
             }
@@ -70,18 +79,21 @@ namespace Vaultbreakers.Zones
         public void RestartRun()
         {
             spawner.Clear(); spawner.Progress.RestartRun(); waveIndex = 0; SetDummies(false);
+            Resetting?.Invoke(ZoneResetReason.Run);
             RestartWave();
         }
         public void RestartWave()
         {
             SetPaused(false); spawner.Clear(); ResetPlayer(); SetDummies(false);
             State = ZoneState.Preparing; timer = 0.8f;
+            Resetting?.Invoke(ZoneResetReason.Retry);
         }
         public void StartSelectedWave(int index)
         { waveIndex = Mathf.Clamp(index, 0, waves.Length - 1); RestartWave(); }
         public void EnterTraining()
         {
             SetPaused(false); spawner.Clear(); if(dungeonJourney)waveIndex=0; ResetPlayer(); SetDummies(true); State = ZoneState.Training;
+            Resetting?.Invoke(ZoneResetReason.Training);
         }
         private void SetDummies(bool value) { foreach (var dummy in dummies) if (dummy != null) dummy.SetActive(value); }
         private void OnWaveCleared()
@@ -90,12 +102,15 @@ namespace Vaultbreakers.Zones
             spawner.Progress.Complete(); ranged.Pool.ReleaseAll(); spawner.Roster.Projectiles.ReleaseAll();
             if (waveIndex == waves.Length - 1) State = ZoneState.Complete;
             else { State = ZoneState.BetweenWaves; timer = waves[waveIndex].nextWaveDelay; }
+            if (dungeonJourney) timer = collectionDuration;
+            RoomCleared?.Invoke(waveIndex);
         }
         private void OnDeath(DamageInfo damage)
         {
             if (State == ZoneState.Training) { RestartWave(); return; }
             State = ZoneState.Retry; timer = 1.2f; spawner.Clear(); ranged.Pool.ReleaseAll();
             hitStop.Release(); EnableControls(false);
+            Resetting?.Invoke(ZoneResetReason.Death);
         }
         private void ResetPlayer()
         {

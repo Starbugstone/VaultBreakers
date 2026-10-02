@@ -16,8 +16,7 @@ namespace Vaultbreakers.Dungeon
         private CharacterController motor;
         private float lunge;
         private Vector3 lungeDirection;
-        private LineRenderer slash, feet;
-        private float slashUntil;
+        private LineRenderer feet;
         private Material fx;
         [SerializeField] private Material template;
         public void Configure(Material material)=>template=material;
@@ -25,7 +24,7 @@ namespace Vaultbreakers.Dungeon
         {
             zone=Object.FindAnyObjectByType<ZoneController>();kitInput=GetComponent<PlayerInputReader>();
             melee=GetComponent<MeleeController>();motor=GetComponent<CharacterController>();
-            fx=new Material(template);slash=Line("Impact crescent",new Color(1,.85f,.35f),.16f,25);feet=Line("Hero marker",new Color(.5f,.9f,1),.025f,33);
+            fx=new Material(template);feet=Line("Hero marker",new Color(.5f,.9f,1),.025f,33);
             melee.SwingStarted+=OnSwing;zone.Player.ResetPerformed+=ResetCombat;
         }
         private LineRenderer Line(string name,Color color,float width,int count)
@@ -41,21 +40,14 @@ namespace Vaultbreakers.Dungeon
             if(lunge>0 && motor.enabled){motor.Move(lungeDirection*(3.2f*Time.deltaTime));lunge-=Time.deltaTime;}
             var pos=transform.position;
             feet.enabled=true;Circle(feet,pos+Vector3.up*.045f,.42f);
-            slash.enabled=Time.time<slashUntil;
-            if(slash.enabled)
-            {
-                var progress=1-(slashUntil-Time.time)/.20f;var facingAngle=Mathf.Atan2(lungeDirection.x,lungeDirection.z)*Mathf.Rad2Deg;
-                for(var i=0;i<25;i++){var angle=(facingAngle-80+160*i/24f+progress*20)*Mathf.Deg2Rad;slash.SetPosition(i,pos+new Vector3(Mathf.Sin(angle),.50f,Mathf.Cos(angle))*(1.7f+progress*.6f));}
-                var c=new Color(1,.83f,.27f,1-progress);slash.startColor=slash.endColor=c;slash.widthMultiplier=.20f*(1-progress);
-            }
         }
         private static void Circle(LineRenderer line,Vector3 pos,float radius)
         {for(var i=0;i<line.positionCount;i++){var a=i*Mathf.PI*2/(line.positionCount-1);line.SetPosition(i,pos+new Vector3(Mathf.Sin(a),0,Mathf.Cos(a))*radius);}}
         private void OnSwing(Vector3 direction)
         {
-            lungeDirection=direction;lunge=.10f;slashUntil=Time.time+.20f;
+            lungeDirection=direction;lunge=.10f;
         }
-        private void ResetCombat(){lunge=0;slashUntil=0;}
+        private void ResetCombat(){lunge=0;}
         private void OnDestroy(){if(melee!=null)melee.SwingStarted-=OnSwing;if(zone!=null && zone.Player!=null)zone.Player.ResetPerformed-=ResetCombat;if(fx!=null)Destroy(fx);}
     }
 }

@@ -45,7 +45,11 @@ namespace Vaultbreakers.UI
                 main.simulationSpace=ParticleSystemSimulationSpace.World;
                 var emission=ps.emission;emission.enabled=false;
                 var shape=ps.shape;shape.shapeType=ParticleSystemShapeType.Sphere;shape.radius=.05f;
-                go.GetComponent<ParticleSystemRenderer>().sharedMaterial=sparkMaterial;
+                var renderer=go.GetComponent<ParticleSystemRenderer>();renderer.sharedMaterial=sparkMaterial;
+                renderer.renderMode=ParticleSystemRenderMode.Stretch;renderer.lengthScale=1.6f;renderer.velocityScale=.06f;
+                var fade=ps.colorOverLifetime;fade.enabled=true;
+                var gradient=new Gradient();gradient.SetKeys(new[]{new GradientColorKey(Color.white,0),new GradientColorKey(Color.white,1)},new[]{new GradientAlphaKey(1,0),new GradientAlphaKey(0,1)});fade.color=gradient;
+                var size=ps.sizeOverLifetime;size.enabled=true;size.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.Linear(0,1,1,0));
                 var light=go.AddComponent<Light>();light.range=3;light.intensity=0;light.shadows=LightShadows.None;
                 impacts[i]=new Impact{particles=ps,light=light};
             }

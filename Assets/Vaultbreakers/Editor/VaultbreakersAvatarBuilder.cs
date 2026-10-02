@@ -68,18 +68,22 @@ namespace Vaultbreakers.Editor
                     throw new InvalidOperationException("Could not instantiate the imported Vaultbreaker model.");
                 }
 
-                modelInstance.name = "ModelRoot";
-                modelInstance.transform.SetParent(prefabRoot.transform, false);
+                // Facing and dodge own an upright Unity-space pivot. The imported Animator owns
+                // the FBX axis conversion below it; sharing that transform pitches the body each frame.
+                var modelRoot = new GameObject("ModelRoot").transform;
+                modelRoot.SetParent(prefabRoot.transform, false);
+                modelInstance.name = "ImportedRig";
+                modelInstance.transform.SetParent(modelRoot, false);
 
                 var descendants = modelInstance.GetComponentsInChildren<Transform>(true);
 
                 var avatar = prefabRoot.AddComponent<ModularAvatar>();
-                avatar.Configure(modelInstance.transform, BuildModules(descendants));
+                avatar.Configure(modelRoot, BuildModules(descendants));
 
                 var registry = prefabRoot.AddComponent<AvatarSocketRegistry>();
                 registry.Configure(BuildSocketBindings(descendants));
 
-                AddGameplayComponents(prefabRoot, modelInstance.transform, registry, balance, projectilePrefab);
+                AddGameplayComponents(prefabRoot, modelRoot, registry, balance, projectilePrefab);
                 VaultbreakersArtBuilder.Animate(prefabRoot, modelInstance);
                 avatar.Initialize();
 

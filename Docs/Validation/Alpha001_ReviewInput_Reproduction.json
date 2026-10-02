@@ -1,0 +1,16 @@
+{
+  "description": "Diagnostic run interrupted after confirming auto-switch from the review gamepad to keyboard, zero movement, no obstacle and no suspension. Opt-in harness now pins its control scheme and restores the previous setting afterwards.",
+  "trace": [
+    "Review navigation t=1,874967 room=1 pos=(-0.59, 0.04, 1.94) destination=(0.00, 0.00, 0.00) centered=False input=(0.76, -0.61) device=Gamepad velocity=(6.01, 0.00, 0.63) suspended=False scale=1 blocker=none",
+    "Review navigation t=6,881816 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=11,88867 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=16,89551 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=21,90236 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=26,90922 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=31,91608 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=36,92292 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=41,92977 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=46,93663 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none",
+    "Review navigation t=51,94348 room=1 pos=(-3.38, 0.04, -1.98) destination=(0.00, 0.00, 0.00) centered=False input=(0.00, 0.00) device=Keyboard velocity=(0.00, 0.00, 0.00) suspended=False scale=1 blocker=none"
+  ]
+}

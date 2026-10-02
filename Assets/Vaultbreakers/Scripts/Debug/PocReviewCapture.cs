@@ -29,6 +29,8 @@ namespace Vaultbreakers.Debugging
         private float totalFrame,maxFrame;
         private int samples;
         private bool captureConfigured,oldRunInBackground;
+        private PlayerInput reviewPlayerInput;
+        private bool oldNeverAutoSwitch;
         private InputSettings.BackgroundBehavior oldBackground;
 #if UNITY_EDITOR
         private InputSettings.EditorInputBehaviorInPlayMode oldEditorInput;
@@ -37,8 +39,11 @@ namespace Vaultbreakers.Debugging
         {
             public string kind="Scripted virtual controller; privileged world-state navigation; no human participant";
             public int policy, meleeSwings, shots, guardRaises, blocks, dodges, deaths, shotsWhileGuardRaised;
+            public int shotsWhileShieldControllerRaised;
             public float firstWaveSeconds=-1, damageTaken;
             public bool completed, replayReset;
+            public int enemyDrops, cratesBroken, chestsBroken, gemsSpawned, gemsCollected, gemTotal, gemsExpired, peakGems;
+            public bool lootReplayReset;
             public string understanding="Not measurable by simulation", replayChoice="Scripted replay reset only; no preference inferred";
         }
         private SessionResult session;
@@ -46,6 +51,13 @@ namespace Vaultbreakers.Debugging
         private float firstWaveStarted;
         private bool wasRaised;
         private float duration=12;
+        private bool lootRun, capturedLoot, gemStress;
+        private float nextGemStress;
+        private int lastCapturedChest;
+        private bool capturedCrateDebris;
+        private float nextLootTrace;
+        private float nextNavigationTrace;
+        private Vaultbreakers.Gems.DungeonLoot loot;
         private readonly float[] frameSamples=new float[100000];
         private IEnumerator Start()
         {
@@ -64,10 +76,15 @@ namespace Vaultbreakers.Debugging
             {session=new SessionResult{policy=Mathf.Clamp(policy,0,4)};journeyRun=true;}
             var durationIndex=Array.IndexOf(args,"--poc-seconds");if(durationIndex>=0 && durationIndex+1<args.Length && float.TryParse(args[durationIndex+1],out var seconds))duration=Mathf.Clamp(seconds,12,600);
             zone=GetComponent<ZoneController>();journey=GetComponent<Vaultbreakers.Dungeon.DungeonJourney>();
+            lootRun=Array.IndexOf(args,"--poc-loot")>=0;loot=GetComponent<Vaultbreakers.Gems.DungeonLoot>();
+            gemStress=Array.IndexOf(args,"--poc-gem-stress")>=0;
             yield return null;yield return null;
             pad=InputSystem.AddDevice<Gamepad>("ReviewController");
             var playerInput=zone.Player.GetComponent<UnityEngine.InputSystem.PlayerInput>();
             if(!playerInput.user.valid){playerInput.enabled=false;playerInput.enabled=true;}
+            reviewPlayerInput=playerInput;oldNeverAutoSwitch=playerInput.neverAutoSwitchControlSchemes;
+            // Desktop activity must not steal control from this opt-in scripted review.
+            playerInput.neverAutoSwitchControlSchemes=true;
             playerInput.SwitchCurrentControlScheme("Gamepad",pad);
             zone.Player.SetInvulnerable(session==null);zone.StartSelectedWave(journeyRun?0:2);
             if(session!=null)
@@ -89,7 +106,7 @@ namespace Vaultbreakers.Debugging
             gc=ProfilerRecorder.StartNew(ProfilerCategory.Memory,"GC Allocated In Frame");
             if(journeyRun)
             {
-                var deadline=Time.unscaledTime+120;
+                var deadline=Time.unscaledTime+(Array.IndexOf(args,"--poc-video")>=0?1800:120);
                 while(journey!=null && !journey.TreasureClaimed && Time.unscaledTime<deadline)
                 {
                     if(capturedRoom!=zone.WaveNumber){capturedRoom=zone.WaveNumber;yield return new WaitForSecondsRealtime(.6f);ScreenCapture.CaptureScreenshot(Path.Combine(output,"zone-"+capturedRoom+".png"));}
@@ -99,6 +116,13 @@ namespace Vaultbreakers.Debugging
             else yield return new WaitForSecondsRealtime(duration);
             review=false;
             if(session!=null)session.completed=journey!=null && journey.TreasureClaimed;
+            if(loot!=null)File.WriteAllText(Path.Combine(output,"loot-metrics.json"),"{\"spawned\":"+loot.Pool.SpawnedUnits+",\"collected\":"+loot.Pool.CollectedUnits+",\"expired\":"+loot.Pool.ExpiredUnits+",\"merged\":"+loot.Pool.MergedUnits+",\"active\":"+loot.Pool.ActiveCount+",\"peakActive\":"+loot.Pool.PeakActive+",\"gemStress\":"+(gemStress?"true":"false")+"}");
+            if(session!=null && loot!=null)
+            {
+                session.enemyDrops=loot.EnemyDrops;session.cratesBroken=loot.CratesBroken;session.chestsBroken=loot.ChestsBroken;
+                session.gemsSpawned=loot.Pool.SpawnedUnits;session.gemsCollected=loot.Pool.CollectedUnits;session.gemsExpired=loot.Pool.ExpiredUnits;
+                session.peakGems=loot.Pool.PeakActive;session.gemTotal=loot.Wallet.Total;
+            }
             if(Array.IndexOf(args,"--poc-stress-flashes")>=0)
             {
                 var feedback=GetComponent<ArcadeFeedback>();
@@ -127,6 +151,7 @@ namespace Vaultbreakers.Debugging
                     InputSystem.QueueStateEvent(pad,new GamepadState().WithButton(GamepadButton.Start));yield return null;yield return null;
                     InputSystem.QueueStateEvent(pad,new GamepadState());yield return new WaitForSecondsRealtime(1);
                     session.replayReset=zone.WaveNumber==1 && zone.State==ZoneState.Fighting && !journey.TreasureClaimed && journey.Score==0;
+                    session.lootReplayReset=loot==null || (loot.Wallet.Total==0 && loot.Pool.ActiveCount==0 && loot.CratesBroken==0 && loot.ChestsBroken==0);
                 }
                 File.WriteAllText(Path.Combine(output,"session.json"),JsonUtility.ToJson(session,true));
                 zone.Player.GetComponent<MeleeController>().SwingStarted-=CountMelee;
@@ -145,6 +170,11 @@ namespace Vaultbreakers.Debugging
         {
             if(!review || pad==null)return;
             var elapsed=Time.unscaledTime-started;
+            if(gemStress && loot!=null && elapsed>=nextGemStress)
+            {
+                nextGemStress=elapsed+.4f;
+                loot.Pool.Drop(zone.RoomOrigin+new Vector3(Mathf.Sin(elapsed)*4,0,Mathf.Cos(elapsed)*4),Vaultbreakers.Gems.LootSource.Chest);
+            }
             var state=new GamepadState {leftStick=new Vector2(Mathf.Sin(elapsed*.8f),Mathf.Cos(elapsed*.8f))*.7f,rightStick=new Vector2(-Mathf.Sin(elapsed*.8f),-Mathf.Cos(elapsed*.8f)),rightTrigger=elapsed%4<2?1:0,leftTrigger=elapsed%4>=2?1:0};
             var nearest=Vector3.zero;var distance=float.MaxValue;
             var enemies=zone.Spawner.Roster.Instances;
@@ -207,8 +237,53 @@ namespace Vaultbreakers.Debugging
                     var destination=!exitCentered?centre:zone.State==ZoneState.Complete?Vaultbreakers.Dungeon.DungeonLayout.CorePosition:zone.RoomOrigin+Vector3.forward*Vaultbreakers.Dungeon.DungeonLayout.RoomSpacing;
                     movement=(destination-zone.Player.transform.position);movement.y=0;movement.Normalize();
                     state.rightTrigger=0;
+                    if(lootRun && elapsed>=nextNavigationTrace)
+                    {
+                        nextNavigationTrace=elapsed+5;
+                        var actor=zone.Player;
+                        var reader=actor.GetComponent<Vaultbreakers.Input.PlayerInputReader>();
+                        var motor=actor.GetComponent<Vaultbreakers.Player.PlayerMotor>();
+                        var origin=actor.transform.position+Vector3.up;
+                        var blocked=Physics.SphereCast(origin,.42f,movement,out var hit,1f,Vaultbreakers.Core.GameLayers.Blocking,QueryTriggerInteraction.Ignore);
+                        Debug.Log("Review navigation t="+elapsed+" room="+zone.WaveNumber+" pos="+actor.transform.position+" destination="+destination+" centered="+exitCentered+" input="+reader.Move+" device="+reader.CurrentDevice+" velocity="+motor.PlanarVelocity+" suspended="+motor.IsMovementSuspended+" scale="+Time.timeScale+" blocker="+(blocked?hit.collider.name:"none"));
+                    }
                 }
                 state.leftStick=new Vector2(Vector3.Dot(movement,right),Vector3.Dot(movement,forward))*.85f;
+                if(lootRun && loot!=null && zone.State is ZoneState.BetweenWaves or ZoneState.Complete)
+                {
+                    Vaultbreakers.Gems.BreakableLoot cache=null;var best=float.MaxValue;
+                    foreach(var candidate in loot.Containers)
+                    {
+                        var d=(candidate.transform.position-zone.Player.transform.position).sqrMagnitude;
+                        if(candidate.Room==zone.WaveNumber-1 && !candidate.IsBroken && d<best){best=d;cache=candidate;}
+                    }
+                    var destination=zone.Player.transform.position;var gathering=loot.Pool.TryNearest(destination,out var gemPosition);
+                    if(cache!=null || gathering)
+                    {
+                        exitCentered=false; // Re-centre after the detour before approaching narrow gate posts.
+                        // Collect close drops before approaching the next cache; use genuine attack input.
+                        var collectFirst=gathering && (gemPosition-zone.Player.transform.position).sqrMagnitude<20;
+                        destination=collectFirst || cache==null?gemPosition:cache.transform.position;
+                        var toward=destination-zone.Player.transform.position;toward.y=0;var d=toward.sqrMagnitude;toward.Normalize();
+                        state=new GamepadState{rightStick=new Vector2(Vector3.Dot(toward,right),Vector3.Dot(toward,forward))};
+                        var attacking=cache!=null && !collectFirst;
+                        if(attacking && cache.Source==Vaultbreakers.Gems.LootSource.Chest && d<36)state.rightTrigger=1;
+                        if(attacking && d<4)state=state.WithButton(GamepadButton.West);
+                        var stopDistance=attacking && cache.Source==Vaultbreakers.Gems.LootSource.Chest?12:1.65f;
+                        if(!attacking || d>stopDistance)state.leftStick=state.rightStick*.85f;
+                        if(elapsed>=nextLootTrace)
+                        {
+                            nextLootTrace=elapsed+5;
+                            Debug.Log("Loot route t="+elapsed+" room="+zone.WaveNumber+" pos="+zone.Player.transform.position+" target="+destination+" cache="+(cache!=null?cache.name:"none")+" hp="+(cache!=null?cache.Health.CurrentHealth:0)+" gather="+collectFirst+" gems="+loot.Pool.ActiveCount+" move="+state.leftStick+" scale="+Time.timeScale);
+                        }
+                    }
+                    if(!capturedLoot && loot.Pool.ActiveCount>=4)
+                    {capturedLoot=true;ScreenCapture.CaptureScreenshot(Path.Combine(output,"05-gem-burst.png"));}
+                    if(loot.ChestsBroken>lastCapturedChest)
+                    {lastCapturedChest=loot.ChestsBroken;StartCoroutine(CaptureCacheLoot("chest-"+lastCapturedChest));}
+                    if(!capturedCrateDebris && loot.CratesBroken>0)
+                    {capturedCrateDebris=true;StartCoroutine(CaptureCacheLoot("crate-1"));}
+                }
             }
             if(session!=null)
             {
@@ -220,8 +295,30 @@ namespace Vaultbreakers.Debugging
             InputSystem.QueueStateEvent(pad,state);
             if(elapsed>2){if(samples<frameSamples.Length)frameSamples[samples]=Time.unscaledDeltaTime;samples++;totalFrame+=Time.unscaledDeltaTime;maxFrame=Mathf.Max(maxFrame,Time.unscaledDeltaTime);var bytes=gc.Valid?gc.LastValue:0;totalAllocation+=bytes;maxAllocation=Math.Max(maxAllocation,bytes);}
         }
+        private IEnumerator CaptureCacheLoot(string prefix)
+        {
+            yield return new WaitForSeconds(.18f);
+            ScreenCapture.CaptureScreenshot(Path.Combine(output,prefix+"-burst.png"));
+            yield return new WaitForSeconds(.4f);
+            ScreenCapture.CaptureScreenshot(Path.Combine(output,prefix+"-collection.png"));
+            yield return new WaitForSeconds(.55f);
+            ScreenCapture.CaptureScreenshot(Path.Combine(output,prefix+"-cleared.png"));
+        }
         private void CountMelee(Vector3 direction)=>session.meleeSwings++;
-        private void CountShot(Vector3 position,Vector3 direction){session.shots++;if(sessionShield.IsRaised)session.shotsWhileGuardRaised++;}
+        private void CountShot(Vector3 position,Vector3 direction)
+        {
+            session.shots++;
+            // Melee can revoke guard before Ranged.Update; Shield.Update reconciles its cached
+            // state afterwards. Preserve that raw observation separately from the action contract.
+            var actions=zone.Player.GetComponent<PlayerActionCoordinator>();
+            var shielding=(actions.State & PlayerActionState.Shielding)!=0;
+            if(shielding)session.shotsWhileGuardRaised++;
+            if(sessionShield.IsRaised)
+            {
+                session.shotsWhileShieldControllerRaised++;
+                Debug.Log("Review shot while shield controller raised: actions="+actions.State+" shieldHeld="+zone.Player.GetComponent<Vaultbreakers.Input.PlayerInputReader>().ShieldHeld+" frame="+Time.frameCount);
+            }
+        }
         private void CountDodge(Vector3 direction)=>session.dodges++;
         private void CountBlock(DamageInfo damage,float cost)=>session.blocks++;
         private void CountDamage(DamageInfo damage,DamageResult result)=>session.damageTaken+=result.AppliedDamage;
@@ -230,6 +327,7 @@ namespace Vaultbreakers.Debugging
         {
             if(!captureConfigured)return;captureConfigured=false;
             Application.runInBackground=oldRunInBackground;InputSystem.settings.backgroundBehavior=oldBackground;
+            if(reviewPlayerInput!=null)reviewPlayerInput.neverAutoSwitchControlSchemes=oldNeverAutoSwitch;
 #if UNITY_EDITOR
             InputSystem.settings.editorInputBehaviorInPlayMode=oldEditorInput;
 #endif

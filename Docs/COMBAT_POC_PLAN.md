@@ -1,4 +1,15 @@
+> **Visual scope override, 2026-10-02:** The user requested a full stylized AA graphics overhaul.
+> Follow [ART_DIRECTION_AA.md](ART_DIRECTION_AA.md). Presentation quality is now in scope;
+> combat contracts and deferred gameplay systems remain unchanged.
+
 # Current scope override
+
+**Alpha 0.0.1 override, 2026-10-02:** the user requested a fresh baseline check followed by
+enemy gem bursts, proximity collection and new breakable crates/chests. The baseline
+passed 177 EditMode + 69 PlayMode tests and a current Windows controller route/replay.
+This authorizes post-POC step 1 plus loot containers; see [ALPHA_0_0_1.md](ALPHA_0_0_1.md).
+Other deferred systems remain out of scope. The historical combat-only exclusions below
+still describe that milestone, not this explicitly authorized extension.
 
 See [DUNGEON_POC.md](DUNGEON_POC.md): the user explicitly requested the dungeon redesign after rejecting the arena. The phases below remain the combat safety baseline; the new scene retains locked combat zones and the Shatterbelt lore, with connected transitions and rebuilt art.
 

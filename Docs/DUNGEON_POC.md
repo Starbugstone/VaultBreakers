@@ -1,4 +1,13 @@
+> **Visual scope override, 2026-10-02:** The user requested a full stylized AA graphics overhaul.
+> Follow [ART_DIRECTION_AA.md](ART_DIRECTION_AA.md). Presentation quality is now in scope;
+> combat contracts and deferred gameplay systems remain unchanged.
+
 # Dock 9 dungeon POC — current scope, 2026-09-09
+
+**Alpha extension, 2026-10-02:** the user authorized gems and new breakable crates/chests
+after a fresh functional baseline. See [ALPHA_0_0_1.md](ALPHA_0_0_1.md) for the current
+loot, collection-window and checkpoint contract. It supersedes the gem exclusion below;
+gauges, powers, cards, pets, saving and co-op remain deferred.
 
 The user requested a Minecraft Dungeons-inspired arcade experience **with the lore and gameplay
 in the Markdown documents**. Minecraft Dungeons informs visual readability, environmental richness

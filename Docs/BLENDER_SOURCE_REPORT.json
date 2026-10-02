@@ -2,33 +2,33 @@
   "assets": [
     {
       "path": "ArtSource/Blender/Characters/Enemies/Enemy_Bruiser.blend",
-      "meshes": 23,
-      "triangles": 8356,
-      "uniqueMaterials": 3,
+      "meshes": 41,
+      "triangles": 13564,
+      "uniqueMaterials": 7,
       "bones": 18,
       "metersPerUnit": 1.0
     },
     {
       "path": "ArtSource/Blender/Characters/Enemies/Enemy_Grunt.blend",
-      "meshes": 28,
-      "triangles": 9240,
+      "meshes": 40,
+      "triangles": 13080,
       "uniqueMaterials": 6,
       "bones": 18,
       "metersPerUnit": 1.0
     },
     {
       "path": "ArtSource/Blender/Characters/Enemies/Enemy_Shooter.blend",
-      "meshes": 23,
-      "triangles": 8180,
+      "meshes": 36,
+      "triangles": 12368,
       "uniqueMaterials": 7,
       "bones": 18,
       "metersPerUnit": 1.0
     },
     {
       "path": "ArtSource/Blender/Characters/Player/Vaultbreaker_Modular.blend",
-      "meshes": 68,
-      "triangles": 21948,
-      "uniqueMaterials": 12,
+      "meshes": 134,
+      "triangles": 40764,
+      "uniqueMaterials": 14,
       "bones": 18,
       "metersPerUnit": 1.0
     },
@@ -42,9 +42,9 @@
     },
     {
       "path": "ArtSource/Blender/Environments/Dock9_Dungeon.blend",
-      "meshes": 1131,
-      "triangles": 107524,
-      "uniqueMaterials": 18,
+      "meshes": 1505,
+      "triangles": 211972,
+      "uniqueMaterials": 13,
       "bones": 0,
       "metersPerUnit": 1.0
     },

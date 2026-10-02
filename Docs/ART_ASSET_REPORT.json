@@ -16,9 +16,9 @@
         },
         {
             "path": "Assets/Vaultbreakers/Art/Environments/Dock9_Dungeon.fbx",
-            "meshes": 43,
-            "triangles": 107020,
-            "materialSlots": 43,
+            "meshes": 32,
+            "triangles": 210964,
+            "materialSlots": 32,
             "bones": 0
         },
         {
@@ -33,6 +33,69 @@
             "meshes": 5,
             "triangles": 1532,
             "materialSlots": 5,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Gem_Gold.fbx",
+            "meshes": 1,
+            "triangles": 10,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Gem_Melee.fbx",
+            "meshes": 1,
+            "triangles": 8,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Gem_Ranged.fbx",
+            "meshes": 1,
+            "triangles": 12,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Gem_Relic.fbx",
+            "meshes": 1,
+            "triangles": 16,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Gem_Shield.fbx",
+            "meshes": 1,
+            "triangles": 12,
+            "materialSlots": 1,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Loot_Chest.fbx",
+            "meshes": 5,
+            "triangles": 2160,
+            "materialSlots": 5,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Loot_Chest_Broken.fbx",
+            "meshes": 6,
+            "triangles": 2156,
+            "materialSlots": 17,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Loot_Crate.fbx",
+            "meshes": 5,
+            "triangles": 1944,
+            "materialSlots": 5,
+            "bones": 0
+        },
+        {
+            "path": "Assets/Vaultbreakers/Art/Loot/Loot_Crate_Broken.fbx",
+            "meshes": 6,
+            "triangles": 2156,
+            "materialSlots": 17,
             "bones": 0
         },
         {
@@ -51,30 +114,30 @@
         },
         {
             "path": "Assets/Vaultbreakers/Art/Characters/Enemies/Enemy_Bruiser.fbx",
-            "meshes": 23,
-            "triangles": 8340,
-            "materialSlots": 23,
+            "meshes": 41,
+            "triangles": 13548,
+            "materialSlots": 41,
             "bones": 18
         },
         {
             "path": "Assets/Vaultbreakers/Art/Characters/Enemies/Enemy_Grunt.fbx",
-            "meshes": 28,
-            "triangles": 9224,
-            "materialSlots": 28,
+            "meshes": 40,
+            "triangles": 13056,
+            "materialSlots": 40,
             "bones": 18
         },
         {
             "path": "Assets/Vaultbreakers/Art/Characters/Enemies/Enemy_Shooter.fbx",
-            "meshes": 23,
-            "triangles": 8164,
-            "materialSlots": 23,
+            "meshes": 36,
+            "triangles": 12352,
+            "materialSlots": 36,
             "bones": 18
         },
         {
             "path": "Assets/Vaultbreakers/Art/Characters/Player/Vaultbreaker_Modular.fbx",
-            "meshes": 68,
-            "triangles": 21920,
-            "materialSlots": 68,
+            "meshes": 134,
+            "triangles": 40704,
+            "materialSlots": 134,
             "bones": 18
         }
     ]

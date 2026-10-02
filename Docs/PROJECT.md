@@ -247,6 +247,10 @@ Later, the same card system may accept:
 
 ## 4.5 Stylized arcade science fiction
 
+**Art direction override, 2026-10-02:** polished stylized AA graphics, cinematic lighting,
+rich materials and strong silhouettes while retaining fluid arcade combat. See
+[ART_DIRECTION_AA.md](ART_DIRECTION_AA.md), which supersedes previous placeholder-art targets.
+
 **Art direction override, 2026-09-08:** the user requested a complete 3D rebuild with cleaner,
 more stylized shapes, flashy dynamic arcade effects, high contrast, and strong lighting.
 Use clean armor panels, confident silhouettes and concentrated emissive accents. Preserve
@@ -1009,6 +1013,13 @@ Acceptance:
 ---
 
 # 15. Gems
+
+**Alpha 0.0.1 override, 2026-10-02:** the user requested multiple gems per enemy and
+breakable crate/chest rewards, with Vampire Hunters-inspired collection. The first
+slice counts gems and rewards gold score; gauges and powers follow separately.
+Current values and reset rules are in [ALPHA_0_0_1.md](ALPHA_0_0_1.md): 3/4/6 gems for
+Grunt/Shooter/Bruiser, 6/12 for crates/chests, 2.5 m attraction, 0.65 m pickup, 40 pooled
+objects with value-preserving merging. These override the original starting values below.
 
 ## 15.1 Types
 
